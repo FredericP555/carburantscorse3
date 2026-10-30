@@ -2,7 +2,7 @@
 from pathlib import Path
 from datetime import datetime,timedelta,date
 from zoneinfo import ZoneInfo
-import argparse,json,os,shutil,subprocess,sys,tempfile
+import argparse,copy,json,os,shutil,subprocess,sys,tempfile
 ROOT=Path(__file__).resolve().parent
 
 def expected_date(now=None):
@@ -14,18 +14,35 @@ def plan(target,last,now=None):
     if requested.year!=2026:raise ValueError('Le passage annuel à 2027 doit être validé avant activation')
     return 'already_current' if requested<=date.fromisoformat(last) else 'refresh'
 
+def revalidation_seed(current,target):
+    if target<='2026-10-25':raise ValueError('Le test complet doit porter sur une journée après le 25 octobre')
+    result=copy.deepcopy(current)
+    keep=sum(day<target for day in result['dates'])
+    if keep==0:raise ValueError('No preceding history for test')
+    result['dates']=result['dates'][:keep];result['end']=result['dates'][-1]
+    for fuel,node in result['fuels'].items():
+        for key in ('regions','gaps','e10_gaps'):
+            for name,series in node.get(key,{}).items():node[key][name]=series[:keep]
+        for key in ('total','eni'):
+            if key in node:node[key]=node[key][:keep]
+    return result
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--target');p.add_argument('--run',required=True);p.add_argument('--apply',action='store_true');a=p.parse_args()
     if not a.run.isalnum():raise ValueError('Invalid run identifier')
     target=a.target or expected_date().isoformat()
     current=json.loads((ROOT/'data/current.json').read_text(encoding='utf8'))
-    if plan(target,current['end'])=='already_current':
+    revalidate=plan(target,current['end'])=='already_current'
+    if revalidate and a.apply:
         print('C3 already current; nothing changed');return
+    if revalidate:print('C3 full dry-run revalidation; visible history will not change')
     staging=ROOT/'.staging';staging.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='c3-',dir=staging) as directory:
         work=Path(directory).resolve();assert work.is_relative_to(staging.resolve())
         for folder in ('assets','config','data','engine','maquette'):
             shutil.copytree(ROOT/folder,work/folder,ignore=shutil.ignore_patterns('dist','C3.html','apercu.jpg','__pycache__'))
+        if revalidate:
+            (work/'data/current.json').write_text(json.dumps(revalidation_seed(current,target),ensure_ascii=False,indent=2),encoding='utf8')
         for file in ROOT.glob('*.py'):shutil.copyfile(file,work/file.name)
         shutil.copyfile(ROOT/'verify_ui.cjs',work/'verify_ui.cjs')
         env=dict(os.environ);env['PYTHONDONTWRITEBYTECODE']='1'
