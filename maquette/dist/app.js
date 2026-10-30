@@ -38,24 +38,24 @@ function render(){
  charts.corse.data.datasets[0].data=prices;
  charts.gaps.data.datasets[0].data=current.gaps.all;charts.gaps.data.datasets[1].data=current.gaps.reseau;
  const e10=fuel==='SP95', isEni=brand==='ENI';
- const kicker=$('comparison-kicker');if(kicker)kicker.textContent=e10?'04 / COMPARAISON SP95 / E10':'04 / À ENSEIGNE COMPARABLE';
+ const kicker=$('comparison-kicker');if(kicker)kicker.textContent=e10?'04 / COMPARAISON SP95 / E10':'04 / À ENSEIGNE COMPARABLE · Réseau traditionnel (hors GMS et low-cost)';
  $('brand-selector').hidden=e10;
  $('vito-note').hidden=e10;
  document.querySelectorAll('[data-brand]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.brand===brand))); 
- $('comparison-title').textContent=e10?'SP95 en Corse − E10 dans les Bouches-du-Rhône':`${brand} traditionnel : Corse − Bouches-du-Rhône`;
- $('comparison-subtitle').textContent=e10?'Écart hors TVA · toutes enseignes · deux carburants différents':isEni?'Stations traditionnelles sous enseigne ENI · hors autoroutes':'Total / TotalEnergies et Contact · sans Access, low cost ni Élan';
+ $('comparison-title').textContent=e10?'SP95 en Corse − E10 dans les Bouches-du-Rhône':`${brand==='ENI'?'Eni':'Total'} : Corse − Bouches-du-Rhône`;
+ $('comparison-subtitle').textContent=e10?'Écart hors TVA · toutes enseignes · deux carburants différents':isEni?'Stations sous enseigne Eni · hors autoroutes':'Total / TotalEnergies et Contact · sans Access, low cost ni Élan';
  $('comparison-panel').classList.toggle('provisional-panel',!e10);
 
  for(const id of ['e10-note','e10-legend','e10-details'])$(id).hidden=!e10;
  $('small-sample').hidden=e10||isEni||total.n_bdr>=5;
- $('comparison-source').textContent=e10?'Écarts issus des déclarations officielles · SP95 Corse / E10 Bouches-du-Rhône · hors TVA':`Écart ${brand} traditionnel · c€/L hors TVA · stations retenues selon les critères de fiabilité`;
- $('total-chart').setAttribute('aria-label',e10?'Écarts hors TVA entre le SP95 en Corse et l’E10 dans les Bouches-du-Rhône':`Écart ${brand} traditionnel hors TVA`);
+ $('comparison-source').textContent=e10?'Écarts issus des déclarations officielles · SP95 Corse / E10 Bouches-du-Rhône · hors TVA':`Écart ${brand==='ENI'?'Eni':'Total'} · c€/L hors TVA · stations retenues selon les critères de fiabilité`;
+ $('total-chart').setAttribute('aria-label',e10?'Écarts hors TVA entre le SP95 en Corse et l’E10 dans les Bouches-du-Rhône':`Écart ${brand==='ENI'?'Eni':'Total'} hors TVA`);
  charts.total.options.plugins.tooltip.callbacks.label=ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,2)} c€/L hors TVA${!e10&&!isEni?' · diagnostic':''}`;
  if(e10){
   charts.total.data.datasets=[line('SP95 Corse − E10 Bouches-du-Rhône · toutes stations','#ae6b57'),line('SP95 Corse − E10 Bouches-du-Rhône · réseau traditionnel','#245d55')];
   charts.total.data.datasets[0].data=current.e10_gaps.all;charts.total.data.datasets[1].data=current.e10_gaps.reseau;
   $('e10-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td style="font-size:15px;font-weight:600">${sign(current.e10_gaps.all[i])}</td><td style="font-size:15px;font-weight:600">${sign(current.e10_gaps.reseau[i])}</td></tr>`).join('');
- }else if(isEni){charts.total.data.datasets=[line('ENI traditionnel Corse − Bouches-du-Rhône','#245d55')];charts.total.data.datasets[0].data=current.eni.map(r=>r.gap);}else{charts.total.data.datasets=[line('Total traditionnel Corse − Bouches-du-Rhône','#aa7835',true)];charts.total.data.datasets[0].data=current.total.map(r=>r.diagnostic);}
+ }else if(isEni){charts.total.data.datasets=[line('Eni Corse − Bouches-du-Rhône','#245d55')];charts.total.data.datasets[0].data=current.eni.map(r=>r.gap);}else{charts.total.data.datasets=[line('Total Corse − Bouches-du-Rhône','#aa7835',true)];charts.total.data.datasets[0].data=current.total.map(r=>r.diagnostic);}
 
  Object.values(charts).forEach(chart=>{chart.data.datasets.forEach(s=>{s.pointRadius=D.dates.map((_,i)=>i===selected?4:0);s.pointBackgroundColor=s.borderColor;s.pointBorderColor='#fffefa';s.pointBorderWidth=2;});chart.update('none');});
  $('source-c1').href=D.provenance.c1_url;$('source-c2').href=D.provenance.c2_url;
