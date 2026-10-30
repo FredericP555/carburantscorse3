@@ -1,0 +1,73 @@
+name: C3 daily update
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: 'Journée attendue YYYY-MM-DD (vide = veille à Paris)'
+        required: false
+        type: string
+      apply:
+        description: 'Enregistrer après contrôles (nécessite C3_DAILY_ENABLED=true)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: c3-daily-writer
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.repository == 'FredericP555/carburantscorse3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      REQUESTED_DATE: ${{ inputs.target_date }}
+      APPLY: ${{ inputs.apply }}
+      ENABLED: ${{ vars.C3_DAILY_ENABLED }}
+      C3_RUN: run${{ github.run_id }}attempt${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Refuse an unapproved write
+        run: |
+          if [ "$APPLY" = 'true' ] && [ "$ENABLED" != 'true' ]; then
+            echo 'C3 writes are disabled. Run with apply=false for validation.' >&2
+            exit 1
+          fi
+      - name: Install C3 dependencies
+        run: python -m pip install -r requirements.lock.txt
+      - name: Collect and validate in isolation
+        run: |
+          args=(--run "$C3_RUN")
+          if [ -n "$REQUESTED_DATE" ]; then args+=(--target "$REQUESTED_DATE"); fi
+          if [ "$APPLY" = 'true' ]; then args+=(--apply); fi
+          python -B daily_refresh.py "${args[@]}"
+      - name: Preserve C3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c3-evidence-${{ env.C3_RUN }}
+          path: automation-artifacts/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save validated C3 data and static page
+        if: inputs.apply && vars.C3_DAILY_ENABLED == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/current.json maquette/dist
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Update C3 daily data after validation'
+          git push origin HEAD:main
