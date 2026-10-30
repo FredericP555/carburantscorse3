@@ -28,3 +28,6 @@
 
 /* Readable SP95/E10 daily comparison table. */
 #e10-details summary{font-size:13px;font-weight:600}#e10-details .table-scroll{max-height:340px}#e10-details table{font:14px/1.5 Arial,sans-serif;font-variant-numeric:tabular-nums}#e10-details th{font-size:13px;font-weight:600;color:#344f49;padding:10px 8px}#e10-details td{font-size:15px;font-weight:600;padding:10px 8px}#e10-details td:first-child{font-size:14px;font-weight:400}#e10-details tbody tr:nth-child(even){background:#f4f5ef}#e10-details .selected-row{background:#e4eddf}
+
+/* Consistent readable expandable daily tables in every fuel panel. */
+.data-details{font-size:13px}.data-details summary{font-size:13px;font-weight:600}.table-scroll{max-height:340px}.table-scroll table{font:14px/1.5 Arial,sans-serif;font-variant-numeric:tabular-nums}.table-scroll th{font-size:13px;font-weight:600;color:#344f49;padding:10px 8px}.table-scroll td{font-size:15px;font-weight:600;padding:10px 8px}.table-scroll td:first-child{font-size:14px;font-weight:400}.table-scroll tbody tr:nth-child(even){background:#f4f5ef}.table-scroll tbody tr.selected-row{background:#e4eddf}#history-table{font-size:14px;line-height:1.5;font-variant-numeric:tabular-nums}#history-table td{font-size:14px;font-weight:600;padding:11px 12px}#history-table th{font-size:12px;padding:11px 12px}
