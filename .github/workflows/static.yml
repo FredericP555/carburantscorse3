@@ -1,0 +1,50 @@
+name: Publish C3 to Pages
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "maquette/dist/**"
+      - ".github/workflows/static.yml"
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["C3 daily update"]
+    branches: ["main"]
+    types: [completed]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: c3-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      github.repository == 'FredericP555/carburantscorse3' &&
+      (github.event_name != 'workflow_run' ||
+       github.event.workflow_run.conclusion == 'success')
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload C3 website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: maquette/dist
+
+      - name: Deploy C3
+        id: deployment
+        uses: actions/deploy-pages@v5
