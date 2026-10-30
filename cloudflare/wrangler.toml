@@ -1,0 +1,14 @@
+name = "a4c-c3-scheduler"
+main = "worker.mjs"
+compatibility_date = "2026-10-30"
+workers_dev = true
+
+[vars]
+C3_ENABLED = "false"
+# Proposed Paris slots, adjustable before activation.
+C3_PARIS_SLOTS = "07:37,10:37,14:37"
+
+[triggers]
+# Intentionally disabled. Future hourly cron: 37 * * * *
+# The worker selects its Paris slots, including daylight-saving changes.
+crons = []

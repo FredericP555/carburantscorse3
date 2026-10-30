@@ -1,0 +1,399 @@
+{
+  "purpose": "Independent C3 copies; no runtime imports from reference-c1/reference-c2",
+  "profile1_commit": "4ac9a87fe11636844a63baafa05be127f2939d36",
+  "profile2_commit": "1f03c9048029957f781cce98f3298064f0e40c16",
+  "files": [
+    {
+      "path": "engine\\profile1\\scripts\\bouclier_detector.py",
+      "sha256": "c6cbdcc52be470dc2cadfc70f9092b4c3c53c7aad978108865dc8df35e6d06b1"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\build_c1_v2_candidate.py",
+      "sha256": "01ba6734b0a35df90a6f894c99f5133d8be59a20748f2d674e8d7c11bb5a46ab"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\c1_bouclier_meta.py",
+      "sha256": "b663170c2b86398f9321decf2df6ad38af3a64bd27aa0bd2e817f4e36ffe1e5d"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\c1_candidate_semantics.py",
+      "sha256": "3b3e76437af0328da7c54eb54ac3295b978f7d7e077cc330b4f57fca5f547b6b"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\c1_last_date.py",
+      "sha256": "b4c6e2add44f9ac264a7960a797c008e8b0ef4ae4c49259afa77ea326d7e3871"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\c1_v2_contracts.py",
+      "sha256": "52b540bfc21214357b5c3ed07b72926906fdf75402b5bdf18339e4cf23a4234b"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\calibrate_bouclier.py",
+      "sha256": "03ca7a21bdf76b75824f8422349305fe43d72530698bedebea815fa1f333e261"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\calibrate_bouclier_stable.py",
+      "sha256": "49cb86defccd456ab0a47f73dbec695fcd042c0b0697be6ad94d217890947ed5"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\enrich_data_meta.py",
+      "sha256": "7ef6f0c41cb53837fcde4b6d6ada26e431d097b38985a2ab6570aadccbaffc80"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\ensure_station_brand_registry_policy.py",
+      "sha256": "ce8fa0719150d07d04483fb4c2ade244f5c94b773c14115bdcc1a0801d28a986"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\export_shared_c2_snapshot.py",
+      "sha256": "15281a0dd8d73e4fded2a58e71f41a48b3129100fa98a4455474f8be97a0f476"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\fetch_ufip.py",
+      "sha256": "35489cb7b5d12bf24b3ee94ef8f89e475c1b03b55e4b0d35a5fc541a664d08a8"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\install_freshness_badge.py",
+      "sha256": "c7812f349de322a5c758df87f15159ac45ab990b3d1b73e8931cd809097b5641"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\promote_c1_v2_candidate.py",
+      "sha256": "9b09073f46245149f12f64906bc75b2fd116b898089260e77ecd19c4a0fd9323"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\r2_guard_v2.py",
+      "sha256": "8c94667eb11f74fd8945fc0056ada328ad7b426069001492039e7b14dff7c3e4"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\reliability_policy_v2.py",
+      "sha256": "64ecf4374a98ae64fad6ae0ec7c4e9b40a3894822621db79aaa2bb452d7c0115"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\resolve_corse_station_brands_incremental.py",
+      "sha256": "8773aca0915a073d59e31740a1c6df85980967b09618faf6266cc178667231f6"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\rotterdam_corse_shared_v2.py",
+      "sha256": "612912f5330d1361d88692334a2885acbb5c86c6a81a17d020e1055a95004ff0"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\shared_snapshot_semantics.py",
+      "sha256": "eabeee6a000613950b085b897f58136790791fda9995a0ba676febbe35f7f36b"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\shield_phase_v2.py",
+      "sha256": "56294a34c3de9759a87b89f2ea6ef26abb1c469152887b2f56c770138690bede"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\station_audit.py",
+      "sha256": "03ffe8ecbb266cba25ec54df2fa9e2d1efb52ede8322df4ad1bafbcae9c414ae"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\test_bouclier_rule.py",
+      "sha256": "b4ab4e235c9640f0980cc1a29d9320038ec9c16bb888aeacc6677e7dff010552"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\test_shared_year_boundary.py",
+      "sha256": "61c7331de63790dba7db84b870839ae109103c86a2fca64ee0d970ea4565bd9d"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\test_station_brands.py",
+      "sha256": "b558dd931c932c9aa396205fdb5169ed5ff9c7a1db07eb7256e491c1d00008d8"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\test_year_boundary.py",
+      "sha256": "ed7ea684b4c2d5a041aec611e03adc08278c67c2f300eebd4df490b85bcfdb0d"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\ufip_retry_policy.py",
+      "sha256": "39f905f578924d00cf8f42d82cf5564fc85cd5f77990d0ee6b5d865a6849d3ab"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\update_corse_station_brands.py",
+      "sha256": "bf317c722802ce78962997d17afdbac3f90f414e727208ccb4655be5c253a5eb"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\update_data_append.py",
+      "sha256": "c2c025aecb357a49c62299d80d3dc62d4c89ecb376e42a014b061680d4870c3f"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\update_data_v2.py",
+      "sha256": "6257ed93daa2ea85ecd47be90672c83a05fbe7017460d26a9f81ffc6a8e6fe96"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\validate_candidate.py",
+      "sha256": "40917dcefb7151ed73bf5e000258f0f3d8f76526cf78e21f19bce555e87b5b3c"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\validate_current_c1_receipt.py",
+      "sha256": "cce93d45a0694afe3cfdad760e1b4b45c67e8223ef8ffe25af6104991d7e1990"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\validate_editorial_history.py",
+      "sha256": "3af225e7eff21c84b64e1df22c6fae8698afcb54a82d0d0d4d71d46eab7a82ed"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\validate_meta.py",
+      "sha256": "56cd3a7bc7999fdc5786312397d447edad09add9be3d12a119b6e774f5a105c7"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\validate_shared_c2_snapshot.py",
+      "sha256": "e49f56f9c9743cb0562ca1e6f7a5b61e0a772c93a22f6713cfa4640f3c2096f4"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\verify_c1_business_success.py",
+      "sha256": "886a9e60913a76eb2b5fe385e7129b988e58b485d73f511c28f687bb58478871"
+    },
+    {
+      "path": "engine\\profile1\\scripts\\weekly_summary.py",
+      "sha256": "e77e98c3a7334efec125d1a9105129008ff4e446d52ec2c70ae65734971b53e7"
+    },
+    {
+      "path": "engine\\profile1\\a4c_common\\corse_brand.py",
+      "sha256": "63a60cca4c29f65f5c2e7c5f7156636fc2be2a2af604c1599da08a0c0fb005eb"
+    },
+    {
+      "path": "engine\\profile1\\a4c_common\\price_math.py",
+      "sha256": "f26f5d3b07d2847d79decebaa833b01ddfa7eda8165699227b2ffc53dd453c76"
+    },
+    {
+      "path": "engine\\profile1\\a4c_common\\ufip.py",
+      "sha256": "b071dcaa35cfd24d06f2f4c81b9820a150985a79c10303d0a7cf2ae4623866e0"
+    },
+    {
+      "path": "engine\\profile1\\config\\corse_station_brands.json",
+      "sha256": "5440c16143b2897729ca88146c71b5ebbae3e466a148076dd21afe1c307441c1"
+    },
+    {
+      "path": "engine\\profile1\\config\\corse_station_brand_corrections.csv",
+      "sha256": "e3f3cbad0f376d6861feda2384d7fc14fb0c03a7199ae11d98b5a5050f295216"
+    },
+    {
+      "path": "engine\\profile1\\config\\total_corse_stations.json",
+      "sha256": "e37d9efb54a4623bdf9bc6d2b5566ef194a7ead12bd50d6573a35a0bdf839229"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\apply_dynamic_editorial.py",
+      "sha256": "f372f249980c017ccd225f5f75d04cccbf78d216bfed281947ba43530e112a30"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\audit_epci_monthly.py",
+      "sha256": "99517390ebf5ce0f6200fdac5e6c7701a2340f001fb91a271c335a9310ad852d"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\audit_monthly_territorial_coverage.py",
+      "sha256": "2e43d457008d2596826331ba17d120e2e8f45718c856a1c80bd5bd8735117719"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\audit_total_corsica_45d_retrospective.py",
+      "sha256": "73b565392480ff8db9f59e589f45c7fb8203492b105f5cbae396a0bcc224af0d"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_append_candidate.py",
+      "sha256": "74a6b16e3e54475942cb2d525461ebaf1e24654e92b28d6ef0e4a66d2e523671"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_append_candidate_incremental.py",
+      "sha256": "83e03b39202ea089341040642dbc62d2d12ec585e61b59ffeae863fdd15a62e5"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_c2_reliable_series.py",
+      "sha256": "954d7806413b4523db23b56bab13bd5116b680cf1be5b521acae90984acb954d"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_common_snapshot.py",
+      "sha256": "59be4ae0111174fe55c8b29efeafae9cf5fd13af923afc645abc2f0626051a15"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_homepage_summary.py",
+      "sha256": "cd3545ce60e854f85a592326465fa57e0a908cc9e9934c4fd2cab3632873a897"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_monthly_territorial.py",
+      "sha256": "e9f369fe49a6d480077f45238c8a4df51d6fcfab1bf6166eb4ec306b91e10a87"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_monthly_territorial_hardened.py",
+      "sha256": "513afdaa1903250e1a6e56104df404470dba6a51693994255e3876dde8b27bf5"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_total_corsica_45d_historical_correction.py",
+      "sha256": "e0a4f907df95865bc1837e849959f40fe35a4e21c837b34101e5fa9a0293d773"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\build_v2_production_candidate.py",
+      "sha256": "6e40a0069de813ac304cbea23f4b94dafb5236b9d1d463dba233d55397c00854"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\c2_bouclier_contract.py",
+      "sha256": "606574fba2760463d2a9751fda8d6dc84da5c958560e37336b0f695f5e797583"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\check_monthly_readiness.py",
+      "sha256": "642085258414378535bd35672c5ea88315cbc582669a537f8e2be97e25eb81c1"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\check_shared_freshness.py",
+      "sha256": "5ad7cb5f9e746413b77973214cb5fd6bba4eaff653daf96b1daa1d2410988f2b"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\fetch_ufip.py",
+      "sha256": "821d72a243674143cfc650adfffdc57b7881015db3ec5efb5619683eb1c1c7c8"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\install_freshness_badge.py",
+      "sha256": "c7812f349de322a5c758df87f15159ac45ab990b3d1b73e8931cd809097b5641"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\migrate_index_data_source.py",
+      "sha256": "3c11ad18fdc68434713bb9284b32f8d4d6a2fc480b5c028dd1641850d7d2f3f7"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\monthly_bdr_category_backfill.py",
+      "sha256": "db5ab6abb27186f6aad5f78fa62b6bbb1c92b052903e5a080117ea4923f1e4f7"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\promote_candidate.py",
+      "sha256": "00b5851253508c3a27adb09cdb3ca47b5fc65483bac9177ed02a2ee01ccde8b8"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\promote_v2_candidate.py",
+      "sha256": "251cba2681b6812e18ca3c13d867ff752b7373fb8ae0d0448a54d4536541293e"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\regression_published_2026.py",
+      "sha256": "062bdfe19d11f48d0179a9a07c4ba88e29cd98077c0ca74b5f55bcb90ce91903"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\regression_recovered_snapshot.py",
+      "sha256": "1d2e306179084b38f22c01642170f6c02732b7b3c2f81e76d3afcc450f4779ba"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\repair_bdr_excise_2022_2024.py",
+      "sha256": "cfd3b9a975609f814b80a1a1bcb369ec07d05063e12413a2e0ae760ab8ec3806"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\repair_ufip_margin_week_20260817.py",
+      "sha256": "8c2f663dd98845587dbe60b794d1b1574cc196c14c2eb4c46be1ef4cdd1433e2"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\resolve_new_bdr_station_brands.py",
+      "sha256": "d57126013006a06f33d2b346270fc6a7f4e0ba6ad1d2b9918188bcd538c90c17"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\v2_event_guards.py",
+      "sha256": "081e5789ac7ef415155d3f842b0e27bb50983472bcab7f12964ea6cc25b7d84f"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\validate_current_c2_receipt.py",
+      "sha256": "8ee9db3f7527422ed5824aa68d26224e06f7f4dd941ef2102e2df2b3c0714f50"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\validate_monthly_c2_contract.py",
+      "sha256": "638cf466cfdacac6bac87082424952d04693b193ce131deffcbeb4a8620d0d4c"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\validate_monthly_source_guards.py",
+      "sha256": "6acb91010f968e91de3f1f3231c15820490c1dca4217e42389fce787514434da"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\validate_monthly_source_guards_hardened.py",
+      "sha256": "e540176fba3698e001aa09c8f044d31d2229b253d379452cd2ab476519e7c236"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\verify_c2_business_success.py",
+      "sha256": "d462b14b8890f9ae9fd872415aded65785b8f835cbda4d464e77fb4f60525eb0"
+    },
+    {
+      "path": "engine\\profile2\\scripts\\write_monthly_receipt.py",
+      "sha256": "6fb32886f8653755a01f0498a06626a45e4a6e14306fce4cb7e380909c4f6eeb"
+    },
+    {
+      "path": "engine\\profile2\\a4c_common\\corse_brand.py",
+      "sha256": "b8ec4d32820578907a4ad2e7e00e5debb902a27779ac19e0b40abc734ece30ca"
+    },
+    {
+      "path": "engine\\profile2\\a4c_common\\official_prices.py",
+      "sha256": "cecb4d271e0c5b5b74d69edac22c0a02f65c1d32b811656bbce9e694dd42352c"
+    },
+    {
+      "path": "engine\\profile2\\a4c_common\\price_math.py",
+      "sha256": "f26f5d3b07d2847d79decebaa833b01ddfa7eda8165699227b2ffc53dd453c76"
+    },
+    {
+      "path": "engine\\profile2\\a4c_common\\shared_release.py",
+      "sha256": "a3f511b716ce49acd7f07abd2440dafff7f69f6f85a77e8403d95d3dd0fdcad1"
+    },
+    {
+      "path": "engine\\profile2\\a4c_common\\source_freshness.py",
+      "sha256": "e99c9242b6855b0e24deefd0981c743405848a0759cf73e3e22d747c8313b325"
+    },
+    {
+      "path": "engine\\profile2\\a4c_common\\ufip.py",
+      "sha256": "439f808bfca70009558af5d000eb8b68ee881ee28fdbb2bb9c0fbe76c09caea2"
+    },
+    {
+      "path": "engine\\profile2\\a4c_common\\__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\margins.py",
+      "sha256": "102db47e64ee51140fa811f44746b886555354354f45c58f6e905fd61ebbd974"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\method.py",
+      "sha256": "4cc23fac5d41f6de367d92cc1276284700883e01b37ab59179a9b0db76a21606"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\publication.py",
+      "sha256": "e530e6a487c96bfc8d50867a51fd57a05fb29f0a925dbb38bc01103583822f28"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\publication_margin.py",
+      "sha256": "01db814b1d0e17652a5b235abd3e95a1b3d29a80bac6823fc9ea95b61ed40756"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\r2_guard_v2.py",
+      "sha256": "ef4c1b52943c3847bbc3e8869824b0923de333cae833adf684f1e48e82ae299d"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\reliability_policy_v2.py",
+      "sha256": "4442f5f683cde65fe90923376f56b90f657dfae7aa94bf2ea1ae0930a04921b1"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\rotterdam_calibration_v2.py",
+      "sha256": "901d3c880da0517b4c6e589bc5af64fb2ea1f15f42a92a4ca432dfd6e914c2cb"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\shield_phase_v2.py",
+      "sha256": "a9f9bb2c906b9849f151be1fe7b1c593ebc427caf5706b03a697898eba439ee5"
+    },
+    {
+      "path": "engine\\profile2\\carburantscorse2\\__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "engine\\profile2\\config\\bdr_categories_published_2026-06-06.csv",
+      "sha256": "8508decd25a31f5bc564729f7d05487bc6fe42a28275aeeb9dd968283c4e5d7d"
+    },
+    {
+      "path": "engine\\profile2\\config\\bdr_station_brands.json",
+      "sha256": "d12fb66a147ee3b299ed377cc0d2bf5ed0d683bc228f895cb581babcfec91c6d"
+    },
+    {
+      "path": "engine\\profile2\\config\\bdr_station_brand_corrections.csv",
+      "sha256": "20366712a266d83d38215fe594962e7df273e4ed20f363bb5d737eeca098142d"
+    },
+    {
+      "path": "engine\\profile2\\config\\corse_station_geography_2026.csv",
+      "sha256": "da54fa219852c4d7f9adb1ae55ee1c405a8ce0ebaa9c6debb01cc38c4f9c78bd"
+    },
+    {
+      "path": "engine\\profile2\\config\\methodology_recovered_2026-06-14.json",
+      "sha256": "9c28344c2d0652d65a5ba1e2fd378a2208870ace1a23b59b808e134e143168ca"
+    },
+    {
+      "path": "engine\\profile2\\config\\regression_expected_2026-06-14.json",
+      "sha256": "d7b0a5b7e75a1cfaabb8f4627a7ad48e9bef6b7a7c2c836790748ac79847c96c"
+    }
+  ]
+}
