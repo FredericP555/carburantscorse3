@@ -25,3 +25,6 @@
 
 /* Keep price levels visually stronger than daily changes. */
 .ranking td:last-child{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;padding-left:14px;min-width:76px}.ranking thead th:last-child{font:600 12px/1.35 Arial,sans-serif;color:#344f49;padding-left:14px;min-width:76px}.ranking thead th:last-child small{display:block;font-size:11px;font-weight:400;margin-top:3px}.ranking td:nth-last-child(2){font-size:13px}.ranking td:last-child,.ranking thead th:last-child{text-align:right}@media(max-width:760px){.ranking td:last-child{font-size:15px;min-width:70px;padding-left:10px}.ranking thead th:last-child{min-width:70px;padding-left:10px}}
+
+/* Readable SP95/E10 daily comparison table. */
+#e10-details summary{font-size:13px;font-weight:600}#e10-details .table-scroll{max-height:340px}#e10-details table{font:14px/1.5 Arial,sans-serif;font-variant-numeric:tabular-nums}#e10-details th{font-size:13px;font-weight:600;color:#344f49;padding:10px 8px}#e10-details td{font-size:15px;font-weight:600;padding:10px 8px}#e10-details td:first-child{font-size:14px;font-weight:400}#e10-details tbody tr:nth-child(even){background:#f4f5ef}#e10-details .selected-row{background:#e4eddf}
