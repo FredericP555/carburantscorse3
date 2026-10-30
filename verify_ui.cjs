@@ -15,7 +15,7 @@ async function main(){
  const data=context.C3_DATA,n=data.dates.length;
  assert(elements.date.value===data.end,'last date');assert(Number(elements['day-range'].max)===n-1,'range');
  assert(charts[0].data.datasets[0].data.length===n,'regional curve length');
- brands[1].onclick();assert(elements['comparison-title'].textContent.startsWith('ENI'),'ENI title');assert(charts[2].data.datasets.length===1,'ENI one line');
+ brands[1].onclick();assert(elements['comparison-title'].textContent.startsWith('Eni'),'ENI title');assert(charts[2].data.datasets.length===1,'ENI one line');
  elements.export.onclick();let csv=await blob.text();assert(download.endsWith(data.end+'.csv'),'CSV dates');assert(csv.split('\r\n').length===n+1,'CSV rows');assert(csv.includes('ecart_ENI_traditionnel'),'ENI CSV');
  fuels[1].onclick();assert(charts[2].data.datasets.length===2,'SP95/E10 two lines');assert(elements['brand-selector'].hidden,'brand selector hidden for SP95');assert(!elements['sp95-context'].hidden,'SP95 note');
  assert(charts[2].options.scales.y.title.text==='c€/L hors TVA','gap unit');
