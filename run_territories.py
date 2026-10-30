@@ -22,8 +22,17 @@ def main():
         row['price']=float(row['price']) if row.get('price') else None
     with gzip.open(out/'events.csv.gz','rt',encoding='utf8') as f:events=list(csv.DictReader(f))
     guards=EventGuards(events,release_tag='C3-'+a.run,metadata={});guards.bind_observations(obs)
-    legacy=engine.load_bdr_categories(engine.LEGACY_BDR);registry=engine.load_registry(engine.BDR_REGISTRY)
-    state=build_publication_state(pd.DataFrame(obs),global_end=pd.Timestamp(a.end),bdr_category_resolver=engine._bdr_category_resolver(legacy,registry))
+    legacy=engine.load_bdr_categories(engine.LEGACY_BDR)
+    brand_refresh=json.loads((out/'brand_refresh.json').read_text(encoding='utf8'))
+    registry=engine.load_registry(engine.BDR_REGISTRY)
+    from scripts.resolve_new_bdr_station_brands import _entry_for_day
+    from refresh_brands import blocks_legacy_category
+    category=engine._bdr_category_resolver(legacy,registry)
+    def verified_category(station_id,day):
+        entry=_entry_for_day(registry['stations'].get(str(station_id)),pd.Timestamp(day).date())
+        if blocks_legacy_category(entry):return None
+        return category(station_id,day)
+    state=build_publication_state(pd.DataFrame(obs),global_end=pd.Timestamp(a.end),bdr_category_resolver=verified_category)
     state=state[state.date>=pd.Timestamp('2026-10-01')].copy()
     code=textwrap.dedent(inspect.getsource(engine._evaluate_v2));anchor='        eligible.append(bool(decision.eligible));';assert code.count(anchor)==1
     code=code.replace(anchor,'        _trace.append(decision.reason)\n'+anchor);reasons=[];engine.__dict__['_trace']=reasons
@@ -45,7 +54,7 @@ def main():
         gaps[key]={scope:build_gap_series(state,corsica_fuel=cf,bdr_fuel=bf,bdr_scope=scope,include_levels=True) for scope in ('all','network')}
     state.to_csv(out/'territorial_stations.csv.gz',index=False,compression='gzip')
     (out/'gaps.json').write_text(json.dumps(gaps,ensure_ascii=False,indent=2),encoding='utf8')
-    (out/'territorial_audit.json').write_text(json.dumps({'engine':audit,'events':guards.audit(),'unknown_new_bdr':unknown},ensure_ascii=False,indent=2),encoding='utf8')
+    (out/'territorial_audit.json').write_text(json.dumps({'engine':audit,'events':guards.audit(),'unknown_new_bdr':unknown,'brand_refresh':brand_refresh},ensure_ascii=False,indent=2),encoding='utf8')
     print('Territorial calculation complete; unknown new BdR: '+str(unknown),flush=True)
 
 if __name__=='__main__':main()

@@ -11,7 +11,7 @@ def expected_date(now=None):
 def plan(target,last,now=None):
     requested=date.fromisoformat(target)
     if requested>expected_date(now):raise ValueError('La date demandée doit être au plus tard la veille à Paris')
-    if requested.year!=2026:raise ValueError('Le passage annuel à 2027 doit être validé avant activation')
+    if requested<date(2026,10,1):raise ValueError('La date demandée précède le suivi C3')
     return 'already_current' if requested<=date.fromisoformat(last) else 'refresh'
 
 def revalidation_seed(current,target):
@@ -63,6 +63,10 @@ def main():
             (artifacts/'result.json').write_text(json.dumps({'target':target,'applied':False,'validated':validated},indent=2),encoding='utf8')
         if a.apply:
             # Use only the already built, checked artifact; no fresh calculation in promotion.
+            for name in ('bdr_station_brands.json','corse_station_brands.json'):
+                destination=ROOT/'config'/name
+                tmp=destination.with_suffix('.tmp')
+                shutil.copyfile(work/'config'/name,tmp);tmp.replace(destination)
             for folder in ('maquette/dist',):
                 destination=ROOT/folder;destination.mkdir(parents=True,exist_ok=True)
                 for source in (work/folder).iterdir():

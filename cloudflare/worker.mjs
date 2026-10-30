@@ -1,6 +1,9 @@
 // C3 only. Does not dispatch any C1/C2 workflow. HTTP requests are read-only.
 export const REPOSITORY = 'FredericP555/carburantscorse3';
 export const WORKFLOW = 'update-daily.yml';
+export const PAGES_WORKFLOW = 'static.yml';
+export const PUBLIC_MANIFEST = 'https://fredericp555.github.io/carburantscorse3/site-manifest.json';
+const ACTIVE_STATUSES = ['queued','in_progress','requested','waiting','pending'];
 export function parisParts(timestamp) {
   return Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
     timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit',
@@ -26,6 +29,32 @@ async function github(path,env,options={},request=fetch) {
   if(!response.ok)throw Error(`C3 GitHub request failed: HTTP ${response.status}`);
   return response;
 }
+async function workflowRuns(workflow,env,request) {
+  const runs=await (await github(`actions/workflows/${workflow}/runs?branch=main&per_page=20`,env,{},request)).json();
+  if(!Array.isArray(runs.workflow_runs))throw Error('Invalid workflow-runs response');
+  return runs.workflow_runs;
+}
+async function recoverPublication(lastDate,timestamp,env,request) {
+  // The public request carries no GitHub token. A committed date does not prove publication.
+  const response=await request(`${PUBLIC_MANIFEST}?check=${encodeURIComponent(timestamp)}`,{
+    headers:{Accept:'application/json','Cache-Control':'no-cache'},cache:'no-store'
+  });
+  if(!response.ok&&response.status!==404)throw Error(`C3 public check failed: HTTP ${response.status}`);
+  let manifest=null;
+  if(response.ok) {
+    try {manifest=await response.json();} catch { /* Invalid/missing manifest needs a publication. */ }
+  }
+  const runs=await workflowRuns(PAGES_WORKFLOW,env,request);
+  if(runs.some(r=>ACTIVE_STATUSES.includes(r.status)))
+    return {status:'publication_already_running',last_date:lastDate};
+  const lastFailed=runs[0]?.status==='completed'&&runs[0]?.conclusion!=='success';
+  if(manifest?.schema_version===1&&manifest.last_date===lastDate&&!lastFailed)
+    return {status:'already_current',last_date:lastDate};
+  await github(`actions/workflows/${PAGES_WORKFLOW}/dispatches`,env,{
+    method:'POST',body:JSON.stringify({ref:'main'})
+  },request);
+  return {status:'publication_dispatch_accepted',last_date:lastDate};
+}
 export async function dispatchIfNeeded(timestamp,env,request=fetch) {
   if(env.C3_ENABLED!=='true')return {status:'disabled'};
   if(actionForTime(timestamp,env)==='NOTHING')return {status:'outside_slot'};
@@ -35,10 +64,8 @@ export async function dispatchIfNeeded(timestamp,env,request=fetch) {
   if(content.encoding!=='base64'||typeof content.content!=='string')throw Error('Invalid C3 data response');
   const data=JSON.parse(atob(content.content.replace(/\s/g,'')));
   if(!/^\d{4}-\d{2}-\d{2}$/.test(data.end))throw Error('Invalid C3 last date');
-  if(data.end>=target)return {status:'already_current',target,last_date:data.end};
-  const runs=await (await github(`actions/workflows/${WORKFLOW}/runs?branch=main&per_page=20`,env,{},request)).json();
-  if(!Array.isArray(runs.workflow_runs))throw Error('Invalid workflow-runs response');
-  if(runs.workflow_runs.some(r=>['queued','in_progress','requested','waiting','pending'].includes(r.status)))
+  if(data.end>=target)return {target,...await recoverPublication(data.end,timestamp,env,request)};
+  if((await workflowRuns(WORKFLOW,env,request)).some(r=>ACTIVE_STATUSES.includes(r.status)))
     return {status:'already_running',target};
   await github(`actions/workflows/${WORKFLOW}/dispatches`,env,{
     method:'POST',body:JSON.stringify({ref:'main',inputs:{target_date:target,apply:true}})

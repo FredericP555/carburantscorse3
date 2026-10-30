@@ -5,12 +5,17 @@ ROOT=Path(__file__).resolve().parent
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--end',required=True);p.add_argument('--collect',action='store_true');a=p.parse_args()
-    env=dict(os.environ);env['PYTHONPATH']=str(ROOT/'dependencies');env['PYTHONDONTWRITEBYTECODE']='1'
+    env=dict(os.environ)
+    env['PYTHONPATH']=os.pathsep.join(filter(None,[str(ROOT/'dependencies'),env.get('PYTHONPATH')]))
+    env['PYTHONDONTWRITEBYTECODE']='1'
     def run(script,*args):
         subprocess.run([sys.executable,'-B',str(ROOT/script),*args],env=env,check=True)
     if a.collect:
         run('collect_current.py','--run',a.run,'--end',a.end)
-        run('engine/profile1/scripts/fetch_ufip.py','--end',a.end,'--output-dir',str(ROOT/'sources/runs'/a.run),'--attempts','2','--retry-delay','1')
+        # Preserve the 2026 baseline calibration and phase anchors in later years.
+        run('engine/profile1/scripts/fetch_ufip.py','--start','2026-01-01','--end',a.end,'--output-dir',str(ROOT/'sources/runs'/a.run),'--attempts','2','--retry-delay','1')
+    # Both engines must see the same newly verified temporal identities.
+    run('refresh_brands.py','--run',a.run,'--end',a.end)
     for script in ('run_regions.py','run_territories.py','assemble_current.py'):
         run(script,'--run',a.run,'--end',a.end)
     run('build_mockup.py')

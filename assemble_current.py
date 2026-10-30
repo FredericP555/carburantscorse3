@@ -9,11 +9,26 @@ def total(entry):
     name=re.sub('[^a-z0-9]','',str(entry).casefold())
     return name in {'total','totalenergies','totalcontact','totalenergiescontact'}
 
+def total_point(good,day,fuel):
+    t=good[(good.date==day)&good.fuel.eq(fuel)&good.brand_segment.eq('traditionnel')&good.brand.map(total)]
+    c=t[t.department.eq('20')];b=t[t.department.eq('13')]
+    available=len(c)>0 and len(b)>0
+    # Only Gazole is displayed in the brand comparison. The retired SP95
+    # diagnostic must not prevent publication of the other, available series.
+    if fuel=='Gazole' and not available:
+        raise ValueError('Comparaison Total gazole indisponible : '+day)
+    unknown=good[(good.date==day)&good.fuel.eq(fuel)&good.brand.fillna('').eq('')&good.category.ne('gms')]
+    return {'date':day,'diagnostic':round(100*(c.price_ht.mean()-b.price_ht.mean()),2) if available else None,
+            'validated_gap':None,'n_corse':len(c),'n_bdr':len(b),
+            'unresolved_ids':sorted(unknown.station_id.unique().tolist()),
+            'status':'diagnostic' if available else 'unavailable'}
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--end',required=True);a=p.parse_args()
     out=ROOT/'outputs/runs'/a.run;src=ROOT/'sources/runs'/a.run
     path=ROOT/'data/current.json';seed=path if path.exists() else ROOT/'data/history_20261025.json'
     old=json.loads(seed.read_text(encoding='utf8'));data=copy.deepcopy(old)
+    (out/'baseline.json').write_text(json.dumps(old,ensure_ascii=False,indent=2),encoding='utf8')
     start=date.fromisoformat(old['end'])+timedelta(days=1);end=date.fromisoformat(a.end)
     assert end>=date.fromisoformat(old['end'])
     days=[(start+timedelta(days=i)).isoformat() for i in range(max(0,(end-start).days+1))]
@@ -45,11 +60,7 @@ def main():
                 rows={r['date']:r['ecart'] for r in gaps['e10'][source_scope]}
                 for day in days:current['e10_gaps'][scope].append(rows[day])
         for day in days:
-            t=good[(good.date==day)&good.fuel.eq(fuel)&good.brand_segment.eq('traditionnel')&good.brand.map(total)]
-            c=t[t.department.eq('20')];b=t[t.department.eq('13')]
-            assert len(c)>0 and len(b)>0
-            unknown=good[(good.date==day)&good.fuel.eq(fuel)&good.brand.fillna('').eq('')&good.category.ne('gms')]
-            current['total'].append({'date':day,'diagnostic':round(100*(c.price_ht.mean()-b.price_ht.mean()),2),'validated_gap':None,'n_corse':len(c),'n_bdr':len(b),'unresolved_ids':sorted(unknown.station_id.unique().tolist()),'status':'diagnostic'})
+            current['total'].append(total_point(good,day,fuel))
             if fuel=='Gazole':
                 e=good[(good.date==day)&good.fuel.eq(fuel)&good.brand_segment.eq('traditionnel')&good.brand.fillna('').str.casefold().eq('eni')]
                 ec=e[e.department.eq('20')];eb=e[e.department.eq('13')];assert len(ec)>0 and len(eb)>0
@@ -61,8 +72,11 @@ def main():
                 comparisons.append({'date':day,'fuel':fuel,'scope':scope,'preserved':old['fuels'][fuel]['gaps'][scope][i],'replay':rows.get(day)})
     data['dates']+=days;data['end']=a.end
     for fuel in data['fuels']:
-        for region in data['fuels'][fuel]['regions']:assert data['fuels'][fuel]['regions'][region][:len(old['dates'])]==old['fuels'][fuel]['regions'][region]
-        for scope in ('all','reseau'):assert data['fuels'][fuel]['gaps'][scope][:len(old['dates'])]==old['fuels'][fuel]['gaps'][scope]
+        for group in ('regions','gaps','e10_gaps'):
+            for name,values in old['fuels'][fuel].get(group,{}).items():
+                assert data['fuels'][fuel][group][name][:len(old['dates'])]==values
+        for group in ('total','eni'):
+            if group in old['fuels'][fuel]:assert data['fuels'][fuel][group][:len(old['dates'])]==old['fuels'][fuel][group]
     data['provenance']['last_run']=a.run;data['provenance']['new_days']='Independent C3 annual official archive calculation; historical seed preserved'
     # Station-level audit tables make filtering and coverage reviewable.
     s.groupby(['date','fuel','department','eligible_publication','reason']).size().reset_index(name='stations').to_csv(out/'exclusions.csv',index=False)

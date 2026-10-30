@@ -6,7 +6,11 @@ on:
     paths:
       - "maquette/dist/**"
       - ".github/workflows/static.yml"
+      - "pages_health.py"
   workflow_dispatch:
+  # Publication recovery only. Daily data collection remains Cloudflare-triggered.
+  schedule:
+    - cron: "53 * * * *"
   workflow_run:
     workflows: ["C3 daily update"]
     branches: ["main"]
@@ -14,28 +18,54 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: c3-pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  inspect:
     if: >-
       github.repository == 'FredericP555/carburantscorse3' &&
+      github.ref == 'refs/heads/main' &&
       (github.event_name != 'workflow_run' ||
-       github.event.workflow_run.conclusion == 'success')
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_repository.full_name == github.repository))
+    runs-on: ubuntu-24.04
+    outputs:
+      needs_deploy: ${{ steps.health.outputs.needs_deploy }}
+      source_commit: ${{ steps.source.outputs.commit }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
+      - name: Record the inspected main commit
+        id: source
+        run: echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Check public C3 files and date
+        id: health
+        run: python -B pages_health.py --check
+
+  deploy:
+    needs: inspect
+    if: needs.inspect.outputs.needs_deploy == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.inspect.outputs.source_commit }}
+
+      - name: Write the public artifact manifest
+        run: python -B pages_health.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

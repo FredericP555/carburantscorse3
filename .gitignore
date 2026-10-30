@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.staging/
+automation-artifacts/
+outputs/
+runtime/
+sources/
+dependencies/
+maquette/C3.html
+maquette/verification.json
+c3-year-*/
+automation-test-*/

@@ -11,10 +11,11 @@ class AutomationTests(unittest.TestCase):
         self.assertEqual(daily.plan('2026-11-01','2026-10-31',now),'refresh')
         self.assertEqual(daily.plan('2026-11-01','2026-11-01',now),'already_current')
 
-    def test_future_and_year_boundary_fail_closed(self):
+    def test_future_fails_closed_and_year_boundary_continues(self):
         now=datetime(2026,11,2,6,37,tzinfo=timezone.utc)
         with self.assertRaises(ValueError):daily.plan('2026-11-02','2026-10-31',now)
-        with self.assertRaises(ValueError):daily.plan('2027-01-01','2026-12-31',datetime(2027,1,2,tzinfo=timezone.utc))
+        self.assertEqual(daily.plan('2027-01-01','2026-12-31',datetime(2027,1,2,tzinfo=timezone.utc)),'refresh')
+        with self.assertRaises(ValueError):daily.plan('2026-09-30','2026-12-31',now)
 
     def test_failed_collection_preserves_current_even_with_apply(self):
         root=Path(__file__).resolve().parent
@@ -30,7 +31,7 @@ class AutomationTests(unittest.TestCase):
             result=json.loads((sandbox/'automation-artifacts/testfailure/result.json').read_text(encoding='utf8'))
             self.assertFalse(result['validated']);self.assertFalse(result['applied'])
 
-    def test_disabled_workflow_and_worker_are_c3_only(self):
+    def test_production_workflow_and_worker_are_c3_only(self):
         root=Path(__file__).resolve().parent
         workflow=(root/'.github/workflows/update-daily.yml').read_text(encoding='utf8')
         self.assertNotIn('schedule:',workflow)
@@ -38,6 +39,6 @@ class AutomationTests(unittest.TestCase):
         self.assertIn("github.repository == 'FredericP555/carburantscorse3'",workflow)
         self.assertNotIn('carburantscorse1',workflow);self.assertNotIn('carburantscorse2',workflow)
         config=(root/'cloudflare/wrangler.toml').read_text(encoding='utf8')
-        self.assertIn('crons = []',config);self.assertIn('C3_ENABLED = "false"',config)
+        self.assertIn('crons = ["37 * * * *"]',config);self.assertIn('C3_ENABLED = "true"',config)
 
 if __name__=='__main__':unittest.main()

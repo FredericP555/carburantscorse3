@@ -10,24 +10,32 @@ class CurrentTests(unittest.TestCase):
         cls.data=json.loads((ROOT/'data/current.json').read_text(encoding='utf8'))
         cls.seed=json.loads((ROOT/'data/history_20261025.json').read_text(encoding='utf8'))
         cls.out=ROOT/'outputs/runs'/cls.data['provenance']['last_run']
+        baseline=cls.out/'baseline.json'
+        cls.baseline=json.loads(baseline.read_text(encoding='utf8')) if baseline.exists() else cls.seed
         cls.s=pd.read_csv(cls.out/'territorial_stations.csv.gz',dtype={'department':str,'station_id':str})
 
+    def new_dates(self):
+        return [day for day in self.data['dates'] if day>self.baseline['end']]
+
     def test_history_is_preserved_for_every_displayed_series(self):
-        n=len(self.seed['dates'])
-        for fuel,old in self.seed['fuels'].items():
-            new=self.data['fuels'][fuel]
-            for name,values in old['regions'].items():self.assertEqual(new['regions'][name][:n],values)
-            for name,values in old['gaps'].items():self.assertEqual(new['gaps'][name][:n],values)
-            self.assertEqual(new['total'][:n],old['total'])
-            if fuel=='SP95':self.assertEqual({k:v[:n] for k,v in new['e10_gaps'].items()},old['e10_gaps'])
-            else:self.assertEqual(new['eni'][:n],old['eni'])
+        for baseline in (self.seed,self.baseline):
+            n=len(baseline['dates'])
+            self.assertEqual(self.data['dates'][:n],baseline['dates'])
+            for fuel,old in baseline['fuels'].items():
+                new=self.data['fuels'][fuel]
+                for group in ('regions','gaps','e10_gaps'):
+                    for name,values in old.get(group,{}).items():self.assertEqual(new[group][name][:n],values)
+                for group in ('total','eni'):
+                    if group in old:self.assertEqual(new[group][:n],old[group])
 
     def test_dates_and_lengths(self):
         dates=pd.date_range(self.data['start'],self.data['end']).strftime('%Y-%m-%d').tolist()
         self.assertEqual(dates,self.data['dates'])
         for values in self.data['fuels'].values():
-            for group in ('regions','gaps'):
-                for rows in values[group].values():self.assertEqual(len(rows),len(dates))
+            for group in ('regions','gaps','e10_gaps'):
+                for rows in values.get(group,{}).values():self.assertEqual(len(rows),len(dates))
+            for group in ('total','eni'):
+                if group in values:self.assertEqual(len(values[group]),len(dates))
 
     def test_no_motorway_or_invalid_prices_in_retained_state(self):
         self.assertFalse(self.s['pop'].eq('A').any())
@@ -44,7 +52,7 @@ class CurrentTests(unittest.TestCase):
 
     def test_new_e10_series_matches_same_station_weights_and_vat(self):
         good=self.s[self.s.eligible_publication]
-        for day in self.data['dates'][len(self.seed['dates']):]:
+        for day in self.new_dates():
             i=self.data['dates'].index(day);c=good[(good.date==day)&good.department.eq('20')&good.fuel.eq('SP95')]
             for scope in ('all','reseau'):
                 b=good[(good.date==day)&good.department.eq('13')&good.fuel.eq('E10')]
@@ -54,7 +62,7 @@ class CurrentTests(unittest.TestCase):
     def test_new_brand_means_and_counts(self):
         from assemble_current import total
         good=self.s[self.s.eligible_publication & self.s.fuel.eq('Gazole') & self.s.brand_segment.eq('traditionnel')]
-        for day in self.data['dates'][len(self.seed['dates']):]:
+        for day in self.new_dates():
             i=self.data['dates'].index(day)
             for key in ('total','eni'):
                 selected=good[good.date.eq(day)&(good.brand.map(total) if key=='total' else good.brand.fillna('').str.casefold().eq('eni'))]

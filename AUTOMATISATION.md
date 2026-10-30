@@ -1,38 +1,69 @@
-# Préparation de la mise à jour quotidienne C3
+# Mise à jour et publication de C3
 
-État : **fichiers préparés localement, aucun dépôt créé, aucun Worker déployé, aucun déclencheur activé**. Le Worker `a4c-scheduler` existant et les projets C1/C2 ne sont pas modifiés.
+## Composants indépendants
 
-## Architecture proposée
+- Worker Cloudflare : **a4c-c3-scheduler**.
+- Dépôt ciblé : **FredericP555/carburantscorse3** exclusivement.
+- Collecte et calcul : `.github/workflows/update-daily.yml`.
+- Publication GitHub Pages : `.github/workflows/static.yml`, dossier `maquette/dist`.
 
-Un Worker indépendant `a4c-c3-scheduler` appelle uniquement `FredericP555/carburantscorse3`, workflow `update-daily.yml`. Ce nom de dépôt est une proposition et doit être confirmé à sa création. Le contenu de ce dossier C3 devient la racine du futur dépôt, sans les dossiers de référence ni les téléchargements locaux.
+Le Worker existant `a4c-scheduler` et les dépôts C1/C2 ne sont pas modifiés.
 
-Horaires proposés : tous les jours à **07:37**, avec rattrapages **10:37 et 14:37**, heure de Paris. Ils ne sont pas activés et peuvent être ajustés. Un futur cron Cloudflare `37 * * * *` appelle le Worker chaque heure ; le code ne sélectionne que ces trois créneaux par conversion Europe/Paris, été et hiver. Pas de planification native GitHub.
+## Configuration Cloudflare
 
-Avant chaque demande, le Worker lit la dernière date C3 et les exécutions GitHub : rien si la veille est déjà intégrée ou si un traitement attend/est en cours. Le workflow sérialise les écritures et relit les données du dépôt ; une demande répétée devient une opération sans effet. Le Worker ne garantit pas le démarrage immédiat d'un runner GitHub.
+Le fichier `cloudflare/wrangler.toml` décrit la configuration de production prévue :
 
-L'ouverture HTTP du Worker affiche un état et ne déclenche rien. Le champ enabled décrit la variable du programme, sans prétendre inspecter la configuration réelle des crons.
+- `C3_ENABLED = "true"`.
+- `C3_PARIS_SLOTS = "07:37,10:37,14:37"`.
+- Déclencheur `37 * * * *` : appel chaque heure à la minute 37, puis sélection des trois créneaux en heure de Paris par le code, été comme hiver.
+- Secret `C3_GH_DISPATCH_TOKEN`, limité au dépôt C3 : Contents en lecture, Actions en lecture/écriture. Ne jamais placer ce secret dans les fichiers.
 
-## Vérification avant enregistrement
+Une modification du code du dépôt ne redéploie pas automatiquement le Worker créé manuellement dans Cloudflare. **Les corrections du Worker doivent y être déployées explicitement.** Le jeton expire selon la durée choisie lors de sa création ; le renouveler avant cette date.
 
-`daily_refresh.py` travaille dans un dossier temporaire sous C3. Il collecte, calcule et contrôle le candidat avant de modifier les données visibles. Une collecte incomplète, un échec R2 ou une station BdR admissible non classée bloque l'ajout. Un nouvel identifiant requérant une identification doit être vérifié dans le registre C3 ; sa résolution automatique complète reste à préparer. Aucune omission silencieuse n'est autorisée.
+L’adresse HTTP du Worker donne un état en lecture seule. `enabled=true` décrit sa variable d’activation ; cela ne prouve ni l’exécution d’un cron ni la réussite d’un appel GitHub. La réponse ne révèle pas le jeton.
 
-Le mode par défaut ne fait qu'un essai. Les écritures nécessitent à la fois `apply=true` au workflow et la variable GitHub `C3_DAILY_ENABLED=true`. Côté Cloudflare, `C3_ENABLED=false` et `crons=[]` sont fournis par défaut. Le token secret futur `C3_GH_DISPATCH_TOKEN` doit être limité au seul dépôt C3, avec lecture des contenus et lecture/écriture des Actions. Ne pas copier le secret du Worker C1/C2 dans les fichiers.
+## Décision de lancement
 
-La collecte prend en charge les jours d'octobre, novembre et décembre 2026 et les rattrapages entre mois. Le passage annuel à 2027 est volontairement bloqué tant que les règles et archives annuelles n'ont pas été validées. Les contrôles de fraîcheur vérifient la présence de déclarations jusqu'à la journée demandée pour chacun des carburants et territoires nécessaires.
+Avant de collecter, le Worker vérifie la date dans `data/current.json` et les exécutions en attente ou en cours. Il ne demande pas une collecte en double. Un lancement accepté par l’API GitHub peut néanmoins attendre un runner.
 
-Les données déjà enregistrées sont conservées. Les sources et décisions de la nouvelle exécution sont proposées en artefacts GitHub avec rétention de **90 jours** ; un archivage plus long devra être choisi avant la production durable. L'échec garde la dernière page avec sa date précédente. GitHub signale l'échec ; les notifications externes ne sont pas configurées.
+Si le dépôt est à jour mais que la version publique manque, diffère ou que la dernière publication a échoué, le Worker corrigé peut demander uniquement `static.yml`. Cette capacité nécessite le redéploiement du code Cloudflare. Une vérification GitHub horaire à la minute 53 sert également de secours de publication ; elle ne collecte aucune donnée et ne republie que si les fichiers publics diffèrent.
 
-## Vérifications effectuées localement
+## Collecte et enregistrement
+
+Le workflow reçoit une journée attendue et l’option `apply`. Les écritures exigent `apply=true` **et** la variable GitHub `C3_DAILY_ENABLED=true`. La concurrence des écritures est sérialisée.
+
+`daily_refresh.py` travaille dans un dossier temporaire, collecte les archives officielles et UFIP, calcule le candidat puis exécute les contrôles avant d’enregistrer les données visibles. En cas d’échec, les dernières données restent en place. Les nouveaux identifiants nécessitant une identification sont contrôlés dans le registre propre à C3 ; une enseigne actuelle n’est pas attribuée arbitrairement aux journées antérieures.
+
+Les archives annuelles couvrent l’historique nécessaire depuis 2025. L’URL dépend de l’année réelle de collecte, y compris pour une journée du 31 décembre collectée en janvier. Les tests du changement d’année utilisent des sources simulées ; un premier passage réel doit être surveillé.
+
+Les comparaisons Total SP95 masquées ne doivent pas empêcher la publication des séries effectivement affichées. Les effectifs et motifs d’exclusion restent traçables dans les sorties d’audit.
+
+## Publication et vérification publique
+
+Le workflow Pages se déclenche après un changement du site, une mise à jour quotidienne réussie, une demande explicite ou la vérification horaire de secours. Le contrôle de publication compare la dernière date et les empreintes des fichiers au manifeste public `site-manifest.json`. Si aucune différence n’est trouvée, aucun déploiement n’est nécessaire.
+
+Le déploiement utilise le commit inspecté. Les permissions d’écriture Pages et d’identité sont limitées au travail de déploiement ; les autres vérifications restent en lecture. Le manifeste décrit les fichiers de ce déploiement.
+
+Les ressources du site possèdent une URL basée sur leur empreinte pour limiter les anciennes versions conservées par le navigateur. La page affiche la dernière journée réellement disponible ; elle ne prétend pas qu’un traitement en attente a déjà réussi.
+
+## Audit et limites
+
+Chaque exécution conserve les sources, décisions et rapports dans un artefact GitHub **90 jours**. Un archivage durable au-delà de cette durée reste à définir. La présence d’un artefact ne suffit pas : examiner `result.json`, les contrôles et, après publication, le site public.
+
+Les notifications d’échec GitHub dépendent des préférences du compte. Aucun canal d’alerte externe n’est configuré. Cloudflare ne garantit pas l’heure de démarrage d’un runner GitHub. La liaison réelle doit être validée par un événement Cloudflare observé, le workflow correspondant et la date du site ; la seule réponse HTTP du Worker ne suffit pas.
+
+Contrôles disponibles :
 
 ```text
-node cloudflare/test_worker.mjs
 python -B test_automation.py
-python -B test_current.py
+python -B test_regressions.py
+python -B test_year_rollover.py
+python -B test_pages_health.py
+python -B test_collect_current.py
+node cloudflare/test_worker.mjs
+python -B build_mockup.py
+python -B verify_mockup.py
 node verify_ui.cjs
 ```
 
-Ces tests couvrent les changements d'heure, le passage octobre/novembre, les demandes répétées, une file GitHub occupée, une erreur d'API et la conservation des données sur échec de collecte. Ce sont des simulations : aucun appel réel de dispatch, aucun essai de bout en bout Cloudflare/GitHub n'a été effectué.
-
-Avant activation : créer le dépôt C3 dédié, faire un essai distant sans enregistrement, examiner son rapport, puis configurer le Worker dédié et ses secrets/crons. L'hébergement public du site et sa liaison au dépôt restent une étape distincte ; ce workflow prépare les fichiers statiques mais n'active aucun hébergement.
-
-Références officielles : [Cloudflare Cron Triggers](https://developers.cloudflare.com/workers/configuration/cron-triggers/), [Scheduled handler](https://developers.cloudflare.com/workers/runtime-apis/handlers/scheduled/), [GitHub workflow dispatch et concurrence](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax).
+Les tests couvrent notamment les doublons, erreurs d’API, changements d’heure et d’année simulés, conservation des données en cas d’échec, publication en retard et exports. Les tests DOM simulés ne constituent pas un contrôle visuel navigateur.
