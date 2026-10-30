@@ -38,6 +38,7 @@ function render(){
  charts.corse.data.datasets[0].data=prices;
  charts.gaps.data.datasets[0].data=current.gaps.all;charts.gaps.data.datasets[1].data=current.gaps.reseau;
  const e10=fuel==='SP95', isEni=brand==='ENI';
+ const kicker=$('comparison-kicker');if(kicker)kicker.textContent=e10?'04 / COMPARAISON SP95 / E10':'04 / À ENSEIGNE COMPARABLE';
  $('brand-selector').hidden=e10;
  $('vito-note').hidden=e10;
  document.querySelectorAll('[data-brand]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.brand===brand))); 
@@ -53,7 +54,7 @@ function render(){
  if(e10){
   charts.total.data.datasets=[line('SP95 Corse − E10 Bouches-du-Rhône · toutes stations','#ae6b57'),line('SP95 Corse − E10 Bouches-du-Rhône · réseau traditionnel','#245d55')];
   charts.total.data.datasets[0].data=current.e10_gaps.all;charts.total.data.datasets[1].data=current.e10_gaps.reseau;
-  $('e10-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td>${sign(current.e10_gaps.all[i])}</td><td>${sign(current.e10_gaps.reseau[i])}</td></tr>`).join('');
+  $('e10-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td style="font-size:15px;font-weight:600">${sign(current.e10_gaps.all[i])}</td><td style="font-size:15px;font-weight:600">${sign(current.e10_gaps.reseau[i])}</td></tr>`).join('');
  }else if(isEni){charts.total.data.datasets=[line('ENI traditionnel Corse − Bouches-du-Rhône','#245d55')];charts.total.data.datasets[0].data=current.eni.map(r=>r.gap);}else{charts.total.data.datasets=[line('Total traditionnel Corse − Bouches-du-Rhône','#aa7835',true)];charts.total.data.datasets[0].data=current.total.map(r=>r.diagnostic);}
 
  Object.values(charts).forEach(chart=>{chart.data.datasets.forEach(s=>{s.pointRadius=D.dates.map((_,i)=>i===selected?4:0);s.pointBackgroundColor=s.borderColor;s.pointBorderColor='#fffefa';s.pointBorderWidth=2;});chart.update('none');});
