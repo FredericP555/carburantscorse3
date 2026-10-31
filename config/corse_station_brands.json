@@ -1459,4 +1459,3 @@
   },
   "current_station_count_semantics": "IDs inside the current registry carry window; not a count of physically open stations and not the price-calculation perimeter"
 }
-

@@ -3162,8 +3162,20 @@
       "verified_at": "2026-10-26T07:08:11.667859+00:00",
       "brand_valid_from": "2026-09-25",
       "brand_history": []
+    },
+    "13400020": {
+      "enseigne": "Indépendant sans enseigne",
+      "segment": "traditionnel",
+      "detail": "marque_tradi",
+      "classification_source": "auto",
+      "brand_source": "officiel",
+      "first_seen": "2026-10-30",
+      "last_seen": "2026-10-30",
+      "verified_at": "2026-10-31T06:38:19.507788+00:00",
+      "brand_valid_from": "2026-10-30",
+      "classification_unresolved": false,
+      "brand_history": []
     }
   },
-  "generated_at": "2026-10-30T14:00:00+00:00"
+  "generated_at": "2026-10-31T06:38:19.507788+00:00"
 }
-
