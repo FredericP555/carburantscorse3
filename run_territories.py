@@ -5,14 +5,37 @@ sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parent
 sys.path[:0]=[str(ROOT/'engine/profile2'),str(ROOT/'dependencies')]
 import argparse,csv,gzip,json,os,inspect,textwrap
+from functools import lru_cache,wraps
 from datetime import date
 import pandas as pd
+
+
+def cache_r2_inputs(calibration):
+    """Read immutable run-local UFIP files once, using absolute paths.
+
+    A new cache is installed and warmed for each run, even when an orchestrator
+    invokes this entry point twice in one interpreter. No verdict is cached.
+    """
+    for name in ('read_daily_values','read_observed_csv','corsica_from_shared_metadata'):
+        previous=getattr(calibration,name)
+        original=getattr(previous,'_c3_original',previous)
+        def reader(original=original):
+            signature=inspect.signature(original)
+            cached=lru_cache(maxsize=4)(original)
+            @wraps(original)
+            def read(*args,**kwargs):
+                bound=signature.bind(*args,**kwargs);bound.apply_defaults()
+                return cached(Path(next(iter(bound.arguments.values()))).resolve())
+            read._c3_original=original
+            return read
+        wrapped=reader();setattr(calibration,name,wrapped);wrapped()
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--end',required=True);a=p.parse_args()
     src=ROOT/'sources/runs'/a.run;out=ROOT/'outputs/runs'/a.run
     os.chdir(ROOT/'runtime/runs'/a.run)
     from scripts import build_v2_production_candidate as engine
+    cache_r2_inputs(engine.r2_guard_v2.rotterdam)
     from scripts.v2_event_guards import EventGuards
     from carburantscorse2.publication import build_publication_state,build_gap_series,unknown_recent_bdr_stations
     engine.BDR_REGISTRY=src/'bdr_station_brands.json'
