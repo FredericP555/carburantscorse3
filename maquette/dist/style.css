@@ -31,3 +31,10 @@
 
 /* Consistent readable expandable daily tables in every fuel panel. */
 .data-details{font-size:13px}.data-details summary{font-size:13px;font-weight:600}.table-scroll{max-height:340px}.table-scroll table{font:14px/1.5 Arial,sans-serif;font-variant-numeric:tabular-nums}.table-scroll th{font-size:13px;font-weight:600;color:#344f49;padding:10px 8px}.table-scroll td{font-size:15px;font-weight:600;padding:10px 8px}.table-scroll td:first-child{font-size:14px;font-weight:400}.table-scroll tbody tr:nth-child(even){background:#f4f5ef}.table-scroll tbody tr.selected-row{background:#e4eddf}#history-table{font-size:14px;line-height:1.5;font-variant-numeric:tabular-nums}#history-table td{font-size:14px;font-weight:600;padding:11px 12px}#history-table th{font-size:12px;padding:11px 12px}
+
+/* Clear labels and scope, including small screens. */
+.metric-label,.section-number{display:block;font:600 16px/1.45 Arial,sans-serif;letter-spacing:0;text-transform:none;color:var(--ink)}
+.label-detail,.section-detail{display:block;font:400 14px/1.5 Arial,sans-serif;letter-spacing:0;text-transform:none;color:#344f49;margin-top:4px}
+.metrics .metric-label{min-height:90px}
+.scope-note{font:600 14px/1.6 Arial,sans-serif;color:var(--ink);max-width:660px;margin:14px 0 0;padding-left:12px;border-left:3px solid var(--teal)}
+@media(max-width:760px){.metrics{grid-template-columns:1fr}.metrics article+article{border-left:0;border-top:1px solid var(--line);padding-left:0}.metrics .metric-label{min-height:0;margin-bottom:12px}.metric-label,.section-number{font-size:16px}.label-detail,.section-detail{font-size:14px}}

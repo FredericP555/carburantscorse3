@@ -36,7 +36,8 @@ function render(){
  charts.corse.data.datasets[0].data=prices;
  charts.gaps.data.datasets[0].data=current.gaps.all;charts.gaps.data.datasets[1].data=current.gaps.reseau;
  const e10=fuel==='SP95', isEni=brand==='ENI';
- const kicker=$('comparison-kicker');if(kicker)kicker.textContent=e10?'04 / COMPARAISON SP95 / E10':'04 / À ENSEIGNE COMPARABLE · Réseau traditionnel (hors GMS et low-cost)';
+ const kicker=$('comparison-kicker');if(kicker)kicker.textContent=e10?'04 — Comparaison SP95 / E10':'04 — À enseigne comparable';
+ const scope=$('comparison-scope');if(scope)scope.textContent=e10?'Deux carburants différents · hors TVA':'Réseau traditionnel · hors GMS et low-cost';
  $('brand-selector').hidden=e10;
  $('vito-note').hidden=e10;
  document.querySelectorAll('[data-brand]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.brand===brand)));
