@@ -61,3 +61,8 @@
  .metric-body{align-self:start}
 }
 @media(max-width:760px){.metric-body>small{font-size:9px}}
+
+/* Give the observatory's purpose a clear place below the main heading. */
+.intro .purpose{font:600 20px/1.45 Arial,Helvetica,sans-serif;letter-spacing:0;color:var(--ink);max-width:720px;margin:22px 0 12px}
+.intro .purpose+.lead{margin-top:0}
+@media(max-width:760px){.intro .purpose{font-size:18px;line-height:1.5;margin:20px 0 10px}}
