@@ -1967,6 +1967,31 @@ $('day-range').addEventListener('input',e=>setDay(Number(e.target.value)));
 $('prev').addEventListener('click',()=>setDay(selected-1));$('next').addEventListener('click',()=>setDay(selected+1));$('export').addEventListener('click',exportCsv);
 $('open-history').addEventListener('click',()=>{renderHistory();$('history-dialog').showModal();});$('close-history').addEventListener('click',()=>$('history-dialog').close());
 $('history-dialog').addEventListener('click',e=>{if(e.target===$('history-dialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
+// Only embedded copies report their public layout size to their parent page.
+if(window.parent&&window.parent!==window){
+ let previousLayout='',pendingLayout=false;
+ let parentOrigin='*';
+ try{if(document.referrer)parentOrigin=new URL(document.referrer).origin;}catch{}
+ const reportLayout=()=>{
+  pendingLayout=false;
+  const height=Math.ceil(document.body.getBoundingClientRect().height),dialogOpen=$('history-dialog').open;
+  const key=height+':'+dialogOpen;
+  if(height>0&&key!==previousLayout){
+   previousLayout=key;
+   window.parent.postMessage({type:'a4c:c3-layout',height,dialogOpen},parentOrigin);
+  }
+ };
+ const queueLayout=()=>{if(!pendingLayout){pendingLayout=true;requestAnimationFrame(reportLayout);}};
+ if(typeof ResizeObserver!=='undefined')new ResizeObserver(queueLayout).observe(document.body);
+ if(typeof MutationObserver!=='undefined')new MutationObserver(queueLayout).observe($('history-dialog'),{attributes:true,attributeFilter:['open']});
+ window.addEventListener('message',event=>{
+  if(event.source===window.parent&&event.data?.type==='a4c:c3-measure'){previousLayout='';queueLayout();}
+ });
+ window.addEventListener('load',queueLayout);
+ window.addEventListener('resize',queueLayout);
+ if(document.fonts)document.fonts.ready.then(queueLayout);
+ queueLayout();
+}
 render();
 })();
 
