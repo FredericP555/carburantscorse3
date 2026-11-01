@@ -16,9 +16,34 @@ function line(label,color,dashed=false){return {label,data:[],borderColor:color,
 delete baseOptions.scales.x.ticks.callback;
 const charts={corse:makeChart('corse-chart',[line('Corse','#245d55')],'€'),gaps:makeChart('gap-chart',[line('Toutes stations Bouches-du-Rhône','#ae6b57'),line('Réseau traditionnel Bouches-du-Rhône','#245d55')],'c'),total:makeChart('total-chart',[line('Sous-ensemble Total identifié','#aa7835',true)],'c',true)};
 function setDay(index){selected=Math.max(0,Math.min(D.dates.length-1,index));render();}
+const referenceDate='2026-10-30';
+function referenceChanges(index){
+ const baseline=D.dates.indexOf(referenceDate),regions=D.fuels.Gazole.regions;
+ const peers=Object.entries(regions).filter(([name])=>name!=='Corse');
+ if(baseline<0||index<baseline||peers.length!==12)return null;
+ const series=[regions.Corse,...peers.map(([,values])=>values)];
+ if(!series.every(values=>Number.isFinite(values?.[baseline])&&Number.isFinite(values?.[index])))return null;
+ const change=values=>100*(values[index]-values[baseline]);
+ // Average the twelve regional changes with equal weights, excluding Corsica.
+ // Round only for display, after averaging all available published regional means.
+ return {corse:change(regions.Corse),regions:peers.reduce((sum,[,values])=>sum+change(values),0)/12};
+}
+function renderReference(){
+ $('october-reference').hidden=fuel!=='Gazole';
+ $('daily-metrics').classList.toggle('with-reference',fuel==='Gazole');
+ const changes=fuel==='Gazole'?referenceChanges(selected):null;
+ for(const [id,key] of [['reference-corse','corse'],['reference-regions','regions']]){
+  const value=changes?changes[key]:null,element=$(id);
+  // Avoid a coloured signed zero when the displayed change rounds to 0.0.
+  const visible=value!==null&&Math.abs(value)<0.05?0:value;
+  element.innerHTML=visible===null?'—':`${sign(visible,1)} <small>c€/L</small>`;
+  element.className=visible===null?'flat':movement(visible);
+ }
+}
 function render(){
  const current=D.fuels[fuel], ds=D.dates[selected], prices=current.regions.Corse, start=prices[0], total=fuel==='Gazole'?current.total[selected]:null;
  $('sp95-context').hidden=fuel!=='SP95';
+ renderReference();
  $('date').min=D.start;$('date').max=D.end;$('day-range').max=D.dates.length-1;
  $('date').value=ds;$('day-range').value=selected;$('prev').disabled=selected===0;$('next').disabled=selected===D.dates.length-1;
  document.querySelectorAll('[data-fuel]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.fuel===fuel)));

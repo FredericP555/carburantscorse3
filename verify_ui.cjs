@@ -15,6 +15,43 @@ async function main(){
  const data=context.C3_DATA,n=data.dates.length;
  assert(elements.date.value===data.end,'last date');assert(Number(elements['day-range'].max)===n-1,'range');
  assert(charts[0].data.datasets[0].data.length===n,'regional curve length');
+ // Independent reference fixtures: Corsica +20 c/L, each other region -10 c/L.
+ // The expected -10 must not be diluted by including Corsica in the mean.
+ const originalRegions=structuredClone(data.fuels.Gazole.regions),baseline=data.dates.indexOf('2026-10-30');
+ if(baseline>0&&baseline+1<n){
+ const choose=i=>elements.date.onchange({target:{value:data.dates[i]}});
+ try{
+  for(const [name,values] of Object.entries(data.fuels.Gazole.regions)){
+   values[baseline]=name==='Corse'?2:1.5;
+   values[baseline+1]=name==='Corse'?2.2:1.4;
+  }
+  choose(baseline+1);
+  assert(!elements['october-reference'].hidden,'reference visible for Gazole');
+  assert(elements['reference-corse'].innerHTML.startsWith('+20,0 '),'Corse reference calculation');
+  assert(elements['reference-corse'].className==='up','increase colour');
+  assert(elements['reference-regions'].innerHTML.startsWith('−10,0 '),'equal-weight twelve-region reference');
+  assert(elements['reference-regions'].className==='down','decrease colour');
+  fuels[1].onclick();assert(elements['october-reference'].hidden,'reference hidden for SP95');
+  fuels[0].onclick();assert(!elements['october-reference'].hidden,'reference restored for Gazole');
+  choose(baseline);
+  assert(elements['reference-corse'].innerHTML.startsWith('0,0 '),'reference day zero');
+  assert(elements['reference-regions'].className==='flat','reference day neutral colour');
+  choose(baseline-1);
+  assert(elements['reference-corse'].innerHTML==='—'&&elements['reference-regions'].innerHTML==='—','before reference no misleading change');
+  choose(baseline+1);
+  const peer=Object.keys(data.fuels.Gazole.regions).find(name=>name!=='Corse');
+  data.fuels.Gazole.regions[peer][baseline]=null;fuels[0].onclick();
+  assert(elements['reference-regions'].innerHTML==='—','incomplete reference is not averaged silently');
+  data.fuels.Gazole.regions[peer][baseline]=1.5;
+  const savedDate=data.dates[baseline];data.dates[baseline]='2026-10-30-unavailable';
+  fuels[0].onclick();assert(elements['reference-corse'].innerHTML==='—','missing reference date is safe');
+  data.dates[baseline]=savedDate;
+ }finally{data.fuels.Gazole.regions=originalRegions;choose(n-1);}
+ assert(JSON.stringify(data.fuels.Gazole.regions)===JSON.stringify(originalRegions),'source prices unchanged');
+ }else{
+  assert(elements['reference-corse'].innerHTML===(baseline<0?'—':'0,0 <small>c€/L</small>'),'safe reference for historical snapshots');
+ }
+
  brands[1].onclick();assert(elements['comparison-title'].textContent.startsWith('Eni'),'ENI title');assert(charts[2].data.datasets.length===1,'ENI one line');
  elements.export.onclick();let csv=await blob.text();assert(download.endsWith(data.end+'.csv'),'CSV dates');assert(csv.split('\r\n').length===n+1,'CSV rows');assert(csv.includes('ecart_ENI_traditionnel'),'ENI CSV');
  const eniRows=csv.replace(/^\uFEFF/,'').split('\r\n').map(row=>row.split(';'));

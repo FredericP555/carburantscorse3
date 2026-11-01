@@ -38,3 +38,14 @@
 .metrics .metric-label{min-height:90px}
 .scope-note{font:600 14px/1.6 Arial,sans-serif;color:var(--ink);max-width:660px;margin:14px 0 0;padding-left:12px;border-left:3px solid var(--teal)}
 @media(max-width:760px){.metrics{grid-template-columns:1fr}.metrics article+article{border-left:0;border-top:1px solid var(--line);padding-left:0}.metrics .metric-label{min-height:0;margin-bottom:12px}.metric-label,.section-number{font-size:16px}.label-detail,.section-detail{font-size:14px}}
+
+/* A fourth Gazole-only reference, with independent equal-weight regional changes. */
+.metrics.with-reference{grid-template-columns:repeat(4,minmax(0,1fr))}
+.metrics.with-reference .metric-label{min-height:116px}
+.reference-changes{margin:0}
+.reference-changes>div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 0 8px;flex-wrap:wrap}
+.reference-changes dt{font:600 13px/1.5 Arial,sans-serif}
+.reference-changes dd{margin:0;font:normal 26px/1.3 Georgia,serif;white-space:nowrap;color:var(--ink)}
+.reference-changes dd small{font:12px Arial,sans-serif}
+@media(min-width:761px) and (max-width:1200px){.metrics.with-reference{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics.with-reference .metric-label{min-height:90px}.metrics.with-reference article:nth-child(n+3){border-top:1px solid var(--line)}.metrics.with-reference article:nth-child(3){border-left:0;padding-left:0}}
+@media(max-width:760px){.metrics.with-reference{grid-template-columns:1fr}.metrics.with-reference .metric-label{min-height:0}.reference-changes{max-width:400px}}
