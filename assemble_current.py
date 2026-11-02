@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse,copy,hashlib,json,re
 from datetime import date,timedelta
 import pandas as pd
+from source_coverage import validate_source_coverage
 ROOT=Path(__file__).resolve().parent
 
 def total(entry):
@@ -41,9 +42,8 @@ def main():
     assert not audit['unknown_new_bdr']
     assert not audit['engine'].get('r2_errors'),audit['engine'].get('r2_errors')
     assert not audit['engine'].get('r2_unavailable'), 'R2 unavailable'
-    extraction=json.loads((out/'extraction.json').read_text(encoding='utf8'))
-    for key in ('13/Gazole','13/SP95','13/E10','20/Gazole','20/SP95'):
-        assert extraction['max_dates'].get(key,'')>=a.end, 'Source incomplète : '+key
+    coverage=validate_source_coverage(src,out/'observations.csv.gz',days)
+    (out/'source_coverage.json').write_text(json.dumps(coverage,ensure_ascii=False,indent=2),encoding='utf8')
     levels=[];comparisons=[]
     for fuel in ('Gazole','SP95'):
         current=data['fuels'][fuel];key='gazole' if fuel=='Gazole' else 'sp95'
