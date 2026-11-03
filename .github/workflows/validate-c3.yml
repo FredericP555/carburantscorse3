@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "**/*.py"
+      - "data/history_*.json"
       - "requirements.lock.txt"
       - "cloudflare/**"
       - "maquette/app.js"

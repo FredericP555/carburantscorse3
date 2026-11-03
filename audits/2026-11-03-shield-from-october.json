@@ -1,0 +1,2506 @@
+{
+  "id": "shield-below-cap-from-october-2026-11-03",
+  "from": "2026-10-01",
+  "through": "2026-11-02",
+  "newly_recalculated_through": "2026-10-29",
+  "from_oct30_preserved": true,
+  "twelve_other_regions_preserved": true,
+  "eni_preserved": true,
+  "source_evidence_sha256": {
+    "evidence-20261030.zip": "0e6f9e35eb637f422862af37c48a966b8ec751ac24fa884979050a7e990dd51b",
+    "evidence-20261031.zip": "ed78e4c87758a9469adad2cfab3fb4d3bf6d3f4e9d38e168c3c15abf8d107393",
+    "evidence.zip": "0ebc1b1c8e1d1183aaf982e0413f1dfb54a939020b202a14423d0c97848d73d3"
+  },
+  "regional_method": "Apply the current UFIP/R2 continuation to formerly below-ceiling rejections in the original station-day trace; all preceding guards remain enforced.",
+  "territorial_method": "Use the complete updated C3 territorial-engine replay from the archived October 31 inputs for Oct 1-29; preserve the already validated late-October/November correction.",
+  "validation_baseline": "Updated approved 25-day historical seed; previous seed and full dataset archived alongside this audit.",
+  "per_day": [
+    {
+      "date": "2026-10-01",
+      "before": {
+        "Gazole": {
+          "corse": 2.316,
+          "gaps": {
+            "all": 7.15,
+            "reseau": 5.65
+          },
+          "total": {
+            "date": "2026-10-01",
+            "diagnostic": 10.65,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13800009",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.123,
+          "gaps": {
+            "all": 0.8,
+            "reseau": -0.31
+          },
+          "total": {
+            "date": "2026-10-01",
+            "diagnostic": 9.93,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13800009",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.307,
+          "gaps": {
+            "all": 6.35,
+            "reseau": 4.9
+          },
+          "total": {
+            "date": "2026-10-01",
+            "diagnostic": 10.51,
+            "validated_gap": null,
+            "n_corse": 46,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13800009",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.115,
+          "gaps": {
+            "all": 0.03,
+            "reseau": -1.08
+          },
+          "total": {
+            "date": "2026-10-01",
+            "diagnostic": 9.71,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13800009",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-02",
+      "before": {
+        "Gazole": {
+          "corse": 2.313,
+          "gaps": {
+            "all": 7.24,
+            "reseau": 5.68
+          },
+          "total": {
+            "date": "2026-10-02",
+            "diagnostic": 10.6,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13800009",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.123,
+          "gaps": {
+            "all": 0.28,
+            "reseau": -0.86
+          },
+          "total": {
+            "date": "2026-10-02",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13800009",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.305,
+          "gaps": {
+            "all": 6.53,
+            "reseau": 5.04
+          },
+          "total": {
+            "date": "2026-10-02",
+            "diagnostic": 10.51,
+            "validated_gap": null,
+            "n_corse": 46,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13800009",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": -0.49,
+            "reseau": -1.63
+          },
+          "total": {
+            "date": "2026-10-02",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13800009",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "before": {
+        "Gazole": {
+          "corse": 2.313,
+          "gaps": {
+            "all": 7.51,
+            "reseau": 6.25
+          },
+          "total": {
+            "date": "2026-10-03",
+            "diagnostic": 10.65,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 29,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.122,
+          "gaps": {
+            "all": 0.16,
+            "reseau": -1.0
+          },
+          "total": {
+            "date": "2026-10-03",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.305,
+          "gaps": {
+            "all": 6.73,
+            "reseau": 5.55
+          },
+          "total": {
+            "date": "2026-10-03",
+            "diagnostic": 10.51,
+            "validated_gap": null,
+            "n_corse": 46,
+            "n_bdr": 29,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": -0.61,
+            "reseau": -1.76
+          },
+          "total": {
+            "date": "2026-10-03",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "before": {
+        "Gazole": {
+          "corse": 2.313,
+          "gaps": {
+            "all": 7.39,
+            "reseau": 6.04
+          },
+          "total": {
+            "date": "2026-10-04",
+            "diagnostic": 10.65,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.124,
+          "gaps": {
+            "all": 0.35,
+            "reseau": -0.87
+          },
+          "total": {
+            "date": "2026-10-04",
+            "diagnostic": 9.94,
+            "validated_gap": null,
+            "n_corse": 39,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.305,
+          "gaps": {
+            "all": 6.61,
+            "reseau": 5.33
+          },
+          "total": {
+            "date": "2026-10-04",
+            "diagnostic": 10.51,
+            "validated_gap": null,
+            "n_corse": 46,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": -0.54,
+            "reseau": -1.76
+          },
+          "total": {
+            "date": "2026-10-04",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "before": {
+        "Gazole": {
+          "corse": 2.311,
+          "gaps": {
+            "all": 6.83,
+            "reseau": 5.05
+          },
+          "total": {
+            "date": "2026-10-05",
+            "diagnostic": 10.65,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 20,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.124,
+          "gaps": {
+            "all": 0.11,
+            "reseau": -0.97
+          },
+          "total": {
+            "date": "2026-10-05",
+            "diagnostic": 9.94,
+            "validated_gap": null,
+            "n_corse": 39,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.303,
+          "gaps": {
+            "all": 6.07,
+            "reseau": 4.29
+          },
+          "total": {
+            "date": "2026-10-05",
+            "diagnostic": 10.51,
+            "validated_gap": null,
+            "n_corse": 46,
+            "n_bdr": 20,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": -0.78,
+            "reseau": -1.86
+          },
+          "total": {
+            "date": "2026-10-05",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "before": {
+        "Gazole": {
+          "corse": 2.308,
+          "gaps": {
+            "all": 7.28,
+            "reseau": 5.42
+          },
+          "total": {
+            "date": "2026-10-06",
+            "diagnostic": 10.65,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 24,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.126,
+          "gaps": {
+            "all": 0.58,
+            "reseau": -0.28
+          },
+          "total": {
+            "date": "2026-10-06",
+            "diagnostic": 9.94,
+            "validated_gap": null,
+            "n_corse": 39,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.3,
+          "gaps": {
+            "all": 6.55,
+            "reseau": 4.66
+          },
+          "total": {
+            "date": "2026-10-06",
+            "diagnostic": 10.51,
+            "validated_gap": null,
+            "n_corse": 46,
+            "n_bdr": 24,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.115,
+          "gaps": {
+            "all": -0.32,
+            "reseau": -1.18
+          },
+          "total": {
+            "date": "2026-10-06",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "before": {
+        "Gazole": {
+          "corse": 2.306,
+          "gaps": {
+            "all": 7.82,
+            "reseau": 6.0
+          },
+          "total": {
+            "date": "2026-10-07",
+            "diagnostic": 10.65,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.124,
+          "gaps": {
+            "all": -0.16,
+            "reseau": -1.8
+          },
+          "total": {
+            "date": "2026-10-07",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.298,
+          "gaps": {
+            "all": 7.11,
+            "reseau": 5.27
+          },
+          "total": {
+            "date": "2026-10-07",
+            "diagnostic": 10.51,
+            "validated_gap": null,
+            "n_corse": 46,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.115,
+          "gaps": {
+            "all": -0.93,
+            "reseau": -2.57
+          },
+          "total": {
+            "date": "2026-10-07",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-08",
+      "before": {
+        "Gazole": {
+          "corse": 2.295,
+          "gaps": {
+            "all": 7.62,
+            "reseau": 5.48
+          },
+          "total": {
+            "date": "2026-10-08",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.121,
+          "gaps": {
+            "all": 0.51,
+            "reseau": -0.41
+          },
+          "total": {
+            "date": "2026-10-08",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.289,
+          "gaps": {
+            "all": 7.01,
+            "reseau": 4.88
+          },
+          "total": {
+            "date": "2026-10-08",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.113,
+          "gaps": {
+            "all": -0.24,
+            "reseau": -1.17
+          },
+          "total": {
+            "date": "2026-10-08",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-09",
+      "before": {
+        "Gazole": {
+          "corse": 2.291,
+          "gaps": {
+            "all": 7.38,
+            "reseau": 5.25
+          },
+          "total": {
+            "date": "2026-10-09",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.121,
+          "gaps": {
+            "all": 0.56,
+            "reseau": -0.14
+          },
+          "total": {
+            "date": "2026-10-09",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.285,
+          "gaps": {
+            "all": 6.83,
+            "reseau": 4.67
+          },
+          "total": {
+            "date": "2026-10-09",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13300002",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.113,
+          "gaps": {
+            "all": -0.2,
+            "reseau": -0.9
+          },
+          "total": {
+            "date": "2026-10-09",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "before": {
+        "Gazole": {
+          "corse": 2.289,
+          "gaps": {
+            "all": 7.2,
+            "reseau": 4.86
+          },
+          "total": {
+            "date": "2026-10-10",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 25,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.12,
+          "gaps": {
+            "all": 0.46,
+            "reseau": -0.22
+          },
+          "total": {
+            "date": "2026-10-10",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.283,
+          "gaps": {
+            "all": 6.67,
+            "reseau": 4.33
+          },
+          "total": {
+            "date": "2026-10-10",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 25,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.112,
+          "gaps": {
+            "all": -0.29,
+            "reseau": -0.97
+          },
+          "total": {
+            "date": "2026-10-10",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-11",
+      "before": {
+        "Gazole": {
+          "corse": 2.287,
+          "gaps": {
+            "all": 7.02,
+            "reseau": 4.85
+          },
+          "total": {
+            "date": "2026-10-11",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.12,
+          "gaps": {
+            "all": 0.03,
+            "reseau": -1.03
+          },
+          "total": {
+            "date": "2026-10-11",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.282,
+          "gaps": {
+            "all": 6.51,
+            "reseau": 4.34
+          },
+          "total": {
+            "date": "2026-10-11",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.112,
+          "gaps": {
+            "all": -0.72,
+            "reseau": -1.79
+          },
+          "total": {
+            "date": "2026-10-11",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010",
+              "20200019"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "before": {
+        "Gazole": {
+          "corse": 2.283,
+          "gaps": {
+            "all": 6.07,
+            "reseau": 3.56
+          },
+          "total": {
+            "date": "2026-10-12",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 17,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.118,
+          "gaps": {
+            "all": -0.43,
+            "reseau": -2.0
+          },
+          "total": {
+            "date": "2026-10-12",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 1,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.278,
+          "gaps": {
+            "all": 5.6,
+            "reseau": 3.09
+          },
+          "total": {
+            "date": "2026-10-12",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 17,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.11,
+          "gaps": {
+            "all": -1.17,
+            "reseau": -2.75
+          },
+          "total": {
+            "date": "2026-10-12",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 1,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-13",
+      "before": {
+        "Gazole": {
+          "corse": 2.285,
+          "gaps": {
+            "all": 6.22,
+            "reseau": 4.48
+          },
+          "total": {
+            "date": "2026-10-13",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 24,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.12,
+          "gaps": {
+            "all": 0.93,
+            "reseau": 0.29
+          },
+          "total": {
+            "date": "2026-10-13",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.279,
+          "gaps": {
+            "all": 5.72,
+            "reseau": 4.02
+          },
+          "total": {
+            "date": "2026-10-13",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 24,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.111,
+          "gaps": {
+            "all": 0.18,
+            "reseau": -0.45
+          },
+          "total": {
+            "date": "2026-10-13",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "before": {
+        "Gazole": {
+          "corse": 2.283,
+          "gaps": {
+            "all": 6.16,
+            "reseau": 4.73
+          },
+          "total": {
+            "date": "2026-10-14",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 29,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.121,
+          "gaps": {
+            "all": 0.87,
+            "reseau": 0.4
+          },
+          "total": {
+            "date": "2026-10-14",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.278,
+          "gaps": {
+            "all": 5.68,
+            "reseau": 4.29
+          },
+          "total": {
+            "date": "2026-10-14",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 29,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.112,
+          "gaps": {
+            "all": 0.11,
+            "reseau": -0.35
+          },
+          "total": {
+            "date": "2026-10-14",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "before": {
+        "Gazole": {
+          "corse": 2.279,
+          "gaps": {
+            "all": 5.65,
+            "reseau": 4.2
+          },
+          "total": {
+            "date": "2026-10-15",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 29,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.122,
+          "gaps": {
+            "all": 1.28,
+            "reseau": 0.61
+          },
+          "total": {
+            "date": "2026-10-15",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.274,
+          "gaps": {
+            "all": 5.21,
+            "reseau": 3.8
+          },
+          "total": {
+            "date": "2026-10-15",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 29,
+            "unresolved_ids": [
+              "13013011",
+              "13610001",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": 0.52,
+            "reseau": -0.16
+          },
+          "total": {
+            "date": "2026-10-15",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "before": {
+        "Gazole": {
+          "corse": 2.276,
+          "gaps": {
+            "all": 5.26,
+            "reseau": 3.95
+          },
+          "total": {
+            "date": "2026-10-16",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.122,
+          "gaps": {
+            "all": 2.25,
+            "reseau": 1.1
+          },
+          "total": {
+            "date": "2026-10-16",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 4.84,
+            "reseau": 3.57
+          },
+          "total": {
+            "date": "2026-10-16",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 27,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": 1.48,
+            "reseau": 0.34
+          },
+          "total": {
+            "date": "2026-10-16",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-17",
+      "before": {
+        "Gazole": {
+          "corse": 2.276,
+          "gaps": {
+            "all": 5.1,
+            "reseau": 3.81
+          },
+          "total": {
+            "date": "2026-10-17",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.123,
+          "gaps": {
+            "all": 2.1,
+            "reseau": 1.14
+          },
+          "total": {
+            "date": "2026-10-17",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 4.69,
+            "reseau": 3.44
+          },
+          "total": {
+            "date": "2026-10-17",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 26,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": 1.33,
+            "reseau": 0.37
+          },
+          "total": {
+            "date": "2026-10-17",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-18",
+      "before": {
+        "Gazole": {
+          "corse": 2.276,
+          "gaps": {
+            "all": 4.91,
+            "reseau": 3.5
+          },
+          "total": {
+            "date": "2026-10-18",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 23,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.123,
+          "gaps": {
+            "all": 2.1,
+            "reseau": 1.14
+          },
+          "total": {
+            "date": "2026-10-18",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 4.5,
+            "reseau": 3.12
+          },
+          "total": {
+            "date": "2026-10-18",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 23,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": 1.33,
+            "reseau": 0.37
+          },
+          "total": {
+            "date": "2026-10-18",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-19",
+      "before": {
+        "Gazole": {
+          "corse": 2.275,
+          "gaps": {
+            "all": 4.5,
+            "reseau": 2.89
+          },
+          "total": {
+            "date": "2026-10-19",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 17,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.123,
+          "gaps": {
+            "all": 2.68,
+            "reseau": 1.96
+          },
+          "total": {
+            "date": "2026-10-19",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.27,
+          "gaps": {
+            "all": 4.12,
+            "reseau": 2.5
+          },
+          "total": {
+            "date": "2026-10-19",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 17,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.114,
+          "gaps": {
+            "all": 1.94,
+            "reseau": 1.2
+          },
+          "total": {
+            "date": "2026-10-19",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-20",
+      "before": {
+        "Gazole": {
+          "corse": 2.274,
+          "gaps": {
+            "all": 4.67,
+            "reseau": 3.35
+          },
+          "total": {
+            "date": "2026-10-20",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 21,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.122,
+          "gaps": {
+            "all": 2.19,
+            "reseau": 1.17
+          },
+          "total": {
+            "date": "2026-10-20",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.27,
+          "gaps": {
+            "all": 4.29,
+            "reseau": 2.97
+          },
+          "total": {
+            "date": "2026-10-20",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 21,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.113,
+          "gaps": {
+            "all": 1.46,
+            "reseau": 0.41
+          },
+          "total": {
+            "date": "2026-10-20",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-21",
+      "before": {
+        "Gazole": {
+          "corse": 2.275,
+          "gaps": {
+            "all": 4.0,
+            "reseau": 2.3
+          },
+          "total": {
+            "date": "2026-10-21",
+            "diagnostic": 10.55,
+            "validated_gap": null,
+            "n_corse": 34,
+            "n_bdr": 13,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.122,
+          "gaps": {
+            "all": 2.15,
+            "reseau": 0.82
+          },
+          "total": {
+            "date": "2026-10-21",
+            "diagnostic": 9.88,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 1,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.271,
+          "gaps": {
+            "all": 3.62,
+            "reseau": 1.91
+          },
+          "total": {
+            "date": "2026-10-21",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 13,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.113,
+          "gaps": {
+            "all": 1.42,
+            "reseau": 0.06
+          },
+          "total": {
+            "date": "2026-10-21",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 1,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-22",
+      "before": {
+        "Gazole": {
+          "corse": 2.274,
+          "gaps": {
+            "all": 3.69,
+            "reseau": 1.92
+          },
+          "total": {
+            "date": "2026-10-22",
+            "diagnostic": 10.56,
+            "validated_gap": null,
+            "n_corse": 35,
+            "n_bdr": 11,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.12,
+          "gaps": {
+            "all": 2.71,
+            "reseau": 1.42
+          },
+          "total": {
+            "date": "2026-10-22",
+            "diagnostic": 9.87,
+            "validated_gap": null,
+            "n_corse": 41,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.27,
+          "gaps": {
+            "all": 3.33,
+            "reseau": 1.56
+          },
+          "total": {
+            "date": "2026-10-22",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 11,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.113,
+          "gaps": {
+            "all": 2.09,
+            "reseau": 0.76
+          },
+          "total": {
+            "date": "2026-10-22",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-23",
+      "before": {
+        "Gazole": {
+          "corse": 2.277,
+          "gaps": {
+            "all": 4.44,
+            "reseau": 3.03
+          },
+          "total": {
+            "date": "2026-10-23",
+            "diagnostic": 10.66,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 20,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.121,
+          "gaps": {
+            "all": 4.37,
+            "reseau": 2.36
+          },
+          "total": {
+            "date": "2026-10-23",
+            "diagnostic": 9.87,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 3.97,
+            "reseau": 2.56
+          },
+          "total": {
+            "date": "2026-10-23",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 20,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.112,
+          "gaps": {
+            "all": 3.61,
+            "reseau": 1.61
+          },
+          "total": {
+            "date": "2026-10-23",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-24",
+      "before": {
+        "Gazole": {
+          "corse": 2.277,
+          "gaps": {
+            "all": 4.48,
+            "reseau": 3.0
+          },
+          "total": {
+            "date": "2026-10-24",
+            "diagnostic": 10.66,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 20,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.12,
+          "gaps": {
+            "all": 4.35,
+            "reseau": 2.34
+          },
+          "total": {
+            "date": "2026-10-24",
+            "diagnostic": 9.87,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 3.99,
+            "reseau": 2.53
+          },
+          "total": {
+            "date": "2026-10-24",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 20,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.112,
+          "gaps": {
+            "all": 3.59,
+            "reseau": 1.59
+          },
+          "total": {
+            "date": "2026-10-24",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-25",
+      "before": {
+        "Gazole": {
+          "corse": 2.277,
+          "gaps": {
+            "all": 4.12,
+            "reseau": 2.51
+          },
+          "total": {
+            "date": "2026-10-25",
+            "diagnostic": 10.66,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 16,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        },
+        "SP95": {
+          "corse": 2.12,
+          "gaps": {
+            "all": 4.35,
+            "reseau": 2.34
+          },
+          "total": {
+            "date": "2026-10-25",
+            "diagnostic": 9.87,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "provisoire"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 3.64,
+            "reseau": 2.04
+          },
+          "total": {
+            "date": "2026-10-25",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 16,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.112,
+          "gaps": {
+            "all": 3.59,
+            "reseau": 1.59
+          },
+          "total": {
+            "date": "2026-10-25",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "before": {
+        "Gazole": {
+          "corse": 2.278,
+          "gaps": {
+            "all": 3.5,
+            "reseau": 1.45
+          },
+          "total": {
+            "date": "2026-10-26",
+            "diagnostic": 10.66,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 11,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.12,
+          "gaps": {
+            "all": 3.95,
+            "reseau": 1.69
+          },
+          "total": {
+            "date": "2026-10-26",
+            "diagnostic": 9.87,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 3.03,
+            "reseau": 0.98
+          },
+          "total": {
+            "date": "2026-10-26",
+            "diagnostic": 10.44,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 11,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.111,
+          "gaps": {
+            "all": 3.2,
+            "reseau": 0.94
+          },
+          "total": {
+            "date": "2026-10-26",
+            "diagnostic": 9.67,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "before": {
+        "Gazole": {
+          "corse": 2.278,
+          "gaps": {
+            "all": 3.62,
+            "reseau": 2.73
+          },
+          "total": {
+            "date": "2026-10-27",
+            "diagnostic": 10.66,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 23,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.117,
+          "gaps": {
+            "all": 4.64,
+            "reseau": 2.66
+          },
+          "total": {
+            "date": "2026-10-27",
+            "diagnostic": 9.71,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.272,
+          "gaps": {
+            "all": 3.13,
+            "reseau": 2.23
+          },
+          "total": {
+            "date": "2026-10-27",
+            "diagnostic": 10.38,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 23,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.109,
+          "gaps": {
+            "all": 3.9,
+            "reseau": 1.92
+          },
+          "total": {
+            "date": "2026-10-27",
+            "diagnostic": 9.54,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 3,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "before": {
+        "Gazole": {
+          "corse": 2.28,
+          "gaps": {
+            "all": 3.26,
+            "reseau": 2.24
+          },
+          "total": {
+            "date": "2026-10-28",
+            "diagnostic": 10.66,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 18,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.118,
+          "gaps": {
+            "all": 4.68,
+            "reseau": 2.66
+          },
+          "total": {
+            "date": "2026-10-28",
+            "diagnostic": 9.71,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.274,
+          "gaps": {
+            "all": 2.75,
+            "reseau": 1.73
+          },
+          "total": {
+            "date": "2026-10-28",
+            "diagnostic": 10.38,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 18,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.109,
+          "gaps": {
+            "all": 3.94,
+            "reseau": 1.92
+          },
+          "total": {
+            "date": "2026-10-28",
+            "diagnostic": 9.54,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "date": "2026-10-29",
+      "before": {
+        "Gazole": {
+          "corse": 2.281,
+          "gaps": {
+            "all": 3.56,
+            "reseau": 2.79
+          },
+          "total": {
+            "date": "2026-10-29",
+            "diagnostic": 10.66,
+            "validated_gap": null,
+            "n_corse": 33,
+            "n_bdr": 22,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.117,
+          "gaps": {
+            "all": 4.62,
+            "reseau": 2.66
+          },
+          "total": {
+            "date": "2026-10-29",
+            "diagnostic": 9.71,
+            "validated_gap": null,
+            "n_corse": 40,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      },
+      "after": {
+        "Gazole": {
+          "corse": 2.275,
+          "gaps": {
+            "all": 3.03,
+            "reseau": 2.26
+          },
+          "total": {
+            "date": "2026-10-29",
+            "diagnostic": 10.38,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 22,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        },
+        "SP95": {
+          "corse": 2.108,
+          "gaps": {
+            "all": 3.87,
+            "reseau": 1.92
+          },
+          "total": {
+            "date": "2026-10-29",
+            "diagnostic": 9.54,
+            "validated_gap": null,
+            "n_corse": 47,
+            "n_bdr": 2,
+            "unresolved_ids": [
+              "13013011",
+              "13920010"
+            ],
+            "status": "diagnostic"
+          }
+        }
+      }
+    }
+  ]
+}
