@@ -50,7 +50,7 @@ jobs:
         run: python -m pip install -r requirements.lock.txt
       - name: Validate offline C3 regressions before collecting
         run: |
-          python -B -m unittest test_automation test_year_rollover test_regressions test_pages_health test_collect_current test_r2_inputs test_source_coverage
+          python -B -m unittest test_automation test_year_rollover test_regressions test_pages_health test_collect_current test_r2_inputs test_source_coverage test_shield_prices
           node cloudflare/test_worker.mjs
       - name: Collect and validate in isolation
         run: |

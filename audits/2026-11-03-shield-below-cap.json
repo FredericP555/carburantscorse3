@@ -1,0 +1,134 @@
+{
+  "id": "shield-below-cap-2026-11-03",
+  "authorized_from": "2026-10-30",
+  "through": "2026-11-02",
+  "rule": "Total prices at or below an active shield ceiling use the same continuation guards as prices at the ceiling. Price freshness, phase eligibility, UFIP/R2, official ruptures/closures and BDR activity checks remain enforced.",
+  "history_before_from_preserved": true,
+  "other_regional_series_preserved": true,
+  "eni_series_preserved": true,
+  "source_evidence_runs": [
+    41177372436,
+    41281577421,
+    41401078157,
+    41591048632
+  ],
+  "replay_method": "October 30/31: immutable original station-day traces; only formerly below-cap failures receive the new regional R2 continuation; territorial engine fully rerun. November 1/2: both engines fully rerun using the corresponding archived inputs. Assembly and source-coverage checks performed separately for each day.",
+  "per_day": [
+    {
+      "date": "2026-10-30",
+      "before": {
+        "gazole_corse": 2.282,
+        "sp95_corse": 2.117,
+        "total": {
+          "date": "2026-10-30",
+          "diagnostic": 10.66,
+          "validated_gap": null,
+          "n_corse": 32,
+          "n_bdr": 28,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      },
+      "after": {
+        "gazole_corse": 2.276,
+        "sp95_corse": 2.108,
+        "total": {
+          "date": "2026-10-30",
+          "diagnostic": 10.38,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 28,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      }
+    },
+    {
+      "date": "2026-10-31",
+      "before": {
+        "gazole_corse": 2.283,
+        "sp95_corse": 2.118,
+        "total": {
+          "date": "2026-10-31",
+          "diagnostic": 10.78,
+          "validated_gap": null,
+          "n_corse": 31,
+          "n_bdr": 28,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      },
+      "after": {
+        "gazole_corse": 2.276,
+        "sp95_corse": 2.108,
+        "total": {
+          "date": "2026-10-31",
+          "diagnostic": 10.38,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 28,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      }
+    },
+    {
+      "date": "2026-11-01",
+      "before": {
+        "gazole_corse": 2.285,
+        "sp95_corse": 2.121,
+        "total": {
+          "date": "2026-11-01",
+          "diagnostic": 11.05,
+          "validated_gap": null,
+          "n_corse": 29,
+          "n_bdr": 28,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      },
+      "after": {
+        "gazole_corse": 2.276,
+        "sp95_corse": 2.108,
+        "total": {
+          "date": "2026-11-01",
+          "diagnostic": 10.38,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 28,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "before": {
+        "gazole_corse": 2.284,
+        "sp95_corse": 2.119,
+        "total": {
+          "date": "2026-11-02",
+          "diagnostic": 11.05,
+          "validated_gap": null,
+          "n_corse": 29,
+          "n_bdr": 20,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      },
+      "after": {
+        "gazole_corse": 2.275,
+        "sp95_corse": 2.106,
+        "total": {
+          "date": "2026-11-02",
+          "diagnostic": 10.38,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 20,
+          "unresolved_ids": [],
+          "status": "diagnostic"
+        }
+      }
+    }
+  ]
+}

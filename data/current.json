@@ -70,10 +70,10 @@
           2.278,
           2.28,
           2.281,
-          2.282,
-          2.283,
-          2.285,
-          2.284
+          2.276,
+          2.276,
+          2.276,
+          2.275
         ],
         "Auvergne-Rhône-Alpes": [
           2.388,
@@ -527,10 +527,10 @@
           3.62,
           3.26,
           3.56,
-          3.95,
-          5.23,
-          7.16,
-          12.17
+          3.37,
+          4.58,
+          6.36,
+          11.38
         ],
         "reseau": [
           5.65,
@@ -562,10 +562,10 @@
           2.73,
           2.24,
           2.79,
-          3.52,
-          4.14,
-          6.08,
-          7.12
+          2.94,
+          3.49,
+          5.29,
+          6.34
         ]
       },
       "total": [
@@ -950,36 +950,36 @@
         },
         {
           "date": "2026-10-30",
-          "diagnostic": 10.66,
+          "diagnostic": 10.38,
           "validated_gap": null,
-          "n_corse": 32,
+          "n_corse": 47,
           "n_bdr": 28,
           "unresolved_ids": [],
           "status": "diagnostic"
         },
         {
           "date": "2026-10-31",
-          "diagnostic": 10.78,
+          "diagnostic": 10.38,
           "validated_gap": null,
-          "n_corse": 31,
+          "n_corse": 47,
           "n_bdr": 28,
           "unresolved_ids": [],
           "status": "diagnostic"
         },
         {
           "date": "2026-11-01",
-          "diagnostic": 11.05,
+          "diagnostic": 10.38,
           "validated_gap": null,
-          "n_corse": 29,
+          "n_corse": 47,
           "n_bdr": 28,
           "unresolved_ids": [],
           "status": "diagnostic"
         },
         {
           "date": "2026-11-02",
-          "diagnostic": 11.05,
+          "diagnostic": 10.38,
           "validated_gap": null,
-          "n_corse": 29,
+          "n_corse": 47,
           "n_bdr": 20,
           "unresolved_ids": [],
           "status": "diagnostic"
@@ -1218,10 +1218,10 @@
           2.117,
           2.118,
           2.117,
-          2.117,
-          2.118,
-          2.121,
-          2.119
+          2.108,
+          2.108,
+          2.108,
+          2.106
         ],
         "Auvergne-Rhône-Alpes": [
           2.25,
@@ -1675,10 +1675,10 @@
           4.64,
           4.68,
           4.62,
-          4.87,
-          5.6,
-          5.53,
-          6.24
+          4.13,
+          4.74,
+          4.41,
+          5.11
         ],
         "reseau": [
           -0.31,
@@ -1710,10 +1710,10 @@
           2.66,
           2.66,
           2.66,
-          3.03,
-          4.54,
-          4.22,
-          4.65
+          2.29,
+          3.68,
+          3.1,
+          3.53
         ]
       },
       "total": [
@@ -2076,36 +2076,36 @@
         },
         {
           "date": "2026-10-30",
-          "diagnostic": 9.71,
+          "diagnostic": 9.54,
           "validated_gap": null,
-          "n_corse": 40,
+          "n_corse": 47,
           "n_bdr": 2,
           "unresolved_ids": [],
           "status": "diagnostic"
         },
         {
           "date": "2026-10-31",
-          "diagnostic": 9.77,
+          "diagnostic": 9.54,
           "validated_gap": null,
-          "n_corse": 39,
+          "n_corse": 47,
           "n_bdr": 4,
           "unresolved_ids": [],
           "status": "diagnostic"
         },
         {
           "date": "2026-11-01",
-          "diagnostic": 9.9,
+          "diagnostic": 9.54,
           "validated_gap": null,
-          "n_corse": 37,
+          "n_corse": 47,
           "n_bdr": 3,
           "unresolved_ids": [],
           "status": "diagnostic"
         },
         {
           "date": "2026-11-02",
-          "diagnostic": 9.9,
+          "diagnostic": 9.54,
           "validated_gap": null,
-          "n_corse": 37,
+          "n_corse": 47,
           "n_bdr": 2,
           "unresolved_ids": [],
           "status": "diagnostic"
@@ -2142,10 +2142,10 @@
           11.08,
           10.85,
           11.36,
-          11.74,
-          11.86,
-          11.67,
-          11.74
+          11.0,
+          10.99,
+          10.55,
+          10.62
         ],
         "reseau": [
           6.52,
@@ -2177,10 +2177,10 @@
           8.78,
           8.8,
           9.45,
-          9.88,
-          9.47,
-          8.81,
-          7.94
+          9.14,
+          8.61,
+          7.69,
+          6.82
         ]
       }
     }
@@ -2191,8 +2191,16 @@
     "total": "C3 — diagnostic sur les seules stations identifiées ; périmètre historique incomplet",
     "c1_url": "https://github.com/FredericP555/carburantscorse1/tree/4ac9a87fe11636844a63baafa05be127f2939d36",
     "c2_url": "https://github.com/FredericP555/carburantscorse2/tree/1f03c9048029957f781cce98f3298064f0e40c16",
-    "last_run": "run41591048632attempt1",
-    "new_days": "Independent C3 annual official archive calculation; historical seed preserved"
+    "last_run": "shield20261103",
+    "new_days": "Independent C3 annual official archive calculation; historical seed preserved",
+    "corrections": [
+      {
+        "id": "shield-below-cap-2026-11-03",
+        "from": "2026-10-30",
+        "through": "2026-11-02",
+        "audit": "audits/2026-11-03-shield-below-cap.json"
+      }
+    ]
   },
   "colors": {
     "Corse": "#183c3a",
@@ -2210,7 +2218,7 @@
     "Bretagne": "#539b76"
   },
   "run_checks": {
-    "run": "run41591048632attempt1",
+    "run": "shield20261103",
     "end": "2026-11-02",
     "added_dates": [
       "2026-11-02"
@@ -2219,17 +2227,20 @@
     "motorway_excluded": true,
     "unknown_new_bdr": [],
     "source_hashes": {
-      "collection.json": "6c8844af65efb9b013006c2bf8d5fb517540f038cc0a8d237d89f694983e1f3e",
+      "baseline-bdr_station_brands.json": "21205eb8d02a8120ec380f055f6ba8e7297ba15f745f2b678577bcb4a0b0e9ab",
+      "baseline-corse_station_brands.json": "e5b29c5a6ac1f569e599ed18d8c7a9ac769227408e6e609847f94ead85a2d90f",
+      "bdr_station_brands.json": "58c42acaecde386816cd29903b5c17728089b5f7dd96d58d49891b1b03180e32",
+      "collection.json": "f6ec9bdbf58c9d64882a85efb3a322c8199811724f4c956daa2519e9c2bcf8ef",
+      "corse_station_brands.json": "5440c16143b2897729ca88146c71b5ebbae3e466a148076dd21afe1c307441c1",
+      "daily_20261030.zip": "2144eed4439fdfab4f8b73b27822558c4d6760a0a9a32a88d1f87d39dd6011ec",
+      "daily_20261031.zip": "6252ac785e725e7bd342a5f3f835cc3d8a35ad89f7b13c4ea8386279b410d26a",
+      "daily_20261101.zip": "9d9881c3befec1a649fd475b410f73ceb8fc0157b348f507292f060b9db15ff6",
+      "daily_20261102.zip": "b2a78279e6c97e52ff0e115c67e5e41bd0d23052e73af3bd5beef3f11734be62",
       "PrixCarburants_annuel_2025.zip": "383379223bd43f9d28626e203b53fc01bb248e8f85dfe88e2bdd9830231345ad",
+      "PrixCarburants_annuel_2026.zip": "b14bd3ca9fd7eabd6f3c569468252708dadb28455f1a9bfb7f0de9b6afe66725",
       "rotterdam_gazole_daily.csv": "3b8bf008f1a2a91051c0cbac9379189c96e6fabe7a93b185728fdbb29c30172e",
       "rotterdam_gazole_observed.csv": "669bf5c4e14bb553a20f599e4a487d7abc39738fa6f85c586f83777fae4771a6",
-      "baseline-corse_station_brands.json": "e5b29c5a6ac1f569e599ed18d8c7a9ac769227408e6e609847f94ead85a2d90f",
-      "baseline-bdr_station_brands.json": "21205eb8d02a8120ec380f055f6ba8e7297ba15f745f2b678577bcb4a0b0e9ab",
-      "bdr_station_brands.json": "21205eb8d02a8120ec380f055f6ba8e7297ba15f745f2b678577bcb4a0b0e9ab",
-      "daily_20261102.zip": "b2a78279e6c97e52ff0e115c67e5e41bd0d23052e73af3bd5beef3f11734be62",
-      "total_corse_stations.json": "f9addf33447ef8d0559378dc6dd0415ab30d5735fa2c11d2250fe0a76f8d3a08",
-      "PrixCarburants_annuel_2026.zip": "b14bd3ca9fd7eabd6f3c569468252708dadb28455f1a9bfb7f0de9b6afe66725",
-      "corse_station_brands.json": "e5b29c5a6ac1f569e599ed18d8c7a9ac769227408e6e609847f94ead85a2d90f"
+      "total_corse_stations.json": "f9addf33447ef8d0559378dc6dd0415ab30d5735fa2c11d2250fe0a76f8d3a08"
     },
     "r2_errors": {},
     "status": "local_only"
