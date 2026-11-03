@@ -53,6 +53,11 @@ async function main(){
  }
 
  assert(!elements['total-scope-controls'].hidden,'Total scopes visible');
+ assert(scopes[0]['aria-pressed']==='true','Access inclus is the default');
+ const totalStart=data.dates.findIndex(day=>day>='2026-10-15');
+ assert(charts[2].options.scales.x.min===(totalStart>=0?totalStart:0),'Total starts on October 15');
+ assert(charts[2].data.labels[charts[2].options.scales.x.min]===(totalStart>=0?data.dates[totalStart]:data.dates[0]),'correct first visible date');
+ assert(!elements['total-access-note'].hidden,'Access explanation visible for Total');
  const legacy=JSON.stringify(data.fuels.Gazole.total);
  scopes[0].onclick();assert(scopes[0]['aria-pressed']==='true','Access pressed');
  assert(JSON.stringify(charts[2].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.total_all.map(r=>r.diagnostic)),'Access series displayed');
@@ -63,14 +68,14 @@ async function main(){
  assert(accessRows.every(row=>row.length===accessRows[0].length),'Access CSV column alignment');
  assert(accessRows[1][17]===JSON.stringify(String(data.fuels.Gazole.total_all[0].diagnostic)),'Access CSV value');
  assert(download.includes('Total_Access_inclus_'),'Access CSV filename');
- brands[1].onclick();assert(elements['total-scope-controls'].hidden,'scopes hidden for Eni');assert(elements['comparison-title'].textContent.startsWith('Eni'),'ENI title');assert(charts[2].data.datasets.length===1,'ENI one line');
+ brands[1].onclick();assert(elements['total-scope-controls'].hidden,'scopes hidden for Eni');assert(elements['total-access-note'].hidden,'explanation hidden for Eni');assert(charts[2].options.scales.x.min===0,'Eni full period');assert(elements['comparison-title'].textContent.startsWith('Eni'),'ENI title');assert(charts[2].data.datasets.length===1,'ENI one line');
  elements.export.onclick();let csv=await blob.text();assert(download.endsWith(data.end+'.csv'),'CSV dates');assert(csv.split('\r\n').length===n+1,'CSV rows');assert(csv.includes('ecart_ENI_traditionnel'),'ENI CSV');
  const eniRows=csv.replace(/^\uFEFF/,'').split('\r\n').map(row=>row.split(';'));
  assert(eniRows.every(row=>row.length===eniRows[0].length),'ENI CSV column alignment');
  assert(eniRows[1][17]===JSON.stringify(String(data.fuels.Gazole.eni[0].gap)),'ENI CSV first gap');
  // A missing hidden Total/SP95 diagnostic must not break the E10 comparison.
  delete data.fuels.SP95.total;
- fuels[1].onclick();assert(charts[2].data.datasets.length===2,'SP95/E10 two lines');assert(elements['brand-selector'].hidden,'brand selector hidden for SP95');assert(!elements['sp95-context'].hidden,'SP95 note');assert(elements['total-scope-controls'].hidden,'scopes hidden for SP95');
+ fuels[1].onclick();assert(charts[2].data.datasets.length===2,'SP95/E10 two lines');assert(elements['brand-selector'].hidden,'brand selector hidden for SP95');assert(!elements['sp95-context'].hidden,'SP95 note');assert(elements['total-scope-controls'].hidden,'scopes hidden for SP95');assert(elements['total-access-note'].hidden,'explanation hidden for SP95');assert(charts[2].options.scales.x.min===0,'SP95 full period');
  assert(charts[2].options.scales.y.title.text==='c€/L hors TVA','gap unit');
  elements.export.onclick();csv=await blob.text();assert(csv.includes('ecart_SP95_Corse_E10'),'E10 CSV');assert(!csv.includes('diagnostic_Total_identifie'),'No hidden Total SP95 diagnostic in CSV');
  const e10Rows=csv.replace(/^\uFEFF/,'').split('\r\n').map(row=>row.split(';'));
@@ -79,7 +84,9 @@ async function main(){
  elements.date.onchange({target:{value:data.start}});assert(elements.date.value===data.start,'date selection');elements['open-history'].onclick();assert(elements['history-head'].innerHTML.match(/<th/g).length===n+1,'history dates');
  fuels[0].onclick();brands[0].onclick();assert(elements['comparison-title'].textContent.startsWith('Total'),'Total restored');assert(!elements['brand-selector'].hidden,'brand selector restored');
  assert(scopes[0]['aria-pressed']==='true','scope selection preserved');
- scopes[1].onclick();assert(scopes[1]['aria-pressed']==='true','Hors Access pressed');
+ scopes[1].onclick();assert(scopes[1]['aria-pressed']==='true','Hors Access pressed');assert(charts[2].options.scales.x.min===(totalStart>=0?totalStart:0),'Hors Access starts on October 15');
+ const titleFn=charts[2].options.plugins.tooltip.callbacks.title;assert(titleFn([{dataIndex:totalStart}]).includes('15'),'Total tooltip date stays aligned');
+ const clickIndex=Math.min(totalStart+1,n-1);charts[2].options.onClick({},[{index:clickIndex}],charts[2]);assert(elements.date.value===data.dates[clickIndex],'Total chart clicks keep global date indexes');
  assert(JSON.stringify(charts[2].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.total.map(r=>r.diagnostic)),'Hors Access series restored');
  assert(JSON.stringify(data.fuels.Gazole.total)===legacy,'legacy Total data unchanged');
  elements.export.onclick();csv=await blob.text();

@@ -1,7 +1,7 @@
 (() => {
 'use strict';
 const D=window.C3_DATA, $=id=>document.getElementById(id);
-let brand='Total', totalScope='traditional';
+let brand='Total', totalScope='all';
 const totalSeries=current=>totalScope==='all'?current.total_all:current.total;
 let fuel='Gazole', selected=D.dates.length-1;
 const nf=(v,d=2)=>new Intl.NumberFormat('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
@@ -10,7 +10,7 @@ const dayLabel=(s,long=false)=>new Date(s+'T12:00:00').toLocaleDateString('fr-FR
 const movement=v=>v>0?'up':v<0?'down':'flat';
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const baseOptions={responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#183c3a',padding:12,titleFont:{size:11},bodyFont:{size:11},displayColors:true}},layout:{padding:{right:8,top:8}},scales:{x:{grid:{display:false},border:{display:false},ticks:{maxTicksLimit:6,maxRotation:0,color:'#72817a',font:{size:10},callback:function(value){return dayLabel(D.dates[value]);}}},y:{border:{display:false},grid:{color:'#e6e6dd'},ticks:{color:'#72817a',font:{size:10}}}}};
-const cursor={id:'selectedDay',afterDatasetsDraw(chart){const {ctx,chartArea,scales}=chart;if(!chartArea)return;const x=scales.x.getPixelForValue(selected);ctx.save();ctx.setLineDash([3,5]);ctx.strokeStyle='#8c9c88';ctx.beginPath();ctx.moveTo(x,chartArea.top);ctx.lineTo(x,chartArea.bottom);ctx.stroke();ctx.restore();}};
+const cursor={id:'selectedDay',afterDatasetsDraw(chart){const {ctx,chartArea,scales}=chart;if(!chartArea)return;const x=scales.x.getPixelForValue(selected);if(x<chartArea.left||x>chartArea.right)return;ctx.save();ctx.setLineDash([3,5]);ctx.strokeStyle='#8c9c88';ctx.beginPath();ctx.moveTo(x,chartArea.top);ctx.lineTo(x,chartArea.bottom);ctx.stroke();ctx.restore();}};
 function makeChart(id, datasets, unit, provisional=false){const options=structuredClone(baseOptions);options.scales.x.ticks.callback=function(value){return dayLabel(D.dates[value]);};options.scales.y.title={display:true,text:unit==='€'?'€/L TTC':'c€/L hors TVA',color:'#183c3a',font:{size:12,weight:'bold'}};options.scales.y.ticks.maxTicksLimit=6;options.scales.y.ticks.callback=v=>nf(v,unit==='€'?3:2)+(unit==='€'?' €':'');options.plugins.tooltip.callbacks={title:items=>dayLabel(D.dates[items[0].dataIndex],true),label:ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,unit==='€'?3:2)} ${unit==='€'?'€/L TTC':'c€/L hors TVA'}${provisional?' · diagnostic':''}`};options.onClick=(event,elements,chart)=>{let i=elements[0]?.index;if(i===undefined){const rect=chart.canvas.getBoundingClientRect();const e=event.native;if(e)i=Math.round(chart.scales.x.getValueForPixel(e.clientX-rect.left));}if(Number.isInteger(i)&&i>=0&&i<D.dates.length)setDay(i);};return new Chart($(id),{type:'line',data:{labels:D.dates,datasets},options,plugins:[cursor]});}
 function line(label,color,dashed=false){return {label,data:[],borderColor:color,backgroundColor:color,borderWidth:2,pointRadius:0,pointHoverRadius:4,pointHitRadius:14,tension:.15,borderDash:dashed?[5,4]:[],spanGaps:false};}
 // Functions cannot be structured-cloned. Keep cloning to serializable options and restore callbacks.
@@ -63,6 +63,9 @@ function render(){
  charts.gaps.data.datasets[0].data=current.gaps.all;charts.gaps.data.datasets[1].data=current.gaps.reseau;
  const e10=fuel==='SP95', isEni=brand==='ENI', withAccess=totalScope==='all', scopeLabel=withAccess?'Access inclus':'hors Access';
  $('total-scope-controls').hidden=e10||isEni;
+ $('total-access-note').hidden=e10||isEni;
+ const totalStart=D.dates.findIndex(day=>day>='2026-10-15');
+ charts.total.options.scales.x.min=!e10&&!isEni&&totalStart>=0?totalStart:0;
  document.querySelectorAll('[data-total-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.totalScope===totalScope)));
  const kicker=$('comparison-kicker');if(kicker)kicker.textContent=e10?'04 — Comparaison SP95 / E10':'04 — À enseigne comparable';
  const scope=$('comparison-scope');if(scope)scope.textContent=e10?'Deux carburants différents · hors TVA':isEni?'Réseau traditionnel · hors GMS et low-cost':withAccess?'Réseau Total · Access inclus dans les BdR':'Réseau traditionnel · hors GMS et low-cost';

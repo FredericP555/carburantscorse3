@@ -11,7 +11,10 @@ assert d==json.loads(source.read_text(encoding='utf8'))
 html=(ROOT/'maquette/dist/C3.html').read_text(encoding='utf8')
 assert '<script src=' not in html and 'href="style.css"' not in html
 assert 'TTC ÷ 1,13' in html and 'TTC ÷ 1,20' in html
-assert 'sans Access, low cost ni Élan' in html
+assert 'data-total-scope="all" aria-pressed="true"' in html
+assert 'data-total-scope="traditional" aria-pressed="false"' in html
+assert 'hors Access, autoroutes et Élan' in html
+assert 'id="total-access-note"' in html and 'réseau à prix bas de TotalEnergies' in html
 assert d['end'] in html
 assert raw.strip().replace('</script','<\\/script') in html
 page=(ROOT/'maquette/dist/index.html').read_text(encoding='utf8')
