@@ -10,9 +10,18 @@ def total(entry):
     name=re.sub('[^a-z0-9]','',str(entry).casefold())
     return name in {'total','totalenergies','totalcontact','totalenergiescontact'}
 
-def total_point(good,day,fuel):
-    t=good[(good.date==day)&good.fuel.eq(fuel)&good.brand_segment.eq('traditionnel')&good.brand.map(total)]
-    c=t[t.department.eq('20')];b=t[t.department.eq('13')]
+def total_with_access(entry):
+    name=re.sub('[^a-z0-9]','',str(entry).casefold())
+    return total(entry) or name in {'totalaccess','totalenergiesaccess'}
+
+
+def total_point(good,day,fuel,*,include_access=False):
+    day_rows=good[(good.date==day)&good.fuel.eq(fuel)]
+    traditional=day_rows[day_rows.brand_segment.eq('traditionnel')&day_rows.brand.map(total).astype(bool)]
+    # The Corsica population is identical in both comparisons. Only BDR expands.
+    c=traditional[traditional.department.eq('20')]
+    b=(day_rows[day_rows.department.eq('13')&day_rows.brand.map(total_with_access).astype(bool)]
+       if include_access else traditional[traditional.department.eq('13')])
     available=len(c)>0 and len(b)>0
     # Only Gazole is displayed in the brand comparison. The retired SP95
     # diagnostic must not prevent publication of the other, available series.
@@ -62,6 +71,7 @@ def main():
         for day in days:
             current['total'].append(total_point(good,day,fuel))
             if fuel=='Gazole':
+                current['total_all'].append(total_point(good,day,fuel,include_access=True))
                 e=good[(good.date==day)&good.fuel.eq(fuel)&good.brand_segment.eq('traditionnel')&good.brand.fillna('').str.casefold().eq('eni')]
                 ec=e[e.department.eq('20')];eb=e[e.department.eq('13')];assert len(ec)>0 and len(eb)>0
                 current['eni'].append({'date':day,'gap':round(100*(ec.price_ht.mean()-eb.price_ht.mean()),2),'n_corse':len(ec),'n_bdr':len(eb)})
@@ -75,7 +85,7 @@ def main():
         for group in ('regions','gaps','e10_gaps'):
             for name,values in old['fuels'][fuel].get(group,{}).items():
                 assert data['fuels'][fuel][group][name][:len(old['dates'])]==values
-        for group in ('total','eni'):
+        for group in ('total','total_all','eni'):
             if group in old['fuels'][fuel]:assert data['fuels'][fuel][group][:len(old['dates'])]==old['fuels'][fuel][group]
     data['provenance']['last_run']=a.run;data['provenance']['new_days']='Independent C3 annual official archive calculation; historical seed preserved'
     # Station-level audit tables make filtering and coverage reviewable.

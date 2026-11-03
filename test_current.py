@@ -25,7 +25,7 @@ class CurrentTests(unittest.TestCase):
                 new=self.data['fuels'][fuel]
                 for group in ('regions','gaps','e10_gaps'):
                     for name,values in old.get(group,{}).items():self.assertEqual(new[group][name][:n],values)
-                for group in ('total','eni'):
+                for group in ('total','total_all','eni'):
                     if group in old:self.assertEqual(new[group][:n],old[group])
 
     def test_dates_and_lengths(self):
@@ -34,7 +34,7 @@ class CurrentTests(unittest.TestCase):
         for values in self.data['fuels'].values():
             for group in ('regions','gaps','e10_gaps'):
                 for rows in values.get(group,{}).values():self.assertEqual(len(rows),len(dates))
-            for group in ('total','eni'):
+            for group in ('total','total_all','eni'):
                 if group in values:self.assertEqual(len(values[group]),len(dates))
 
     def test_no_motorway_or_invalid_prices_in_retained_state(self):
@@ -76,5 +76,21 @@ class CurrentTests(unittest.TestCase):
         for name in ('run_regions.py','run_territories.py','assemble_current.py','build_mockup.py'):
             text=(ROOT/name).read_text(encoding='utf8');self.assertNotIn('reference-c1',text);self.assertNotIn('reference-c2',text)
         self.assertTrue((ROOT/'assets/chart.min.js').exists())
+
+    def test_access_inclusive_series_matches_station_means_and_same_corsica(self):
+        good=self.s[self.s.eligible_publication & self.s.fuel.eq('Gazole')]
+        names=good.brand.fillna('').str.casefold().str.replace('[^a-z0-9]','',regex=True)
+        regular={'total','totalenergies','totalcontact','totalenergiescontact'}
+        for day in self.new_dates():
+            i=self.data['dates'].index(day)
+            c=good[good.date.eq(day)&good.department.eq('20')&good.brand_segment.eq('traditionnel')&names.isin(regular)]
+            b=good[good.date.eq(day)&good.department.eq('13')&names.isin(regular|{'totalaccess','totalenergiesaccess'})]
+            row=self.data['fuels']['Gazole']['total_all'][i]
+            self.assertEqual(row['diagnostic'],round(100*(c.price_ht.mean()-b.price_ht.mean()),2))
+            self.assertEqual(row['n_corse'],len(c))
+            self.assertEqual(row['n_corse'],self.data['fuels']['Gazole']['total'][i]['n_corse'])
+            self.assertEqual(row['n_bdr'],len(b))
+            self.assertGreaterEqual(row['n_bdr'],self.data['fuels']['Gazole']['total'][i]['n_bdr'])
+            self.assertFalse(b['pop'].eq('A').any())
 
 if __name__=='__main__':unittest.main()

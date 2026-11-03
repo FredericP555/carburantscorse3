@@ -1,0 +1,36 @@
+{
+  "id": "total-access-comparison-2026-11-03",
+  "from": "2026-10-01",
+  "through": "2026-11-02",
+  "old_series_preserved": true,
+  "same_corsica_population": true,
+  "motorways_excluded": true,
+  "elan_excluded": true,
+  "method": "Mean retained station prices excluding VAT in Corsica minus mean retained station prices excluding VAT for Total/TotalEnergies/Contact and Total Access in BDR. Equal station weights; Access expands BDR only. Existing eligibility and shield guards unchanged.",
+  "source_trace_sha256": "df07b009c40238ba28bff6c853ad567083a97f3b28b64a33ef73afad1aeb0c08",
+  "source_trace_provenance": "Dated archived C3 evidence, combined and validated during the authorized October shield correction.",
+  "first": {
+    "date": "2026-10-01",
+    "diagnostic": 10.51,
+    "validated_gap": null,
+    "n_corse": 46,
+    "n_bdr": 54,
+    "unresolved_ids": [
+      "13013011",
+      "13300002",
+      "13610001",
+      "13800009",
+      "13920010"
+    ],
+    "status": "diagnostic"
+  },
+  "last": {
+    "date": "2026-11-02",
+    "diagnostic": 14.21,
+    "validated_gap": null,
+    "n_corse": 47,
+    "n_bdr": 37,
+    "unresolved_ids": [],
+    "status": "diagnostic"
+  }
+}

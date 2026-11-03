@@ -924,6 +924,339 @@
           "n_corse": 15,
           "n_bdr": 9
         }
+      ],
+      "total_all": [
+        {
+          "date": "2026-10-01",
+          "diagnostic": 10.51,
+          "validated_gap": null,
+          "n_corse": 46,
+          "n_bdr": 54,
+          "unresolved_ids": [
+            "13013011",
+            "13300002",
+            "13610001",
+            "13800009",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-02",
+          "diagnostic": 10.51,
+          "validated_gap": null,
+          "n_corse": 46,
+          "n_bdr": 55,
+          "unresolved_ids": [
+            "13013011",
+            "13300002",
+            "13610001",
+            "13800009",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-03",
+          "diagnostic": 10.51,
+          "validated_gap": null,
+          "n_corse": 46,
+          "n_bdr": 55,
+          "unresolved_ids": [
+            "13013011",
+            "13300002",
+            "13610001",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-04",
+          "diagnostic": 10.51,
+          "validated_gap": null,
+          "n_corse": 46,
+          "n_bdr": 51,
+          "unresolved_ids": [
+            "13013011",
+            "13300002",
+            "13610001",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-05",
+          "diagnostic": 10.51,
+          "validated_gap": null,
+          "n_corse": 46,
+          "n_bdr": 41,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010",
+            "20200019"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-06",
+          "diagnostic": 10.51,
+          "validated_gap": null,
+          "n_corse": 46,
+          "n_bdr": 48,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010",
+            "20200019"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-07",
+          "diagnostic": 10.54,
+          "validated_gap": null,
+          "n_corse": 46,
+          "n_bdr": 54,
+          "unresolved_ids": [
+            "13013011",
+            "13300002",
+            "13610001",
+            "13920010",
+            "20200019"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-08",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 55,
+          "unresolved_ids": [
+            "13013011",
+            "13300002",
+            "13610001",
+            "13920010",
+            "20200019"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-09",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 55,
+          "unresolved_ids": [
+            "13013011",
+            "13300002",
+            "13610001",
+            "13920010",
+            "20200019"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-10",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 54,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010",
+            "20200019"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-11",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 52,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010",
+            "20200019"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-12",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 43,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-13",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 51,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-14",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 58,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-15",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 58,
+          "unresolved_ids": [
+            "13013011",
+            "13610001",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-16",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 56,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-17",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 53,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-18",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 48,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-19",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 39,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-20",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 44,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-21",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 31,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-22",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 29,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-23",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 42,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-24",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 43,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        },
+        {
+          "date": "2026-10-25",
+          "diagnostic": 10.44,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 35,
+          "unresolved_ids": [
+            "13013011",
+            "13920010"
+          ],
+          "status": "diagnostic"
+        }
       ]
     },
     "SP95": {
