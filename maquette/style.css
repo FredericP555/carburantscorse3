@@ -72,4 +72,4 @@
 
 .access-explainer{font:13px/1.55 Arial,sans-serif;color:#344f49;margin:14px 0 0}.access-explainer[hidden]{display:none!important}
 
-.tax-tabs{display:flex;width:100%;max-width:340px;margin:16px 0}.tax-tabs button{flex:1;min-height:44px;padding:9px 12px;font:600 14px/1.35 Arial,sans-serif}
+.tax-tabs{display:inline-flex;align-self:flex-start;flex:0 0 auto;width:fit-content;max-width:100%;margin:16px 0}.tax-tabs button{flex:0 0 auto;padding:7px 24px;font-size:13px}
