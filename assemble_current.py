@@ -80,9 +80,11 @@ def main():
             rows={r['date']:r['ecart'] for r in gaps[key][source_scope]}
             for i,day in enumerate(old['dates']):
                 comparisons.append({'date':day,'fuel':fuel,'scope':scope,'preserved':old['fuels'][fuel]['gaps'][scope][i],'replay':rows.get(day)})
+    from ttc_comparisons import append_ttc
+    append_ttc(data,good,days)
     data['dates']+=days;data['end']=a.end
     for fuel in data['fuels']:
-        for group in ('regions','gaps','e10_gaps'):
+        for group in ('regions','gaps','e10_gaps','ttc'):
             for name,values in old['fuels'][fuel].get(group,{}).items():
                 assert data['fuels'][fuel][group][name][:len(old['dates'])]==values
         for group in ('total','total_all','eni'):

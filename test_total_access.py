@@ -51,5 +51,26 @@ class TotalAccessTests(unittest.TestCase):
         self.assertEqual(current, before)
 
 
+class TtcTests(unittest.TestCase):
+    def test_same_prices_ttc_can_have_different_htva(self):
+        from ttc_comparisons import point
+        frame = TotalAccessTests().rows()
+        frame['price'] = 2.0
+        frame['price_ht'] = frame.price / frame.department.map({'20': 1.13, '13': 1.20})
+        # Make the ENI group present too, without changing the Total populations.
+        eni = frame[frame.station_id.isin(['c1', 'b1'])].copy()
+        eni['brand'] = 'Eni'
+        frame = pd.concat([frame, eni], ignore_index=True)
+        result = point(frame, '2026-11-02', 'Gazole')
+        self.assertTrue(all(value == 0 for value in result.values()))
+        self.assertGreater(total_point(frame, '2026-11-02', 'Gazole')['diagnostic'], 10)
+
+    def test_ttc_seed_trimming_and_alignment_guard(self):
+        from ttc_comparisons import append_ttc
+        current = {'dates': ['2026-11-01', '2026-11-02'], 'end': '2026-11-02',
+                   'fuels': {'Gazole': {'regions': {}, 'ttc': {'total': [1, 2]}}}}
+        self.assertEqual(revalidation_seed(current, '2026-11-02')['fuels']['Gazole']['ttc']['total'], [1])
+
+
 if __name__ == '__main__':
     unittest.main()

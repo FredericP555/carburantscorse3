@@ -1,0 +1,26 @@
+{
+  "change": "Add TTC gaps from raw TTC station prices; existing published series preserved",
+  "period": [
+    "2026-10-01",
+    "2026-11-04"
+  ],
+  "station_rules": "same eligible territorial populations, same brand scopes, motorway exclusions unchanged",
+  "historical_trace": "C3 corrected October trace, then original daily run41786753094 and run41981649959 traces",
+  "historical_htva_crosscheck": "all territorial scope/fuel/day values match published HTVA to 0.01 c/L",
+  "baseline_commit": "5fc88c987e36f90c4da5b48cba620df87fb21980",
+  "ttc_keys": {
+    "Gazole": [
+      "gaps_all",
+      "gaps_reseau",
+      "total",
+      "total_all",
+      "eni"
+    ],
+    "SP95": [
+      "gaps_all",
+      "gaps_reseau",
+      "e10_all",
+      "e10_reseau"
+    ]
+  }
+}

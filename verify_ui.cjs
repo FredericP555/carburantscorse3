@@ -5,9 +5,9 @@ const elements={},charts=[];
 function element(){return {open:false,hidden:false,classList:{toggle(){}},setAttribute(k,v){this[k]=v},addEventListener(k,fn){this['on'+k]=fn},showModal(){this.open=true},close(){this.open=false}}}
 for(const m of html.matchAll(/id="([^"]+)"/g))elements[m[1]]=element();
 const buttons=(key,values)=>values.map(value=>({...element(),dataset:{[key]:value}}));
-const fuels=buttons('fuel',['Gazole','SP95']),brands=buttons('brand',['Total','ENI']),scopes=buttons('totalScope',['all','traditional']);
+const fuels=buttons('fuel',['Gazole','SP95']),brands=buttons('brand',['Total','ENI']),scopes=buttons('totalScope',['all','traditional']),gapTaxes=buttons('gapTax',['ttc','ht']),brandTaxes=buttons('brandTax',['ttc','ht']);
 let blob,download;
-const context={console,structuredClone,Intl,Date,setTimeout,Blob,URL:{createObjectURL:b=>{blob=b;return 'blob:test'},revokeObjectURL(){}},document:{getElementById:id=>{if(!elements[id])throw Error('Missing DOM element: '+id);return elements[id]},querySelectorAll:q=>q==='[data-fuel]'?fuels:q==='[data-brand]'?brands:q==='[data-total-scope]'?scopes:[],createElement:()=>({click(){download=this.download}})},Chart:function(e,options){this.data=options.data;this.options=options.options;this.update=()=>{};charts.push(this)}};
+const context={console,structuredClone,Intl,Date,setTimeout,Blob,URL:{createObjectURL:b=>{blob=b;return 'blob:test'},revokeObjectURL(){}},document:{getElementById:id=>{if(!elements[id])throw Error('Missing DOM element: '+id);return elements[id]},querySelectorAll:q=>q==='[data-fuel]'?fuels:q==='[data-brand]'?brands:q==='[data-total-scope]'?scopes:q==='[data-gap-tax]'?gapTaxes:q==='[data-brand-tax]'?brandTaxes:[],createElement:()=>({click(){download=this.download}})},Chart:function(e,options){this.data=options.data;this.options=options.options;this.update=()=>{};charts.push(this)}};
 context.window=context;vm.createContext(context);
 for(const file of ['data.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,'maquette/dist',file),'utf8'),context);
 const assert=(x,msg)=>{if(!x)throw Error(msg)};
@@ -93,6 +93,22 @@ async function main(){
  assert(csv.includes('diagnostic_Total_identifie'),'Total CSV selected');
  assert(!csv.includes('ecart_ENI_traditionnel'),'No ENI field in Total export');
  assert(!elements['source-c1']&&!elements['source-c2'],'No obsolete public source links');
+
+ assert(gapTaxes[1]['aria-pressed']==='true'&&brandTaxes[1]['aria-pressed']==='true','HTVA default in both panels');
+ gapTaxes[0].onclick();brandTaxes[0].onclick();
+ assert(charts[1].options.scales.y.title.text==='c€/L TTC'&&charts[2].options.scales.y.title.text==='c€/L TTC','TTC units');
+ assert(JSON.stringify(charts[1].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.ttc.gaps_all),'territory TTC data');
+ assert(JSON.stringify(charts[2].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.ttc.total),'Total hors Access TTC data');
+ assert(elements['gap-values'].innerHTML.includes(new Intl.NumberFormat('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.abs(data.fuels.Gazole.ttc.gaps_all[0]))),'table TTC data');
+ scopes[0].onclick();assert(JSON.stringify(charts[2].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.ttc.total_all),'Access TTC data');
+ elements.export.onclick();csv=await blob.text();assert(csv.includes('Access_inclus_TTC')&&!csv.includes('hors_TVA'),'TTC CSV headers');
+ assert(csv.replace(/^\uFEFF/,'').split('\r\n')[1].split(';')[17]===JSON.stringify(String(data.fuels.Gazole.ttc.total_all[0])),'TTC CSV value');
+ brands[1].onclick();assert(JSON.stringify(charts[2].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.ttc.eni),'Eni TTC');
+ fuels[1].onclick();assert(JSON.stringify(charts[2].data.datasets[0].data)===JSON.stringify(data.fuels.SP95.ttc.e10_all),'SP95/E10 TTC');
+ assert(elements['e10-summary'].textContent.endsWith('TTC'),'table TTC unit');
+ brandTaxes[1].onclick();assert(charts[1].options.scales.y.title.text==='c€/L TTC'&&charts[2].options.scales.y.title.text==='c€/L hors TVA','independent controls');
+ gapTaxes[1].onclick();fuels[0].onclick();brands[0].onclick();
+ assert(JSON.stringify(charts[1].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.gaps.all),'HTVA data restored');
  console.log('UI bindings, date range, Total Access scopes/ENI, SP95/E10, history table and Total, ENI and SP95/E10 CSV exports verified.');
 }
 main().catch(e=>{console.error(e);process.exitCode=1});

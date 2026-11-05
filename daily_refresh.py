@@ -21,7 +21,7 @@ def revalidation_seed(current,target):
     if keep==0:raise ValueError('No preceding history for test')
     result['dates']=result['dates'][:keep];result['end']=result['dates'][-1]
     for fuel,node in result['fuels'].items():
-        for key in ('regions','gaps','e10_gaps'):
+        for key in ('regions','gaps','e10_gaps','ttc'):
             for name,series in node.get(key,{}).items():node[key][name]=series[:keep]
         for key in ('total','total_all','eni'):
             if key in node:node[key]=node[key][:keep]

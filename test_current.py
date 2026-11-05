@@ -23,7 +23,7 @@ class CurrentTests(unittest.TestCase):
             self.assertEqual(self.data['dates'][:n],baseline['dates'])
             for fuel,old in baseline['fuels'].items():
                 new=self.data['fuels'][fuel]
-                for group in ('regions','gaps','e10_gaps'):
+                for group in ('regions','gaps','e10_gaps','ttc'):
                     for name,values in old.get(group,{}).items():self.assertEqual(new[group][name][:n],values)
                 for group in ('total','total_all','eni'):
                     if group in old:self.assertEqual(new[group][:n],old[group])
@@ -32,7 +32,7 @@ class CurrentTests(unittest.TestCase):
         dates=pd.date_range(self.data['start'],self.data['end']).strftime('%Y-%m-%d').tolist()
         self.assertEqual(dates,self.data['dates'])
         for values in self.data['fuels'].values():
-            for group in ('regions','gaps','e10_gaps'):
+            for group in ('regions','gaps','e10_gaps','ttc'):
                 for rows in values.get(group,{}).values():self.assertEqual(len(rows),len(dates))
             for group in ('total','total_all','eni'):
                 if group in values:self.assertEqual(len(values[group]),len(dates))
@@ -71,6 +71,15 @@ class CurrentTests(unittest.TestCase):
                 self.assertEqual(row['n_corse'],len(c));self.assertEqual(row['n_bdr'],len(b))
                 self.assertEqual(row['diagnostic' if key=='total' else 'gap'],round(100*(c.price_ht.mean()-b.price_ht.mean()),2))
                 if key=='total':self.assertFalse(selected.brand.str.contains('access|elan|élan',case=False).any())
+
+    def test_new_ttc_comparisons_match_eligible_raw_prices(self):
+        from ttc_comparisons import point
+        good=self.s[self.s.eligible_publication]
+        for day in self.new_dates():
+            i=self.data['dates'].index(day)
+            for fuel in self.data['fuels']:
+                for key,value in point(good,day,fuel).items():
+                    self.assertEqual(self.data['fuels'][fuel]['ttc'][key][i],value)
 
     def test_runtime_scripts_do_not_import_reference_checkouts(self):
         for name in ('run_regions.py','run_territories.py','assemble_current.py','build_mockup.py'):

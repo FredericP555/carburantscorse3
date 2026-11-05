@@ -1,7 +1,12 @@
 (() => {
 'use strict';
 const D=window.C3_DATA, $=id=>document.getElementById(id);
-let brand='Total', totalScope='all';
+let brand='Total', totalScope='all', gapTax='ht', brandTax='ht';
+const gapSeries=(current,scope)=>gapTax==='ttc'?current.ttc['gaps_'+scope]:current.gaps[scope];
+const brandValues=(current,key)=>brandTax==='ttc'?current.ttc[key]:key.startsWith('e10_')?current.e10_gaps[key.slice(4)]:key==='eni'?current.eni.map(r=>r.gap):current[key].map(r=>r.diagnostic);
+const taxLabel=tax=>tax==='ttc'?'TTC':'hors TVA';
+function setChartTax(chart,tax,diagnostic=false){const unit='c€/L '+taxLabel(tax);chart.options.scales.y.title.text=unit;chart.options.plugins.tooltip.callbacks.label=ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,2)} ${unit}${diagnostic?' · diagnostic':''}`;}
+
 const totalSeries=current=>totalScope==='all'?current.total_all:current.total;
 let fuel='Gazole', selected=D.dates.length-1;
 const nf=(v,d=2)=>new Intl.NumberFormat('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
@@ -58,9 +63,18 @@ function render(){
  $('ranking-date').textContent=dayLabel(ds,true);
  $('ranking-body').innerHTML=sorted.map(([region,series],i)=>{const r=1+sorted.filter(([,values])=>values[selected]>series[selected]).length;const d=selected?Math.round((series[selected]-series[selected-1])*100000)/1000:null;return `<tr class="${region==='Corse'?'corse-row':''}"><td>${r}</td><td><span class="region-name"><i class="region-color" style="background:${D.colors[region]}"></i>${escape(region)}</span></td><td class="${d===null?'flat':movement(d)}" title="${d===null?'Pas de journée précédente dans la période':sign(d,1)+' c€/L depuis la veille'}">${d===null?'—':(d>0?'↗ ':d<0?'↘ ':'→ ')+sign(d,1)}</td><td>${nf(series[selected],3)}</td></tr>`;}).join('');
  $('corse-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td>${nf(prices[i],3)} €</td><td>${i?sign((prices[i]-prices[i-1])*100,1)+' c€':'—'}</td></tr>`).join('');
- $('gap-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td>${sign(current.gaps.all[i])}</td><td>${sign(current.gaps.reseau[i])}</td></tr>`).join('');
+ $('gap-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td>${sign(gapSeries(current,'all')[i])}</td><td>${sign(gapSeries(current,'reseau')[i])}</td></tr>`).join('');
  charts.corse.data.datasets[0].data=prices;
- charts.gaps.data.datasets[0].data=current.gaps.all;charts.gaps.data.datasets[1].data=current.gaps.reseau;
+ charts.gaps.data.datasets[0].data=gapSeries(current,'all');charts.gaps.data.datasets[1].data=gapSeries(current,'reseau');
+ setChartTax(charts.gaps,gapTax);
+ $('territory-subtitle').innerHTML=`Même carburant dans les deux territoires · écart ${taxLabel(gapTax)}<br>Deux références : toutes stations et réseau traditionnel`;
+ $('gap-caption').textContent='Écarts Corse moins Bouches-du-Rhône · c€/L '+taxLabel(gapTax);
+ $('gap-source').textContent=gapTax==='ttc'?'Écarts des prix payés · c€/L TTC · mêmes stations retenues':'Écarts quotidiens vérifiés à partir des données sources · c€/L hors TVA · TVA neutralisée';
+ $('gap-chart').setAttribute('aria-label','Écarts journaliers '+taxLabel(gapTax)+' entre la Corse et les Bouches-du-Rhône');
+ document.querySelectorAll('[data-gap-tax]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.gapTax===gapTax)));
+ document.querySelectorAll('[data-brand-tax]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.brandTax===brandTax)));
+ $('e10-summary').textContent='Voir les écarts jour par jour · c€/L '+taxLabel(brandTax);
+
  const e10=fuel==='SP95', isEni=brand==='ENI', withAccess=totalScope==='all', scopeLabel=withAccess?'Access inclus':'hors Access';
  $('total-scope-controls').hidden=e10||isEni;
  $('total-access-note').hidden=e10||isEni;
@@ -68,25 +82,25 @@ function render(){
  charts.total.options.scales.x.min=!e10&&!isEni&&totalStart>=0?totalStart:0;
  document.querySelectorAll('[data-total-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.totalScope===totalScope)));
  const kicker=$('comparison-kicker');if(kicker)kicker.textContent=e10?'04 — Comparaison SP95 / E10':'04 — À enseigne comparable';
- const scope=$('comparison-scope');if(scope)scope.textContent=e10?'Deux carburants différents · hors TVA':isEni?'Réseau traditionnel · hors GMS et low-cost':withAccess?'Réseau Total · Access inclus dans les BdR':'Réseau traditionnel · hors GMS et low-cost';
+ const scope=$('comparison-scope');if(scope)scope.textContent=e10?'Deux carburants différents · '+taxLabel(brandTax):isEni?'Réseau traditionnel · hors GMS et low-cost':withAccess?'Réseau Total · Access inclus dans les BdR':'Réseau traditionnel · hors GMS et low-cost';
  $('brand-selector').hidden=e10;
  $('vito-note').hidden=e10;
  document.querySelectorAll('[data-brand]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.brand===brand)));
  $('comparison-title').textContent=e10?'SP95 en Corse − E10 dans les Bouches-du-Rhône':`${brand==='ENI'?'Eni':'Total'} : Corse − Bouches-du-Rhône`;
- $('comparison-subtitle').textContent=e10?'Écart hors TVA · toutes enseignes · deux carburants différents':isEni?'Stations sous enseigne Eni · hors autoroutes':withAccess?'Corse : Total / TotalEnergies et Contact · BdR : Total Access compris · hors autoroutes et Élan':'Total / TotalEnergies et Contact · hors Access, autoroutes et Élan';
+ $('comparison-subtitle').textContent=e10?'Écart '+taxLabel(brandTax)+' · toutes enseignes · deux carburants différents':isEni?'Stations sous enseigne Eni · hors autoroutes':withAccess?'Corse : Total / TotalEnergies et Contact · BdR : Total Access compris · hors autoroutes et Élan':'Total / TotalEnergies et Contact · hors Access, autoroutes et Élan';
  $('comparison-panel').classList.toggle('provisional-panel',!e10);
 
  for(const id of ['e10-note','e10-legend','e10-details'])$(id).hidden=!e10;
  $('small-sample').hidden=e10||isEni||total.n_bdr>=5;
  $('small-sample').textContent='Échantillon restreint : peu de stations Total disposent d’un prix de gazole retenu dans les Bouches-du-Rhône ce jour-là. La comparaison doit être interprétée avec prudence.';
- $('comparison-source').textContent=e10?'Écarts issus des déclarations officielles · SP95 Corse / E10 Bouches-du-Rhône · hors TVA':`Écart ${isEni?'Eni':'Total · '+scopeLabel} · c€/L hors TVA · ${isEni?'stations retenues selon les critères de fiabilité':total.n_corse+' stations en Corse / '+total.n_bdr+' dans les BdR le '+dayLabel(ds)}`;
- $('total-chart').setAttribute('aria-label',e10?'Écarts hors TVA entre le SP95 en Corse et l’E10 dans les Bouches-du-Rhône':`Écart ${isEni?'Eni':'Total · '+scopeLabel} hors TVA`);
- charts.total.options.plugins.tooltip.callbacks.label=ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,2)} c€/L hors TVA${!e10&&!isEni?' · diagnostic':''}`;
+ $('comparison-source').textContent=e10?'Écarts issus des déclarations officielles · SP95 Corse / E10 Bouches-du-Rhône · '+taxLabel(brandTax):`Écart ${isEni?'Eni':'Total · '+scopeLabel} · c€/L ${taxLabel(brandTax)} · ${isEni?'stations retenues selon les critères de fiabilité':total.n_corse+' stations en Corse / '+total.n_bdr+' dans les BdR le '+dayLabel(ds)}`;
+ $('total-chart').setAttribute('aria-label',e10?'Écarts '+taxLabel(brandTax)+' entre le SP95 en Corse et l’E10 dans les Bouches-du-Rhône':`Écart ${isEni?'Eni':'Total · '+scopeLabel} ${taxLabel(brandTax)}`);
+ setChartTax(charts.total,brandTax,!e10&&!isEni);
  if(e10){
   charts.total.data.datasets=[line('SP95 Corse − E10 Bouches-du-Rhône · toutes stations','#ae6b57'),line('SP95 Corse − E10 Bouches-du-Rhône · réseau traditionnel','#245d55')];
-  charts.total.data.datasets[0].data=current.e10_gaps.all;charts.total.data.datasets[1].data=current.e10_gaps.reseau;
-  $('e10-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td style="font-size:15px;font-weight:600">${sign(current.e10_gaps.all[i])}</td><td style="font-size:15px;font-weight:600">${sign(current.e10_gaps.reseau[i])}</td></tr>`).join('');
- }else if(isEni){charts.total.data.datasets=[line('Eni Corse − Bouches-du-Rhône','#245d55')];charts.total.data.datasets[0].data=current.eni.map(r=>r.gap);}else{charts.total.data.datasets=[line('Total Corse − Total BdR · '+scopeLabel,'#aa7835',true)];charts.total.data.datasets[0].data=totalSeries(current).map(r=>r.diagnostic);}
+  charts.total.data.datasets[0].data=brandValues(current,'e10_all');charts.total.data.datasets[1].data=brandValues(current,'e10_reseau');
+  $('e10-values').innerHTML=D.dates.map((d,i)=>`<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td style="font-size:15px;font-weight:600">${sign(brandValues(current,'e10_all')[i])}</td><td style="font-size:15px;font-weight:600">${sign(brandValues(current,'e10_reseau')[i])}</td></tr>`).join('');
+ }else if(isEni){charts.total.data.datasets=[line('Eni Corse − Bouches-du-Rhône','#245d55')];charts.total.data.datasets[0].data=brandValues(current,'eni');}else{charts.total.data.datasets=[line('Total Corse − Total BdR · '+scopeLabel,'#aa7835',true)];charts.total.data.datasets[0].data=brandValues(current,totalScope==='all'?'total_all':'total');}
 
  Object.values(charts).forEach(chart=>{chart.data.datasets.forEach(s=>{s.pointRadius=D.dates.map((_,i)=>i===selected?4:0);s.pointBackgroundColor=s.borderColor;s.pointBorderColor='#fffefa';s.pointBorderWidth=2;});chart.update('none');});
  if($('history-dialog').open)renderHistory();
@@ -94,17 +108,17 @@ function render(){
 function renderHistory(){const current=D.fuels[fuel];$('history-caption').textContent=`${fuel} · prix moyens régionaux TTC · du ${dayLabel(D.dates[0],true)} au ${dayLabel(D.end,true)}.`;$('history-head').innerHTML='<tr><th>Région</th>'+D.dates.map((d,i)=>`<th class="${i===selected?'selected-col':''}">${dayLabel(d)}</th>`).join('')+'</tr>';$('history-body').innerHTML=Object.entries(current.regions).sort(([a],[b])=>a==='Corse'?-1:b==='Corse'?1:a.localeCompare(b,'fr')).map(([name,series])=>`<tr class="${name==='Corse'?'history-corse':''}"><td>${escape(name)}</td>${series.map((v,i)=>`<td class="${i===selected?'selected-col':''}">${nf(v,3)}</td>`).join('')}</tr>`).join('');}
 function exportCsv(){
  const current=D.fuels[fuel],regions=Object.keys(current.regions).sort((a,b)=>a.localeCompare(b,'fr'));
- const header=['date','carburant',...regions.map(r=>r+'_TTC_EUR_L'),'ecart_Corse_Bouches-du-Rhône_toutes_hors_TVA_c_L','ecart_Corse_Bouches-du-Rhône_traditionnel_hors_TVA_c_L'];
- const rows=D.dates.map((d,i)=>[d,fuel,...regions.map(r=>current.regions[r][i]),current.gaps.all[i],current.gaps.reseau[i]]);
+ const header=['date','carburant',...regions.map(r=>r+'_TTC_EUR_L'),`ecart_Corse_Bouches-du-Rhône_toutes_${gapTax==='ttc'?'TTC':'hors_TVA'}_c_L`,`ecart_Corse_Bouches-du-Rhône_traditionnel_${gapTax==='ttc'?'TTC':'hors_TVA'}_c_L`];
+ const rows=D.dates.map((d,i)=>[d,fuel,...regions.map(r=>current.regions[r][i]),gapSeries(current,'all')[i],gapSeries(current,'reseau')[i]]);
  if(fuel==='SP95'){
-  header.push('ecart_SP95_Corse_E10_Bouches_du_Rhone_toutes_hors_TVA_c_L','ecart_SP95_Corse_E10_Bouches_du_Rhone_traditionnel_hors_TVA_c_L');
-  rows.forEach((row,i)=>row.push(current.e10_gaps.all[i],current.e10_gaps.reseau[i]));
+  header.push(`ecart_SP95_Corse_E10_Bouches_du_Rhone_toutes_${brandTax==='ttc'?'TTC':'hors_TVA'}_c_L`,`ecart_SP95_Corse_E10_Bouches_du_Rhone_traditionnel_${brandTax==='ttc'?'TTC':'hors_TVA'}_c_L`);
+  rows.forEach((row,i)=>row.push(brandValues(current,'e10_all')[i],brandValues(current,'e10_reseau')[i]));
  }else if(brand==='ENI'){
-  header.push('ecart_ENI_traditionnel_Corse_Bouches_du_Rhone_hors_TVA_c_L','ENI_Corse_effectif','ENI_Bouches_du_Rhone_effectif');
-  rows.forEach((row,i)=>row.push(current.eni[i].gap,current.eni[i].n_corse,current.eni[i].n_bdr));
+  header.push(`ecart_ENI_traditionnel_Corse_Bouches_du_Rhone_${brandTax==='ttc'?'TTC':'hors_TVA'}_c_L`,'ENI_Corse_effectif','ENI_Bouches_du_Rhone_effectif');
+  rows.forEach((row,i)=>row.push(brandValues(current,'eni')[i],current.eni[i].n_corse,current.eni[i].n_bdr));
  }else{
-  header.push(totalScope==='all'?'diagnostic_Total_Access_inclus_hors_TVA_c_L_NON_VALIDE':'diagnostic_Total_identifie_hors_TVA_c_L_NON_VALIDE','Total_Corse_effectif_identifie','Total_Bouches-du-Rhône_effectif_identifie','identites_historiques_manquantes');
-  rows.forEach((row,i)=>{const point=totalSeries(current)[i];row.push(point.diagnostic,point.n_corse,point.n_bdr,point.unresolved_ids.join(','));});
+  header.push(`diagnostic_Total_${totalScope==='all'?'Access_inclus':'identifie'}_${brandTax==='ttc'?'TTC':'hors_TVA'}_c_L_NON_VALIDE`,'Total_Corse_effectif_identifie','Total_Bouches-du-Rhône_effectif_identifie','identites_historiques_manquantes');
+  rows.forEach((row,i)=>{const point=totalSeries(current)[i];row.push(brandValues(current,totalScope==='all'?'total_all':'total')[i],point.n_corse,point.n_bdr,point.unresolved_ids.join(','));});
   header.push('perimetre_Total_BdR');rows.forEach(row=>row.push(totalScope==='all'?'Access inclus':'Hors Access'));
  }
  const quote=v=>'"'+String(v).replaceAll('"','""')+'"';
@@ -112,6 +126,8 @@ function exportCsv(){
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
  const a=document.createElement('a');a.href=url;a.download=`C3_${fuel}_${fuel==='Gazole'&&brand==='Total'?(totalScope==='all'?'Total_Access_inclus_':'Total_hors_Access_'):''}${D.start}_${D.end}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+document.querySelectorAll('[data-gap-tax]').forEach(b=>b.addEventListener('click',()=>{gapTax=b.dataset.gapTax;render();}));
+document.querySelectorAll('[data-brand-tax]').forEach(b=>b.addEventListener('click',()=>{brandTax=b.dataset.brandTax;render();}));
 document.querySelectorAll('[data-fuel]').forEach(b=>b.addEventListener('click',()=>{fuel=b.dataset.fuel;render();}));
 document.querySelectorAll('[data-brand]').forEach(b=>b.addEventListener('click',()=>{brand=b.dataset.brand;render();}));
 document.querySelectorAll('[data-total-scope]').forEach(b=>b.addEventListener('click',()=>{totalScope=b.dataset.totalScope;render();}));
