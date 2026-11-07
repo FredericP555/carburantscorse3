@@ -35,10 +35,11 @@
     "2026-11-02",
     "2026-11-03",
     "2026-11-04",
-    "2026-11-05"
+    "2026-11-05",
+    "2026-11-06"
   ],
   "start": "2026-10-01",
-  "end": "2026-11-05",
+  "end": "2026-11-06",
   "automatic_updates": false,
   "fuels": {
     "Gazole": {
@@ -79,7 +80,8 @@
           2.275,
           2.27,
           2.265,
-          2.257
+          2.257,
+          2.251
         ],
         "Auvergne-Rhône-Alpes": [
           2.388,
@@ -117,7 +119,8 @@
           2.28,
           2.262,
           2.246,
-          2.233
+          2.233,
+          2.212
         ],
         "Bourgogne-Franche-Comté": [
           2.421,
@@ -155,7 +158,8 @@
           2.305,
           2.29,
           2.281,
-          2.269
+          2.269,
+          2.251
         ],
         "Bretagne": [
           2.355,
@@ -193,7 +197,8 @@
           2.24,
           2.225,
           2.21,
-          2.198
+          2.198,
+          2.181
         ],
         "Centre-Val de Loire": [
           2.368,
@@ -231,7 +236,8 @@
           2.274,
           2.252,
           2.238,
-          2.226
+          2.226,
+          2.2
         ],
         "Grand Est": [
           2.432,
@@ -269,7 +275,8 @@
           2.32,
           2.299,
           2.281,
-          2.265
+          2.265,
+          2.245
         ],
         "Hauts-de-France": [
           2.371,
@@ -307,7 +314,8 @@
           2.285,
           2.26,
           2.244,
-          2.228
+          2.228,
+          2.203
         ],
         "Île-de-France": [
           2.373,
@@ -345,7 +353,8 @@
           2.278,
           2.267,
           2.255,
-          2.243
+          2.243,
+          2.224
         ],
         "Normandie": [
           2.364,
@@ -383,7 +392,8 @@
           2.278,
           2.255,
           2.24,
-          2.227
+          2.227,
+          2.204
         ],
         "Nouvelle-Aquitaine": [
           2.369,
@@ -421,7 +431,8 @@
           2.257,
           2.238,
           2.226,
-          2.217
+          2.217,
+          2.196
         ],
         "Occitanie": [
           2.386,
@@ -459,7 +470,8 @@
           2.268,
           2.25,
           2.237,
-          2.225
+          2.225,
+          2.206
         ],
         "PACA": [
           2.383,
@@ -497,7 +509,8 @@
           2.281,
           2.267,
           2.251,
-          2.235
+          2.235,
+          2.215
         ],
         "Pays de la Loire": [
           2.363,
@@ -535,7 +548,8 @@
           2.268,
           2.238,
           2.224,
-          2.209
+          2.209,
+          2.195
         ]
       },
       "gaps": {
@@ -575,7 +589,8 @@
           11.38,
           12.16,
           13.24,
-          13.91
+          13.91,
+          15.39
         ],
         "reseau": [
           4.9,
@@ -613,7 +628,8 @@
           6.34,
           7.1,
           8.08,
-          9.36
+          9.36,
+          10.3
         ]
       },
       "total": [
@@ -1058,6 +1074,15 @@
           "n_bdr": 32,
           "unresolved_ids": [],
           "status": "diagnostic"
+        },
+        {
+          "date": "2026-11-06",
+          "diagnostic": 13.28,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 31,
+          "unresolved_ids": [],
+          "status": "diagnostic"
         }
       ],
       "eni": [
@@ -1275,6 +1300,12 @@
           "date": "2026-11-05",
           "gap": 11.7,
           "n_corse": 14,
+          "n_bdr": 9
+        },
+        {
+          "date": "2026-11-06",
+          "gap": 11.02,
+          "n_corse": 13,
           "n_bdr": 9
         }
       ],
@@ -1720,6 +1751,15 @@
           "n_bdr": 57,
           "unresolved_ids": [],
           "status": "diagnostic"
+        },
+        {
+          "date": "2026-11-06",
+          "diagnostic": 17.48,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 56,
+          "unresolved_ids": [],
+          "status": "diagnostic"
         }
       ],
       "ttc": {
@@ -1759,7 +1799,8 @@
           -0.44,
           0.53,
           1.85,
-          2.72
+          2.72,
+          4.52
         ],
         "gaps_reseau": [
           -8.41,
@@ -1797,7 +1838,8 @@
           -6.49,
           -5.54,
           -4.33,
-          -2.75
+          -2.75,
+          -1.58
         ],
         "total": [
           -1.25,
@@ -1835,7 +1877,8 @@
           -1.4,
           -1.4,
           1.02,
-          1.4
+          1.4,
+          2.09
         ],
         "total_all": [
           -1.25,
@@ -1873,7 +1916,8 @@
           3.2,
           3.63,
           4.96,
-          6.07
+          6.07,
+          7.12
         ],
         "eni": [
           -14.26,
@@ -1911,7 +1955,8 @@
           -4.21,
           -3.64,
           -3.14,
-          -0.22
+          -0.22,
+          -0.99
         ]
       }
     },
@@ -1953,7 +1998,8 @@
           2.106,
           2.104,
           2.103,
-          2.098
+          2.098,
+          2.094
         ],
         "Auvergne-Rhône-Alpes": [
           2.25,
@@ -1991,7 +2037,8 @@
           2.193,
           2.179,
           2.167,
-          2.158
+          2.158,
+          2.144
         ],
         "Bourgogne-Franche-Comté": [
           2.273,
@@ -2029,7 +2076,8 @@
           2.237,
           2.232,
           2.223,
-          2.22
+          2.22,
+          2.206
         ],
         "Bretagne": [
           2.206,
@@ -2067,7 +2115,8 @@
           2.147,
           2.136,
           2.121,
-          2.107
+          2.107,
+          2.087
         ],
         "Centre-Val de Loire": [
           2.215,
@@ -2105,7 +2154,8 @@
           2.164,
           2.146,
           2.133,
-          2.126
+          2.126,
+          2.109
         ],
         "Grand Est": [
           2.269,
@@ -2143,7 +2193,8 @@
           2.236,
           2.217,
           2.204,
-          2.198
+          2.198,
+          2.185
         ],
         "Hauts-de-France": [
           2.216,
@@ -2181,7 +2232,8 @@
           2.165,
           2.153,
           2.14,
-          2.13
+          2.13,
+          2.112
         ],
         "Île-de-France": [
           2.224,
@@ -2219,7 +2271,8 @@
           2.17,
           2.153,
           2.136,
-          2.125
+          2.125,
+          2.099
         ],
         "Normandie": [
           2.219,
@@ -2257,7 +2310,8 @@
           2.175,
           2.15,
           2.134,
-          2.126
+          2.126,
+          2.11
         ],
         "Nouvelle-Aquitaine": [
           2.205,
@@ -2295,7 +2349,8 @@
           2.155,
           2.142,
           2.13,
-          2.115
+          2.115,
+          2.098
         ],
         "Occitanie": [
           2.224,
@@ -2333,7 +2388,8 @@
           2.177,
           2.165,
           2.157,
-          2.149
+          2.149,
+          2.131
         ],
         "PACA": [
           2.251,
@@ -2371,7 +2427,8 @@
           2.193,
           2.182,
           2.176,
-          2.166
+          2.166,
+          2.148
         ],
         "Pays de la Loire": [
           2.215,
@@ -2409,7 +2466,8 @@
           2.162,
           2.14,
           2.132,
-          2.116
+          2.116,
+          2.105
         ]
       },
       "gaps": {
@@ -2449,7 +2507,8 @@
           5.11,
           5.45,
           5.74,
-          5.94
+          5.94,
+          6.95
         ],
         "reseau": [
           -1.08,
@@ -2487,7 +2546,8 @@
           3.53,
           3.03,
           2.89,
-          2.77
+          2.77,
+          4.0
         ]
       },
       "total": [
@@ -2910,6 +2970,15 @@
           "n_bdr": 1,
           "unresolved_ids": [],
           "status": "diagnostic"
+        },
+        {
+          "date": "2026-11-06",
+          "diagnostic": 9.54,
+          "validated_gap": null,
+          "n_corse": 47,
+          "n_bdr": 1,
+          "unresolved_ids": [],
+          "status": "diagnostic"
         }
       ],
       "e10_gaps": {
@@ -2949,7 +3018,8 @@
           10.62,
           11.32,
           12.52,
-          13.02
+          13.02,
+          14.28
         ],
         "reseau": [
           5.85,
@@ -2987,7 +3057,8 @@
           6.82,
           7.83,
           9.41,
-          9.28
+          9.28,
+          10.66
         ]
       },
       "ttc": {
@@ -3027,7 +3098,8 @@
           -6.91,
           -6.49,
           -6.14,
-          -5.86
+          -5.86,
+          -4.63
         ],
         "gaps_reseau": [
           -14.4,
@@ -3065,7 +3137,8 @@
           -8.81,
           -9.39,
           -9.56,
-          -9.67
+          -9.67,
+          -8.17
         ],
         "e10_all": [
           -4.85,
@@ -3103,7 +3176,8 @@
           -0.31,
           0.55,
           2.0,
-          2.63
+          2.63,
+          4.16
         ],
         "e10_reseau": [
           -6.08,
@@ -3141,7 +3215,8 @@
           -4.87,
           -3.64,
           -1.74,
-          -1.86
+          -1.86,
+          -0.18
         ]
       }
     }
@@ -3152,7 +3227,7 @@
     "total": "C3 — diagnostic sur les seules stations identifiées ; périmètre historique incomplet",
     "c1_url": "https://github.com/FredericP555/carburantscorse1/tree/4ac9a87fe11636844a63baafa05be127f2939d36",
     "c2_url": "https://github.com/FredericP555/carburantscorse2/tree/1f03c9048029957f781cce98f3298064f0e40c16",
-    "last_run": "run42175608853attempt1",
+    "last_run": "run42347836071attempt1",
     "new_days": "Independent C3 annual official archive calculation; historical seed preserved",
     "corrections": [
       {
@@ -3193,23 +3268,23 @@
     "Bretagne": "#539b76"
   },
   "run_checks": {
-    "run": "run42175608853attempt1",
-    "end": "2026-11-05",
+    "run": "run42347836071attempt1",
+    "end": "2026-11-06",
     "added_dates": [
-      "2026-11-05"
+      "2026-11-06"
     ],
     "historical_points_preserved": true,
     "motorway_excluded": true,
     "unknown_new_bdr": [],
     "source_hashes": {
       "bdr_station_brands.json": "21205eb8d02a8120ec380f055f6ba8e7297ba15f745f2b678577bcb4a0b0e9ab",
-      "collection.json": "be945b236794f270c8b13362a402b20b7894a1802a3b101c2333c1bd56cbdba9",
-      "PrixCarburants_annuel_2026.zip": "b7d2e9cec248e21a3eee4dedb00aec50c475b62c23abc1c263c4774b48b42566",
-      "daily_20261105.zip": "13b90d8b8702df76e1f1f5190e179aee08b4d7d2bf5a5a542fb7d4dc32765ab1",
+      "collection.json": "c5c4af97950be7916ccd2431ca89bca5d73a4a6e0f23274c4a46c44f064737f7",
+      "daily_20261106.zip": "c555bd680b23b49d177566a5edbdf8517198cfdf96a2e8df6fe3a43a2a9f3d6e",
+      "PrixCarburants_annuel_2026.zip": "bb276953ba634d6c5d3de6e72c67352cbb8a7639cc7559aa5fe19964f5e023dd",
       "rotterdam_gazole_observed.csv": "669bf5c4e14bb553a20f599e4a487d7abc39738fa6f85c586f83777fae4771a6",
       "corse_station_brands.json": "e5b29c5a6ac1f569e599ed18d8c7a9ac769227408e6e609847f94ead85a2d90f",
       "total_corse_stations.json": "f9addf33447ef8d0559378dc6dd0415ab30d5735fa2c11d2250fe0a76f8d3a08",
-      "rotterdam_gazole_daily.csv": "ee538fb512990436886bfbca6a9f31e74aaa99bbb87d6bf65fc338ef5be1c29e",
+      "rotterdam_gazole_daily.csv": "89160202103b0b6aa9f6c3d3018a39d15766c5d7f1fc83c4eb9f9aed9844d70f",
       "PrixCarburants_annuel_2025.zip": "383379223bd43f9d28626e203b53fc01bb248e8f85dfe88e2bdd9830231345ad",
       "baseline-corse_station_brands.json": "e5b29c5a6ac1f569e599ed18d8c7a9ac769227408e6e609847f94ead85a2d90f",
       "baseline-bdr_station_brands.json": "21205eb8d02a8120ec380f055f6ba8e7297ba15f745f2b678577bcb4a0b0e9ab"
