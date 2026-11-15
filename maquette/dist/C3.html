@@ -77,8 +77,8 @@
 .tax-tabs{display:inline-flex;align-self:flex-start;flex:0 0 auto;width:fit-content;max-width:100%;margin:10px 0}.tax-tabs button{flex:0 0 auto;min-height:0;padding:5px 10px;font-size:12px;font-weight:400;line-height:1.5}
 
 /* Daily intercommunal detail, matching the existing regional panels. */
-.interco-panel{margin:24px 0}.interco-grid{display:grid;grid-template-columns:minmax(250px,.85fr) minmax(0,1.15fr);gap:28px}.interco-grid>div{min-width:0}.interco-label{display:block;font:600 13px/1.5 Arial,sans-serif;margin-bottom:6px}#interco-select{display:block;width:100%;max-width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink);font:14px Arial,sans-serif}.interco-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.interco-stats span{display:block;font:13px/1.5 Arial,sans-serif}.interco-stats strong{display:block;font:normal 28px/1.3 Georgia,serif;color:var(--ink);margin-top:5px}.interco-stats strong small{font:12px Arial,sans-serif}.interco-stats .up{color:var(--red)}.interco-stats .down{color:var(--green)}.interco-sample{font:13px/1.5 Arial,sans-serif;color:var(--muted);margin:14px 0}.interco-corse{background:var(--amber)}#interco-reference-block[hidden]{display:none!important}#interco-values td{font:14px/1.5 Arial,sans-serif;font-variant-numeric:tabular-nums}#interco-values td:not(:first-child){text-align:right}#interco-export{margin:8px 0 12px}
-@media(max-width:760px){.interco-grid{grid-template-columns:1fr;gap:12px}.interco-stats{gap:14px}.interco-stats strong{font-size:27px}.interco-panel .legend{line-height:1.6}#interco-select{font-size:16px}}
+.interco-panel{margin:24px 0}.interco-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}.interco-grid>div{min-width:0}.interco-label{display:block;font:600 13px/1.5 Arial,sans-serif;margin-bottom:6px}#interco-select,#interco-compare{display:block;width:100%;max-width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink);font:14px Arial,sans-serif}.interco-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.interco-stats span{display:block;font:13px/1.5 Arial,sans-serif}.interco-stats strong{display:block;font:normal 28px/1.3 Georgia,serif;color:var(--ink);margin-top:5px}.interco-stats strong small{font:12px Arial,sans-serif}.interco-stats .up{color:var(--red)}.interco-stats .down{color:var(--green)}.interco-sample{font:13px/1.5 Arial,sans-serif;color:var(--muted);margin:14px 0}.interco-corse{background:var(--amber)}#interco-reference-block[hidden]{display:none!important}#interco-values td{font:14px/1.5 Arial,sans-serif;font-variant-numeric:tabular-nums}#interco-values td:not(:first-child){text-align:right}#interco-export{margin:8px 0 12px}
+@media(max-width:760px){.interco-grid{grid-template-columns:1fr;gap:12px}.interco-stats{gap:14px}.interco-stats strong{font-size:27px}.interco-panel .legend{line-height:1.6}#interco-select,#interco-compare{font-size:16px}}
 </style></head>
 <body>
 <a class="skip" href="#main">Aller aux résultats</a>
@@ -98,7 +98,7 @@
 <div class="panel-heading"><div><span class="section-number">DANS LES 19 INTERCOMMUNALITÉS</span><h2 id="interco-title">Le <span class="fuel-name">gazole</span> près de chez vous</h2></div></div>
 <p class="panel-subtitle">Prix moyens quotidiens TTC · mêmes critères de fiabilité que la moyenne corse · hors autoroutes</p>
 <div class="interco-grid"><div>
-<label class="interco-label" for="interco-select">Votre intercommunalité</label><select id="interco-select"></select>
+<label class="interco-label" for="interco-select">Intercommunalité à comparer</label><select id="interco-select"></select>
 <p id="interco-date" class="panel-subtitle"></p>
 <div class="interco-stats" aria-live="polite">
 <div><span>Prix moyen TTC</span><strong id="interco-price"></strong></div>
@@ -106,9 +106,9 @@
 <div id="interco-reference-block"><span>Depuis le 30 octobre 2026</span><strong id="interco-reference"></strong></div>
 </div>
 <p id="interco-sample" class="interco-sample" aria-live="polite"></p><p id="interco-warning" class="small-sample" hidden></p>
-<button type="button" id="interco-export" class="text-button">↓ Exporter les données de ce territoire</button>
-</div><div><div class="legend"><span><i class="dot corse"></i>Intercommunalité sélectionnée</span><span><i class="dot interco-corse"></i>Moyenne corse</span></div><div class="chart-wrap compact"><canvas id="interco-chart" role="img" aria-label="Prix moyens TTC de l’intercommunalité et de la Corse"></canvas></div></div></div>
-<details class="data-details"><summary>Voir les valeurs jour par jour</summary><div class="table-scroll"><table><caption id="interco-caption" class="sr-only"></caption><thead><tr><th>Date</th><th>Prix TTC · €/L</th><th>Depuis la veille · c€/L</th><th>Stations retenues</th></tr></thead><tbody id="interco-values"></tbody></table></div></details>
+<button type="button" id="interco-export" class="text-button">↓ Exporter cette comparaison</button>
+</div><div><label class="interco-label" for="interco-compare">Comparer avec</label><select id="interco-compare"></select><p id="interco-compare-date" class="panel-subtitle"></p><div class="interco-stats" aria-live="polite"><div><span>Prix moyen TTC</span><strong id="interco-compare-price"></strong></div><div><span>Depuis la veille</span><strong id="interco-compare-change"></strong></div></div><p id="interco-compare-warning" class="small-sample" hidden></p></div></div><div class="legend"><span><i class="dot corse"></i><span id="interco-legend-left"></span></span><span><i class="dot interco-corse"></i><span id="interco-legend-right"></span></span></div><div class="chart-wrap compact"><canvas id="interco-chart" role="img" aria-label="Prix moyens TTC de l’intercommunalité et de la Corse"></canvas></div>
+<details class="data-details"><summary>Voir les valeurs jour par jour</summary><div class="table-scroll"><table><caption id="interco-caption" class="sr-only"></caption><thead><tr><th>Date</th><th id="interco-table-left">Prix TTC · €/L</th><th>Depuis la veille · c€/L</th><th>Stations retenues</th><th id="interco-table-right">Comparaison · €/L</th></tr></thead><tbody id="interco-values"></tbody></table></div></details>
 <p class="source-note">Chaque station retenue a le même poids dans la moyenne du jour. Les variations peuvent aussi refléter un changement de stations ; les petits échantillons sont signalés. Une absence de données n’est pas un prix nul.</p>
 </section>
 
@@ -1893,7 +1893,8 @@ const taxLabel=tax=>tax==='ttc'?'TTC':'hors TVA';
 function setChartTax(chart,tax,diagnostic=false){const unit='c€/L '+taxLabel(tax);chart.options.scales.y.title.text=unit;chart.options.plugins.tooltip.callbacks.label=ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,2)} ${unit}${diagnostic?' · diagnostic':''}`;}
 
 const intercoCatalog=Object.entries(D.fuels.Gazole.intercos).sort((a,b)=>a[1].name.localeCompare(b[1].name,'fr'));
-let interco=intercoCatalog[0][0];
+let interco=intercoCatalog[0][0], intercoCompare='Corse';
+const comparisonNode=()=>intercoCompare==='Corse'?{name:'Corse',prices:D.fuels[fuel].regions.Corse}:D.fuels[fuel].intercos[intercoCompare];
 const totalSeries=current=>totalScope==='all'?current.total_all:current.total;
 let fuel='Gazole', selected=D.dates.length-1;
 const nf=(v,d=2)=>new Intl.NumberFormat('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
@@ -1937,9 +1938,13 @@ function renderReference(){
 function intercoDelta(values,index,baseline){return baseline>=0&&index>=baseline&&Number.isFinite(values[index])&&Number.isFinite(values[baseline])?Math.round((values[index]-values[baseline])*100000)/1000:null;}
 function renderInterco(){
  const node=D.fuels[fuel].intercos[interco],values=node.prices,value=values[selected],n=node.counts[selected];
- $('interco-select').value=interco;$('interco-date').textContent=dayLabel(D.dates[selected],true)+' · '+fuel+' TTC';
+ $('interco-select').value=interco;$('interco-compare').value=intercoCompare;
+ const comparison=comparisonNode();
+ $('interco-compare-date').textContent=dayLabel(D.dates[selected],true)+' · '+fuel+' TTC';
+ $('interco-compare-price').innerHTML=Number.isFinite(comparison.prices[selected])?nf(comparison.prices[selected],3)+' <small>€/L</small>':'—';$('interco-date').textContent=dayLabel(D.dates[selected],true)+' · '+fuel+' TTC';
  $('interco-price').innerHTML=Number.isFinite(value)?nf(value,3)+' <small>€/L</small>':'—';
  const show=(id,delta)=>{const e=$(id),v=delta!==null&&Math.abs(delta)<0.05?0:delta;e.innerHTML=v===null?'—':sign(v,1)+' <small>c€/L</small>';e.className=v===null?'flat':movement(v);};
+ show('interco-compare-change',selected?intercoDelta(comparison.prices,selected,selected-1):null);
  show('interco-change',selected?intercoDelta(values,selected,selected-1):null);
  $('interco-reference-block').hidden=fuel!=='Gazole';show('interco-reference',intercoDelta(values,selected,D.dates.indexOf(referenceDate)));
  $('interco-sample').textContent=n?`${n} station${n>1?'s':''} retenue${n>1?'s':''} pour le ${fuel==='Gazole'?'gazole':'SP95'}.`:'Aucun prix retenu pour ce carburant ce jour-là.';
@@ -1947,18 +1952,24 @@ function renderInterco(){
  if(n>0&&n<3)warnings.push('Échantillon limité : moins de trois stations.');
  if(changed)warnings.push('Les stations retenues diffèrent de la veille : la variation peut aussi refléter ce changement.');
  $('interco-warning').hidden=!warnings.length;$('interco-warning').textContent=warnings.join(' ');
- charts.interco.data.datasets[0].label=node.name;charts.interco.data.datasets[0].data=values;charts.interco.data.datasets[1].data=D.fuels[fuel].regions.Corse;
- $('interco-chart').setAttribute('aria-label',`${fuel} · prix moyens TTC · ${node.name} et Corse`);
- $('interco-caption').textContent=`${node.name} · ${fuel} · prix TTC et variation quotidienne`;
- $('interco-values').innerHTML=D.dates.map((d,i)=>{const delta=i?intercoDelta(values,i,i-1):null;return `<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td>${Number.isFinite(values[i])?nf(values[i],3):'—'}</td><td>${delta===null?'—':sign(delta,1)}</td><td>${node.counts[i]}</td></tr>`;}).join('');
+ charts.interco.data.datasets[0].label=node.name;charts.interco.data.datasets[0].data=values;charts.interco.data.datasets[1].data=comparison.prices;charts.interco.data.datasets[1].label=comparison.name;
+ $('interco-legend-left').textContent=node.name;$('interco-legend-right').textContent=comparison.name;
+ $('interco-table-left').textContent=node.name+' · €/L';$('interco-table-right').textContent=comparison.name+' · €/L';
+ const comparisonWarnings=[];
+ if(comparison.counts&&comparison.counts[selected]<3)comparisonWarnings.push(comparison.counts[selected]?'Échantillon limité : moins de trois stations.':'Aucun prix retenu ce jour-là.');
+ if(comparison.samples&&selected>0&&comparison.samples[selected]!==comparison.samples[selected-1])comparisonWarnings.push('Les stations retenues diffèrent de la veille.');
+ $('interco-compare-warning').hidden=!comparisonWarnings.length;$('interco-compare-warning').textContent=comparisonWarnings.join(' ');
+ $('interco-chart').setAttribute('aria-label',`${fuel} · prix moyens TTC · ${node.name} et ${comparison.name}`);
+ $('interco-caption').textContent=`${node.name} / ${comparison.name} · ${fuel} · prix TTC et variation quotidienne`;
+ $('interco-values').innerHTML=D.dates.map((d,i)=>{const delta=i?intercoDelta(values,i,i-1):null;return `<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td>${Number.isFinite(values[i])?nf(values[i],3):'—'}</td><td>${delta===null?'—':sign(delta,1)}</td><td>${node.counts[i]}</td><td>${Number.isFinite(comparison.prices[i])?nf(comparison.prices[i],3):'—'}</td></tr>`;}).join('');
 }
 function exportInterco(){
- const node=D.fuels[fuel].intercos[interco],quote=v=>'"'+String(v).replaceAll('"','""')+'"';
- const header=['date','carburant','epci_siren','intercommunalite','prix_moyen_TTC_EUR_L','variation_veille_c_L','stations_retenues','moyenne_Corse_TTC_EUR_L'];
+ const node=D.fuels[fuel].intercos[interco],comparison=comparisonNode(),quote=v=>'"'+String(v).replaceAll('"','""')+'"';
+ const header=['date','carburant','epci_siren','intercommunalite','prix_moyen_TTC_EUR_L','variation_veille_c_L','stations_retenues','comparaison_TTC_EUR_L','territoire_comparaison'];
  if(fuel==='Gazole')header.push('evolution_depuis_30_octobre_c_L');
- const rows=D.dates.map((d,i)=>[d,fuel,interco,node.name,node.prices[i]??'',i?intercoDelta(node.prices,i,i-1)??'':'',node.counts[i],D.fuels[fuel].regions.Corse[i],...(fuel==='Gazole'?[intercoDelta(node.prices,i,D.dates.indexOf(referenceDate))??'']:[])]);
+ const rows=D.dates.map((d,i)=>[d,fuel,interco,node.name,node.prices[i]??'',i?intercoDelta(node.prices,i,i-1)??'':'',node.counts[i],comparison.prices[i]??'',comparison.name,...(fuel==='Gazole'?[intercoDelta(node.prices,i,D.dates.indexOf(referenceDate))??'']:[])]);
  const url=URL.createObjectURL(new Blob(['\ufeff'+[header,...rows].map(row=>row.map(quote).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}));
- const a=document.createElement('a');a.href=url;a.download=`C3_${fuel}_interco_${interco}_${D.start}_${D.end}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ const a=document.createElement('a');a.href=url;a.download=`C3_${fuel}_interco_${interco}_vs_${intercoCompare}_${D.start}_${D.end}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 function render(){
  const current=D.fuels[fuel], ds=D.dates[selected], prices=current.regions.Corse, start=prices[0], total=fuel==='Gazole'?totalSeries(current)[selected]:null;
@@ -2043,6 +2054,8 @@ function exportCsv(){
 }
 $('interco-select').innerHTML=intercoCatalog.map(([id,node])=>`<option value="${id}">${escape(node.name)}</option>`).join('');
 $('interco-select').addEventListener('change',e=>{if(D.fuels[fuel].intercos[e.target.value]){interco=e.target.value;render();}});
+$('interco-compare').innerHTML='<option value="Corse">Corse</option>'+$('interco-select').innerHTML;
+$('interco-compare').addEventListener('change',e=>{if(e.target.value==='Corse'||D.fuels[fuel].intercos[e.target.value]){intercoCompare=e.target.value;render();}});
 $('interco-export').addEventListener('click',exportInterco);
 document.querySelectorAll('[data-gap-tax]').forEach(b=>b.addEventListener('click',()=>{gapTax=b.dataset.gapTax;render();}));
 document.querySelectorAll('[data-brand-tax]').forEach(b=>b.addEventListener('click',()=>{brandTax=b.dataset.brandTax;render();}));

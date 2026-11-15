@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C3 — Les carburants, jour après jour</title><link rel="stylesheet" href="style.css?v=f634be0b6682"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C3 — Les carburants, jour après jour</title><link rel="stylesheet" href="style.css?v=f0178dde8903"></head>
 <body>
 <a class="skip" href="#main">Aller aux résultats</a>
 <header class="masthead"><div class="brand"><span class="brand-mark">C3<span>↗</span></span><div>OBSERVATOIRE DES CARBURANTS<small>UNE INITIATIVE A4C · CORSE</small></div></div><span class="local-tag">SUIVI QUOTIDIEN</span></header>
@@ -19,7 +19,7 @@
 <div class="panel-heading"><div><span class="section-number">DANS LES 19 INTERCOMMUNALITÉS</span><h2 id="interco-title">Le <span class="fuel-name">gazole</span> près de chez vous</h2></div></div>
 <p class="panel-subtitle">Prix moyens quotidiens TTC · mêmes critères de fiabilité que la moyenne corse · hors autoroutes</p>
 <div class="interco-grid"><div>
-<label class="interco-label" for="interco-select">Votre intercommunalité</label><select id="interco-select"></select>
+<label class="interco-label" for="interco-select">Intercommunalité à comparer</label><select id="interco-select"></select>
 <p id="interco-date" class="panel-subtitle"></p>
 <div class="interco-stats" aria-live="polite">
 <div><span>Prix moyen TTC</span><strong id="interco-price"></strong></div>
@@ -27,9 +27,9 @@
 <div id="interco-reference-block"><span>Depuis le 30 octobre 2026</span><strong id="interco-reference"></strong></div>
 </div>
 <p id="interco-sample" class="interco-sample" aria-live="polite"></p><p id="interco-warning" class="small-sample" hidden></p>
-<button type="button" id="interco-export" class="text-button">↓ Exporter les données de ce territoire</button>
-</div><div><div class="legend"><span><i class="dot corse"></i>Intercommunalité sélectionnée</span><span><i class="dot interco-corse"></i>Moyenne corse</span></div><div class="chart-wrap compact"><canvas id="interco-chart" role="img" aria-label="Prix moyens TTC de l’intercommunalité et de la Corse"></canvas></div></div></div>
-<details class="data-details"><summary>Voir les valeurs jour par jour</summary><div class="table-scroll"><table><caption id="interco-caption" class="sr-only"></caption><thead><tr><th>Date</th><th>Prix TTC · €/L</th><th>Depuis la veille · c€/L</th><th>Stations retenues</th></tr></thead><tbody id="interco-values"></tbody></table></div></details>
+<button type="button" id="interco-export" class="text-button">↓ Exporter cette comparaison</button>
+</div><div><label class="interco-label" for="interco-compare">Comparer avec</label><select id="interco-compare"></select><p id="interco-compare-date" class="panel-subtitle"></p><div class="interco-stats" aria-live="polite"><div><span>Prix moyen TTC</span><strong id="interco-compare-price"></strong></div><div><span>Depuis la veille</span><strong id="interco-compare-change"></strong></div></div><p id="interco-compare-warning" class="small-sample" hidden></p></div></div><div class="legend"><span><i class="dot corse"></i><span id="interco-legend-left"></span></span><span><i class="dot interco-corse"></i><span id="interco-legend-right"></span></span></div><div class="chart-wrap compact"><canvas id="interco-chart" role="img" aria-label="Prix moyens TTC de l’intercommunalité et de la Corse"></canvas></div>
+<details class="data-details"><summary>Voir les valeurs jour par jour</summary><div class="table-scroll"><table><caption id="interco-caption" class="sr-only"></caption><thead><tr><th>Date</th><th id="interco-table-left">Prix TTC · €/L</th><th>Depuis la veille · c€/L</th><th>Stations retenues</th><th id="interco-table-right">Comparaison · €/L</th></tr></thead><tbody id="interco-values"></tbody></table></div></details>
 <p class="source-note">Chaque station retenue a le même poids dans la moyenne du jour. Les variations peuvent aussi refléter un changement de stations ; les petits échantillons sont signalés. Une absence de données n’est pas un prix nul.</p>
 </section>
 
@@ -42,5 +42,5 @@
 <footer><strong>C3 · A4C</strong><span>Données disponibles jusqu’au 14 novembre 2026</span><span>Sources officielles · critères de sélection documentés</span></footer>
 </main>
 <dialog id="history-dialog"><div class="dialog-heading"><div><span class="section-number">TABLEAU RÉGIONAL · €/L TTC</span><h2>Chaque région, chaque jour</h2></div><button id="close-history" class="icon-button" aria-label="Fermer le tableau">✕</button></div><p id="history-caption"></p><div class="history-scroll"><table id="history-table"><caption class="sr-only">Historique des prix régionaux TTC du 1 octobre 2026 au 14 novembre 2026</caption><thead id="history-head"></thead><tbody id="history-body"></tbody></table></div><p class="source-note">Faites défiler horizontalement pour parcourir les 45 journées.</p></dialog>
-<script src="chart.min.js?v=9891ace121e6"></script><script src="data.js?v=a312cc472ea6"></script><script src="app.js?v=587d81a0215e"></script>
+<script src="chart.min.js?v=9891ace121e6"></script><script src="data.js?v=a312cc472ea6"></script><script src="app.js?v=0be68e0875d1"></script>
 </body></html>
