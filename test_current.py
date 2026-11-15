@@ -25,6 +25,8 @@ class CurrentTests(unittest.TestCase):
                 new=self.data['fuels'][fuel]
                 for group in ('regions','gaps','e10_gaps','ttc'):
                     for name,values in old.get(group,{}).items():self.assertEqual(new[group][name][:n],values)
+                for sid,series in old.get('intercos',{}).items():
+                    for field in ('prices','counts','samples'):self.assertEqual(new['intercos'][sid][field][:n],series[field])
                 for group in ('total','total_all','eni'):
                     if group in old:self.assertEqual(new[group][:n],old[group])
 
@@ -80,6 +82,28 @@ class CurrentTests(unittest.TestCase):
             for fuel in self.data['fuels']:
                 for key,value in point(good,day,fuel).items():
                     self.assertEqual(self.data['fuels'][fuel]['ttc'][key][i],value)
+
+    def test_new_interco_means_match_the_regional_station_sample(self):
+        from interco_daily import load_geography
+        geo=load_geography()
+        regional=pd.read_csv(self.out/'regional_stations.csv.gz',dtype={'station_id':str})
+        corse=regional[regional.region.eq('corse')]
+        self.assertFalse(set(corse.station_id)-set(geo.station_id))
+        mapped=corse.merge(geo[['station_id','epci_siren']],on='station_id',validate='many_to_one')
+        for fuel,node in self.data['fuels'].items():
+            self.assertEqual(len(node['intercos']),19)
+            for series in node['intercos'].values():
+                for field in ('prices','counts','samples'):self.assertEqual(len(series[field]),len(self.data['dates']))
+            for day in self.new_dates():
+                i=self.data['dates'].index(day)
+                good=mapped[mapped.fuel.eq(fuel)&mapped.date.eq(day)&mapped.eligible]
+                self.assertEqual(round(float(good.price.mean())+1e-12,3),node['regions']['Corse'][i])
+                total=0
+                for sid,series in node['intercos'].items():
+                    group=good[good.epci_siren.eq(sid)]
+                    self.assertEqual(series['counts'][i],len(group));total+=len(group)
+                    self.assertEqual(series['prices'][i],round(float(group.price.mean())+1e-12,3) if len(group) else None)
+                self.assertEqual(total,len(good))
 
     def test_runtime_scripts_do_not_import_reference_checkouts(self):
         for name in ('run_regions.py','run_territories.py','assemble_current.py','build_mockup.py'):

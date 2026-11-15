@@ -23,6 +23,8 @@ def revalidation_seed(current,target):
     for fuel,node in result['fuels'].items():
         for key in ('regions','gaps','e10_gaps','ttc'):
             for name,series in node.get(key,{}).items():node[key][name]=series[:keep]
+        for series in node.get('intercos',{}).values():
+            for key in ('prices','counts','samples'):series[key]=series[key][:keep]
         for key in ('total','total_all','eni'):
             if key in node:node[key]=node[key][:keep]
     return result

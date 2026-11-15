@@ -7,6 +7,8 @@ const brandValues=(current,key)=>brandTax==='ttc'?current.ttc[key]:key.startsWit
 const taxLabel=tax=>tax==='ttc'?'TTC':'hors TVA';
 function setChartTax(chart,tax,diagnostic=false){const unit='c€/L '+taxLabel(tax);chart.options.scales.y.title.text=unit;chart.options.plugins.tooltip.callbacks.label=ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,2)} ${unit}${diagnostic?' · diagnostic':''}`;}
 
+const intercoCatalog=Object.entries(D.fuels.Gazole.intercos).sort((a,b)=>a[1].name.localeCompare(b[1].name,'fr'));
+let interco=intercoCatalog[0][0];
 const totalSeries=current=>totalScope==='all'?current.total_all:current.total;
 let fuel='Gazole', selected=D.dates.length-1;
 const nf=(v,d=2)=>new Intl.NumberFormat('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
@@ -21,6 +23,7 @@ function line(label,color,dashed=false){return {label,data:[],borderColor:color,
 // Functions cannot be structured-cloned. Keep cloning to serializable options and restore callbacks.
 delete baseOptions.scales.x.ticks.callback;
 const charts={corse:makeChart('corse-chart',[line('Corse','#245d55')],'€'),gaps:makeChart('gap-chart',[line('Toutes stations Bouches-du-Rhône','#ae6b57'),line('Réseau traditionnel Bouches-du-Rhône','#245d55')],'c'),total:makeChart('total-chart',[line('Sous-ensemble Total identifié','#aa7835',true)],'c',true)};
+charts.interco=makeChart('interco-chart',[line('Intercommunalité','#245d55'),line('Corse','#aa7835',true)],'€');
 function setDay(index){selected=Math.max(0,Math.min(D.dates.length-1,index));render();}
 const referenceDate='2026-10-30';
 function referenceChanges(index){
@@ -46,10 +49,37 @@ function renderReference(){
   element.className=visible===null?'flat':movement(visible);
  }
 }
+function intercoDelta(values,index,baseline){return baseline>=0&&index>=baseline&&Number.isFinite(values[index])&&Number.isFinite(values[baseline])?Math.round((values[index]-values[baseline])*100000)/1000:null;}
+function renderInterco(){
+ const node=D.fuels[fuel].intercos[interco],values=node.prices,value=values[selected],n=node.counts[selected];
+ $('interco-select').value=interco;$('interco-date').textContent=dayLabel(D.dates[selected],true)+' · '+fuel+' TTC';
+ $('interco-price').innerHTML=Number.isFinite(value)?nf(value,3)+' <small>€/L</small>':'—';
+ const show=(id,delta)=>{const e=$(id),v=delta!==null&&Math.abs(delta)<0.05?0:delta;e.innerHTML=v===null?'—':sign(v,1)+' <small>c€/L</small>';e.className=v===null?'flat':movement(v);};
+ show('interco-change',selected?intercoDelta(values,selected,selected-1):null);
+ $('interco-reference-block').hidden=fuel!=='Gazole';show('interco-reference',intercoDelta(values,selected,D.dates.indexOf(referenceDate)));
+ $('interco-sample').textContent=n?`${n} station${n>1?'s':''} retenue${n>1?'s':''} pour le ${fuel==='Gazole'?'gazole':'SP95'}.`:'Aucun prix retenu pour ce carburant ce jour-là.';
+ const changed=selected>0&&node.samples[selected]!==node.samples[selected-1],warnings=[];
+ if(n>0&&n<3)warnings.push('Échantillon limité : moins de trois stations.');
+ if(changed)warnings.push('Les stations retenues diffèrent de la veille : la variation peut aussi refléter ce changement.');
+ $('interco-warning').hidden=!warnings.length;$('interco-warning').textContent=warnings.join(' ');
+ charts.interco.data.datasets[0].label=node.name;charts.interco.data.datasets[0].data=values;charts.interco.data.datasets[1].data=D.fuels[fuel].regions.Corse;
+ $('interco-chart').setAttribute('aria-label',`${fuel} · prix moyens TTC · ${node.name} et Corse`);
+ $('interco-caption').textContent=`${node.name} · ${fuel} · prix TTC et variation quotidienne`;
+ $('interco-values').innerHTML=D.dates.map((d,i)=>{const delta=i?intercoDelta(values,i,i-1):null;return `<tr class="${i===selected?'selected-row':''}"><td>${dayLabel(d)}</td><td>${Number.isFinite(values[i])?nf(values[i],3):'—'}</td><td>${delta===null?'—':sign(delta,1)}</td><td>${node.counts[i]}</td></tr>`;}).join('');
+}
+function exportInterco(){
+ const node=D.fuels[fuel].intercos[interco],quote=v=>'"'+String(v).replaceAll('"','""')+'"';
+ const header=['date','carburant','epci_siren','intercommunalite','prix_moyen_TTC_EUR_L','variation_veille_c_L','stations_retenues','moyenne_Corse_TTC_EUR_L'];
+ if(fuel==='Gazole')header.push('evolution_depuis_30_octobre_c_L');
+ const rows=D.dates.map((d,i)=>[d,fuel,interco,node.name,node.prices[i]??'',i?intercoDelta(node.prices,i,i-1)??'':'',node.counts[i],D.fuels[fuel].regions.Corse[i],...(fuel==='Gazole'?[intercoDelta(node.prices,i,D.dates.indexOf(referenceDate))??'']:[])]);
+ const url=URL.createObjectURL(new Blob(['\ufeff'+[header,...rows].map(row=>row.map(quote).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}));
+ const a=document.createElement('a');a.href=url;a.download=`C3_${fuel}_interco_${interco}_${D.start}_${D.end}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 function render(){
  const current=D.fuels[fuel], ds=D.dates[selected], prices=current.regions.Corse, start=prices[0], total=fuel==='Gazole'?totalSeries(current)[selected]:null;
  $('sp95-context').hidden=fuel!=='SP95';
  renderReference();
+ renderInterco();
  $('date').min=D.start;$('date').max=D.end;$('day-range').max=D.dates.length-1;
  $('date').value=ds;$('day-range').value=selected;$('prev').disabled=selected===0;$('next').disabled=selected===D.dates.length-1;
  document.querySelectorAll('[data-fuel]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.fuel===fuel)));
@@ -126,6 +156,9 @@ function exportCsv(){
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
  const a=document.createElement('a');a.href=url;a.download=`C3_${fuel}_${fuel==='Gazole'&&brand==='Total'?(totalScope==='all'?'Total_Access_inclus_':'Total_hors_Access_'):''}${D.start}_${D.end}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+$('interco-select').innerHTML=intercoCatalog.map(([id,node])=>`<option value="${id}">${escape(node.name)}</option>`).join('');
+$('interco-select').addEventListener('change',e=>{if(D.fuels[fuel].intercos[e.target.value]){interco=e.target.value;render();}});
+$('interco-export').addEventListener('click',exportInterco);
 document.querySelectorAll('[data-gap-tax]').forEach(b=>b.addEventListener('click',()=>{gapTax=b.dataset.gapTax;render();}));
 document.querySelectorAll('[data-brand-tax]').forEach(b=>b.addEventListener('click',()=>{brandTax=b.dataset.brandTax;render();}));
 document.querySelectorAll('[data-fuel]').forEach(b=>b.addEventListener('click',()=>{fuel=b.dataset.fuel;render();}));

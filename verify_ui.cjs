@@ -109,6 +109,39 @@ async function main(){
  brandTaxes[1].onclick();assert(charts[1].options.scales.y.title.text==='c€/L TTC'&&charts[2].options.scales.y.title.text==='c€/L hors TVA','independent controls');
  gapTaxes[1].onclick();fuels[0].onclick();brands[0].onclick();
  assert(JSON.stringify(charts[1].data.datasets[0].data)===JSON.stringify(data.fuels.Gazole.gaps.all),'HTVA data restored');
+
+ const catalog=Object.keys(data.fuels.Gazole.intercos),oldEnd=data.end;
+ assert(catalog.length===19,'19 EPCI in catalog');
+ for(const [fi,code] of ['Gazole','SP95'].entries()){
+  fuels[fi].onclick();
+  assert(elements['interco-reference-block'].hidden===(code==='SP95'),'Gazole-only October reference');
+  for(const id of catalog){
+   elements['interco-select'].onchange({target:{value:id}});
+   const node=data.fuels[code].intercos[id];
+   assert(JSON.stringify(charts[3].data.datasets[0].data)===JSON.stringify(node.prices),'correct EPCI/fuel curve '+id);
+   assert(JSON.stringify(charts[3].data.datasets[1].data)===JSON.stringify(data.fuels[code].regions.Corse),'correct Corsica reference');
+   elements.date.onchange({target:{value:oldEnd}});
+   assert(elements['interco-values'].innerHTML.match(/<tr/g).length===n,'all daily EPCI rows');
+   assert(!elements['interco-price'].innerHTML.includes('NaN'),'safe EPCI price');
+   if(node.counts[n-1]>0&&node.counts[n-1]<3)assert(!elements['interco-warning'].hidden,'small sample warning');
+  }
+ }
+ elements['interco-export'].onclick();csv=await blob.text();assert(!csv.includes('evolution_depuis_30_octobre'),'SP95 export has no Gazole reference');assert(csv.replace(/^\uFEFF/,'').split('\r\n').every(row=>row.split(';').length===8),'SP95 interco CSV columns');
+ // Independent UI fixture checks arithmetic and the treatment of a missing price.
+ const id=catalog[0],node=data.fuels.Gazole.intercos[id],saved=structuredClone(node);
+ fuels[0].onclick();elements['interco-select'].onchange({target:{value:id}});
+ node.prices[n-2]=2;node.prices[n-1]=2.12;node.counts[n-1]=1;node.samples[n-1]='changed';
+ elements.date.onchange({target:{value:oldEnd}});
+ assert(elements['interco-change'].innerHTML.startsWith('+12,0 '),'daily change in c/L');
+ assert(elements['interco-warning'].textContent.includes('diffèrent'),'changed station sample warning');
+ elements['interco-export'].onclick();csv=await blob.text();
+ assert(download.includes('Gazole_interco_'+id),'dedicated EPCI export');
+ const intercoRows=csv.replace(/^\uFEFF/,'').split('\r\n').map(row=>row.split(';'));
+ assert(intercoRows.every(row=>row.length===9),'EPCI CSV alignment');assert(intercoRows[n][5]==='"12"','EPCI CSV change');
+ node.prices[n-1]=null;node.counts[n-1]=0;elements.date.onchange({target:{value:oldEnd}});
+ assert(elements['interco-price'].innerHTML==='—'&&elements['interco-change'].innerHTML==='—','missing sample is not zero');
+ elements.date.onchange({target:{value:data.start}});assert(elements['interco-change'].innerHTML==='—','first day has no previous day');
+ Object.assign(node,saved);elements.date.onchange({target:{value:oldEnd}});
  console.log('UI bindings, date range, Total Access scopes/ENI, SP95/E10, history table and Total, ENI and SP95/E10 CSV exports verified.');
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
