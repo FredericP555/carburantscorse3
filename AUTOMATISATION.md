@@ -48,7 +48,7 @@ Les ressources du site possèdent une URL basée sur leur empreinte pour limiter
 
 ## Audit et limites
 
-Chaque exécution conserve les sources, décisions et rapports dans un artefact GitHub **90 jours**. Un archivage durable au-delà de cette durée reste à définir. La présence d’un artefact ne suffit pas : examiner `result.json`, les contrôles et, après publication, le site public.
+Chaque exécution conserve les sources, décisions et rapports dans un artefact GitHub **90 jours**. Lorsqu'une page UFIP reçue ne satisfait pas les vérifications de source, C3 archive ses octets HTML exacts et un fichier JSON (URL, statut HTTP, SHA-256, motif) dans `sources/ufip-failure-html/` de l'artefact de l'exécution. Le journal GitHub affiche uniquement le nom et l'empreinte, car le HTML brut peut contenir un jeton de formulaire temporaire. Ces captures sont des preuves de diagnostic, pas des données publiées sur Pages. Un archivage durable au-delà de cette durée reste à définir. La présence d’un artefact ne suffit pas : examiner `result.json`, les contrôles et, après publication, le site public.
 
 Les notifications d’échec GitHub dépendent des préférences du compte. Aucun canal d’alerte externe n’est configuré. Cloudflare ne garantit pas l’heure de démarrage d’un runner GitHub. La liaison réelle doit être validée par un événement Cloudflare observé, le workflow correspondant et la date du site ; la seule réponse HTTP du Worker ne suffit pas.
 
