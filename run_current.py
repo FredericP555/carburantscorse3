@@ -11,6 +11,8 @@ def main():
     def run(script,*args):
         subprocess.run([sys.executable,'-B',str(ROOT/script),*args],env=env,check=True)
     if a.collect:
+        # Failure HTML stays inside the run evidence, never the published C3 site.
+        env['A4C_UFIP_FAILURE_DIR']=str(ROOT/'sources/runs'/a.run/'ufip-failure-html')
         run('collect_current.py','--run',a.run,'--end',a.end)
         # Preserve the 2026 baseline calibration and phase anchors in later years.
         run('engine/profile1/scripts/fetch_ufip.py','--start','2026-01-01','--end',a.end,'--output-dir',str(ROOT/'sources/runs'/a.run),'--attempts','2','--retry-delay','1')
