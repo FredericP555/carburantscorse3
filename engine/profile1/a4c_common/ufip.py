@@ -11,6 +11,11 @@ from __future__ import annotations
 import io
 import math
 import re
+import json
+import os
+import hashlib
+from pathlib import Path
+from uuid import uuid4
 from datetime import date
 
 import pandas as pd
@@ -52,6 +57,38 @@ def validate_ufip_source_contract(raw_html: str) -> None:
         raise RuntimeError("UFIP source contract changed: 5-day moving-average label not found")
 
 
+
+def _capture_failed_contract_response(response, *, reason: str) -> None:
+    """Store exact received UFIP bytes for diagnosis, only when configured.
+
+    Raw HTML can contain transient form tokens, so never print it in runner logs.
+    """
+    destination = os.environ.get("A4C_UFIP_FAILURE_DIR")
+    if not destination:
+        return
+    try:
+        folder = Path(destination)
+        folder.mkdir(parents=True, exist_ok=True)
+        name = "ufip-response-" + uuid4().hex
+        raw = response.content
+        (folder / (name + ".html")).write_bytes(raw)
+        (folder / (name + ".json")).write_text(
+            json.dumps({
+                "url": response.url,
+                "http_status": response.status_code,
+                "content_type": response.headers.get("Content-Type", ""),
+                "content_length_bytes": len(raw),
+                "sha256": hashlib.sha256(raw).hexdigest(),
+                "reason": reason,
+            }, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        print(f"UFIP invalid HTML archived as {name}.html; SHA-256: {hashlib.sha256(raw).hexdigest()}")
+    except OSError as exc:
+        print(f"WARNING: cannot archive UFIP HTML: {type(exc).__name__}: {exc}")
+
+
+
 def _fetch_validated_contract_page(session, *, timeout: int = 90):
     """Fetch the documented UFIP form and retry once if a minimal edge-page variant is served.
 
@@ -65,6 +102,7 @@ def _fetch_validated_contract_page(session, *, timeout: int = 90):
         validate_ufip_source_contract(first.text)
         return first
     except RuntimeError as first_error:
+        _capture_failed_contract_response(first, reason=str(first_error))
         retry = session.get(
             UFIP_CUSTOM_URL,
             timeout=timeout,
@@ -79,6 +117,7 @@ def _fetch_validated_contract_page(session, *, timeout: int = 90):
         try:
             validate_ufip_source_contract(retry.text)
         except RuntimeError as retry_error:
+            _capture_failed_contract_response(retry, reason=str(retry_error))
             raise RuntimeError(
                 "UFIP source contract unavailable after browser-header retry; "
                 f"first={first_error}; retry={retry_error}"
