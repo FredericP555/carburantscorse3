@@ -17,14 +17,56 @@ const sign=(v,d=2)=>(v>0?'+':v<0?'−':'')+nf(Math.abs(v),d);
 const dayLabel=(s,long=false)=>new Date(s+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:long?'long':'short',...(long?{year:'numeric'}:{})});
 const movement=v=>v>0?'up':v<0?'down':'flat';
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mobileChart=()=>typeof window.matchMedia==='function'&&window.matchMedia('(max-width:760px)').matches;
 const baseOptions={responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#183c3a',padding:12,titleFont:{size:11},bodyFont:{size:11},displayColors:true}},layout:{padding:{right:8,top:8}},scales:{x:{grid:{display:false},border:{display:false},ticks:{maxTicksLimit:6,maxRotation:0,color:'#72817a',font:{size:10},callback:function(value){return dayLabel(D.dates[value]);}}},y:{border:{display:false},grid:{color:'#e6e6dd'},ticks:{color:'#72817a',font:{size:10}}}}};
 const cursor={id:'selectedDay',afterDatasetsDraw(chart){const {ctx,chartArea,scales}=chart;if(!chartArea)return;const x=scales.x.getPixelForValue(selected);if(x<chartArea.left||x>chartArea.right)return;ctx.save();ctx.setLineDash([3,5]);ctx.strokeStyle='#8c9c88';ctx.beginPath();ctx.moveTo(x,chartArea.top);ctx.lineTo(x,chartArea.bottom);ctx.stroke();ctx.restore();}};
-function makeChart(id, datasets, unit, provisional=false){const options=structuredClone(baseOptions);options.scales.x.ticks.callback=function(value){return dayLabel(D.dates[value]);};options.scales.y.title={display:true,text:unit==='€'?'€/L TTC':'c€/L hors TVA',color:'#183c3a',font:{size:12,weight:'bold'}};options.scales.y.ticks.maxTicksLimit=6;options.scales.y.ticks.callback=v=>nf(v,unit==='€'?3:2)+(unit==='€'?' €':'');options.plugins.tooltip.callbacks={title:items=>dayLabel(D.dates[items[0].dataIndex],true),label:ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,unit==='€'?3:2)} ${unit==='€'?'€/L TTC':'c€/L hors TVA'}${provisional?' · diagnostic':''}`};options.onClick=(event,elements,chart)=>{let i=elements[0]?.index;if(i===undefined){const rect=chart.canvas.getBoundingClientRect();const e=event.native;if(e)i=Math.round(chart.scales.x.getValueForPixel(e.clientX-rect.left));}if(Number.isInteger(i)&&i>=0&&i<D.dates.length)setDay(i);};return new Chart($(id),{type:'line',data:{labels:D.dates,datasets},options,plugins:[cursor]});}
+function makeChart(id, datasets, unit, provisional=false){const options=structuredClone(baseOptions);options.plugins.tooltip.enabled=!mobileChart();options.scales.x.ticks.callback=function(value){return dayLabel(D.dates[value]);};options.scales.y.title={display:true,text:unit==='€'?'€/L TTC':'c€/L hors TVA',color:'#183c3a',font:{size:12,weight:'bold'}};options.scales.y.ticks.maxTicksLimit=6;options.scales.y.ticks.callback=v=>nf(v,unit==='€'?3:2)+(unit==='€'?' €':'');options.plugins.tooltip.callbacks={title:items=>dayLabel(D.dates[items[0].dataIndex],true),label:ctx=>`${ctx.dataset.label} : ${nf(ctx.parsed.y,unit==='€'?3:2)} ${unit==='€'?'€/L TTC':'c€/L hors TVA'}${provisional?' · diagnostic':''}`};options.onClick=(event,elements,chart)=>{let i=elements[0]?.index;if(i===undefined){const rect=chart.canvas.getBoundingClientRect();const e=event.native;if(e)i=Math.round(chart.scales.x.getValueForPixel(e.clientX-rect.left));}if(Number.isInteger(i)&&i>=0&&i<D.dates.length)setDay(i);};return new Chart($(id),{type:'line',data:{labels:D.dates,datasets},options,plugins:[cursor]});}
 function line(label,color,dashed=false){return {label,data:[],borderColor:color,backgroundColor:color,borderWidth:2,pointRadius:0,pointHoverRadius:4,pointHitRadius:14,tension:.15,borderDash:dashed?[5,4]:[],spanGaps:false};}
 // Functions cannot be structured-cloned. Keep cloning to serializable options and restore callbacks.
 delete baseOptions.scales.x.ticks.callback;
 const charts={corse:makeChart('corse-chart',[line('Corse','#245d55')],'€'),gaps:makeChart('gap-chart',[line('Toutes stations Bouches-du-Rhône','#ae6b57'),line('Réseau traditionnel Bouches-du-Rhône','#245d55')],'c'),total:makeChart('total-chart',[line('Sous-ensemble Total identifié','#aa7835',true)],'c',true)};
 charts.interco=makeChart('interco-chart',[line('Intercommunalité','#245d55'),line('Corse','#aa7835',true)],'€');
+
+/* C3: the canvas tooltip is unreadable on narrow screens; use full-width HTML below each chart. */
+const c3MobilePanels={};
+Object.entries(charts).forEach(([key,chart])=>{
+ const wrap=chart.canvas?.parentElement;
+ if(!wrap||typeof wrap.insertAdjacentElement!=='function')return;
+ const panel=document.createElement('div');
+ panel.className='c3-mobile-chart-readout';
+ panel.setAttribute('role','status');
+ panel.setAttribute('aria-live','polite');
+ wrap.insertAdjacentElement('afterend',panel);
+ c3MobilePanels[key]=panel;
+});
+function renderMobileChartReadouts(){
+ for(const [key,panel] of Object.entries(c3MobilePanels)){
+  const chart=charts[key],unit=chart.options.scales.y.title.text;
+  const digits=unit==='€/L TTC'?3:2;
+  const items=chart.data.datasets.map(ds=>{
+   const value=ds.data?.[selected];
+   const display=typeof value==='number'&&Number.isFinite(value)?nf(value,digits)+' '+unit:'—';
+   const color=escape(ds.borderColor||'#245d55');
+   return '<div class="c3-mobile-chart-readout-row">'+
+    '<span class="c3-mobile-chart-readout-label"><i aria-hidden="true" style="background:'+color+'"></i>'+escape(ds.label)+'</span>'+
+    '<strong class="c3-mobile-chart-readout-value">'+escape(display)+'</strong></div>';
+  }).join('');
+  panel.innerHTML='<strong class="c3-mobile-chart-readout-date">'+escape(dayLabel(D.dates[selected],true))+
+   '</strong>'+items;
+ }
+}
+if(typeof window.addEventListener==='function'){
+ window.addEventListener('resize',()=>{
+  const enabled=!mobileChart();
+  Object.values(charts).forEach(chart=>{
+   if(chart.options.plugins.tooltip.enabled!==enabled){
+    chart.options.plugins.tooltip.enabled=enabled;
+    chart.update('none');
+   }
+  });
+ });
+}
+
 function setDay(index){selected=Math.max(0,Math.min(D.dates.length-1,index));render();}
 const referenceDate='2026-10-30';
 function referenceChanges(index){
@@ -144,6 +186,7 @@ function render(){
  }else if(isEni){charts.total.data.datasets=[line('Eni Corse − Bouches-du-Rhône','#245d55')];charts.total.data.datasets[0].data=brandValues(current,'eni');}else{charts.total.data.datasets=[line('Total Corse − Total BdR · '+scopeLabel,'#aa7835',true)];charts.total.data.datasets[0].data=brandValues(current,totalScope==='all'?'total_all':'total');}
 
  Object.values(charts).forEach(chart=>{chart.data.datasets.forEach(s=>{s.pointRadius=D.dates.map((_,i)=>i===selected?4:0);s.pointBackgroundColor=s.borderColor;s.pointBorderColor='#fffefa';s.pointBorderWidth=2;});chart.update('none');});
+ renderMobileChartReadouts();
  if($('history-dialog').open)renderHistory();
 }
 function renderHistory(){const current=D.fuels[fuel];$('history-caption').textContent=`${fuel} · prix moyens régionaux TTC · du ${dayLabel(D.dates[0],true)} au ${dayLabel(D.end,true)}.`;$('history-head').innerHTML='<tr><th>Région</th>'+D.dates.map((d,i)=>`<th class="${i===selected?'selected-col':''}">${dayLabel(d)}</th>`).join('')+'</tr>';$('history-body').innerHTML=Object.entries(current.regions).sort(([a],[b])=>a==='Corse'?-1:b==='Corse'?1:a.localeCompare(b,'fr')).map(([name,series])=>`<tr class="${name==='Corse'?'history-corse':''}"><td>${escape(name)}</td>${series.map((v,i)=>`<td class="${i===selected?'selected-col':''}">${nf(v,3)}</td>`).join('')}</tr>`).join('');}
