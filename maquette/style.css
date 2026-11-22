@@ -77,3 +77,32 @@
 /* Daily intercommunal detail, matching the existing regional panels. */
 .interco-panel{margin:24px 0}.interco-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}.interco-grid>div{min-width:0}.interco-label{display:block;font:600 13px/1.5 Arial,sans-serif;margin-bottom:6px}#interco-select,#interco-compare{display:block;width:100%;max-width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink);font:14px Arial,sans-serif}.interco-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.interco-stats span{display:block;font:13px/1.5 Arial,sans-serif}.interco-stats strong{display:block;font:normal 28px/1.3 Georgia,serif;color:var(--ink);margin-top:5px}.interco-stats strong small{font:12px Arial,sans-serif}.interco-stats .up{color:var(--red)}.interco-stats .down{color:var(--green)}.interco-sample{font:13px/1.5 Arial,sans-serif;color:var(--muted);margin:14px 0}.interco-corse{background:var(--amber)}#interco-reference-block[hidden]{display:none!important}#interco-values td{font:14px/1.5 Arial,sans-serif;font-variant-numeric:tabular-nums}#interco-values td:not(:first-child){text-align:right}#interco-export{margin:8px 0 12px}
 @media(max-width:760px){.interco-grid{grid-template-columns:1fr;gap:12px}.interco-stats{gap:14px}.interco-stats strong{font-size:27px}.interco-panel .legend{line-height:1.6}#interco-select,#interco-compare{font-size:16px}}
+/* C3 mobile: multiline chart values below canvas, never an overflowing popup. */
+.c3-mobile-chart-readout{display:none}
+@media(max-width:760px){
+ .c3-mobile-chart-readout{
+  display:block;max-width:100%;min-width:0;
+  padding:10px 12px;margin:10px 0 14px;
+  border-left:3px solid #245d55;border-radius:4px;
+  background:#f0f3ed;color:#183c3a;
+  font:12px/1.45 Arial,Helvetica,sans-serif;
+ }
+ .c3-mobile-chart-readout-date{display:block;font-size:12px;font-weight:700;margin-bottom:6px}
+ .c3-mobile-chart-readout-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:8px;align-items:start;padding:5px 0;
+ }
+ .c3-mobile-chart-readout-row+.c3-mobile-chart-readout-row{border-top:1px solid #d9e0d7}
+ .c3-mobile-chart-readout-label{
+  display:flex;gap:7px;align-items:flex-start;min-width:0;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal;
+ }
+ .c3-mobile-chart-readout-label i{
+  display:block;flex:0 0 9px;width:9px;height:9px;
+  margin-top:4px;border-radius:2px;
+ }
+ .c3-mobile-chart-readout-value{
+  font-size:11px;font-variant-numeric:tabular-nums;
+  white-space:nowrap;text-align:right;
+ }
+}
