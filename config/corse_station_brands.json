@@ -1,6 +1,6 @@
 {
   "schema": "a4c-corsica-station-brands-v2",
-  "generated_at": "2026-11-25T06:38:40.475891+00:00",
+  "generated_at": "2026-11-26T06:38:22.979057+00:00",
   "source": {
     "station_ids": "official annual fuel-price stock already used by the A4C update",
     "enseigne": "official prix-carburants.gouv.fr station detail HTML",
@@ -1683,8 +1683,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-19",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20600009": {
       "enseigne": "ENI",
@@ -1694,8 +1697,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-20",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20600010": {
       "enseigne": "VITO",
@@ -1705,8 +1711,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-20",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20600011": {
       "enseigne": "ENI",
@@ -1716,8 +1725,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-19",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20600014": {
       "enseigne": "VITO",
@@ -1727,8 +1739,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-23",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20600015": {
       "enseigne": "VITO",
@@ -1738,8 +1753,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-20",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20620002": {
       "enseigne": "ENI",
@@ -1749,8 +1767,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-23",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20620004": {
       "enseigne": "ENI",
@@ -1760,8 +1781,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-20",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     },
     "20620005": {
       "enseigne": "VITO",
@@ -1771,8 +1795,11 @@
       "brand_source": "officiel",
       "active": true,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-08-19",
-      "verified_at": "2026-08-19T12:19:15.155041+00:00"
+      "last_seen": "2026-11-18",
+      "verified_at": "2026-11-26T06:38:22.979057+00:00",
+      "brand_valid_from": "2026-09-08",
+      "classification_unresolved": false,
+      "brand_history": []
     }
   },
   "activity_semantics": {
